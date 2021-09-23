@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <locale.h>
 #include <math.h>
 #include <stdbool.h>
 #include <malloc.h>
@@ -75,3 +74,16 @@ void smartQSort(int* arrayOfNumber, int initialElement, int endElement)
     }
 }
 
+int main()
+{
+    int numberOfElements = 0;
+    printf("Enter the number of elements in the array\n");
+    scanf_s("%d", &numberOfElements);
+    int* arrayOfNumber = (int*)calloc(numberOfElements, sizeof(int));
+    for (int i = 0; i < numberOfElements; i++)
+    {
+        arrayOfNumber[i] = rand();
+    }
+    smartQSort(arrayOfNumber, 0, numberOfElements - 1);
+    free(arrayOfNumber);
+}
