@@ -53,6 +53,13 @@ bool testCorrectBinarySearch()
 
     // test for overflow
     int arrayOfLargeNumbers[10] = { 2147483630, 2147483631, 2147483632, 2147483633, 2147483634, 2147483635, 2147483636, 2147483637, 2147483638, 2147483639 };
+    
+    // find the first and last element
+    int arrayToFindTheFirstAndLastElement[100] = {0};
+    for (int i = 0; i < 100; i++)
+    {
+        arrayToFindTheFirstAndLastElement[i] = i;
+    }
 
     // testForEmptyArray
     int emptyArray[1] = { 0 };
@@ -67,5 +74,7 @@ bool testCorrectBinarySearch()
     return binarySearch(arrayofNumber, 10, 134) == 9
         && binarySearch(arrayOfLargeNumbers, 10, 2147483631) == 1
         && binarySearch(emptyArray, 0, 0) == -1
+        && binarySearch(arrayToFindTheFirstAndLastElement, 100, 0) == 0
+        && binarySearch(arrayToFindTheFirstAndLastElement, 100, 99) == 99
         && binarySearch(arrayOfRandomNumbers, 1000, 227) == -1;
 }
