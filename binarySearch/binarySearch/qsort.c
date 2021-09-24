@@ -25,7 +25,7 @@ void smartQSort(int* arrayOfNumber, int initialElement, int endElement)
             {
                 decrement--;
             }
-            if (increment <= decrement)
+            if (increment < decrement)
             {
                 const int temporaryVariable = arrayOfNumber[decrement];
                 arrayOfNumber[decrement] = arrayOfNumber[increment];
