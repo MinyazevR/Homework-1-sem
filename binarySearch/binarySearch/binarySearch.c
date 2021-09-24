@@ -6,6 +6,7 @@ int binarySearch(int* arrayOfNumber, int numberOfElements, int requiredNumber)
     int rightBorderOfTheArray = numberOfElements - 1;
     while (leftBorderOfTheArray <= rightBorderOfTheArray)
     {
+        //this form of recording is needed in order to avoid overflow
         int middleElementIndex = leftBorderOfTheArray + (rightBorderOfTheArray - leftBorderOfTheArray) / 2;
         if (arrayOfNumber[middleElementIndex] < requiredNumber)
         {

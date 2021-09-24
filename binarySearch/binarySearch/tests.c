@@ -1,6 +1,6 @@
 #include "Header.h"
 
-// Функция для проверки отсортированности массива
+// Function for checking if an array is sorted
 bool sortingСheck(int* arrayOfNumber, int numberOfElements)
 {
     for (int i = 0; i < numberOfElements - 1; i++)
@@ -13,14 +13,14 @@ bool sortingСheck(int* arrayOfNumber, int numberOfElements)
     return true;
 }
 
-// Функция для тестирования сортировки QSort
+// Function for testing sorting QSort
 bool testCorrectQSort()
 {
-    // Массив из случайных чисел
+    // Array of random numbers
     int arrayOfNumber[10] = { 9, 7, 8, 6, 3, 1, 7, 0, 3, 2 };
     smartQSort(arrayOfNumber, 0, 9);
 
-    // Массив из равных чисел
+    // Array of equal numbers
     int arrayOfEqualValues[100] = { 0 };
     for (int i = 0; i < 100; i++)
     {
@@ -28,7 +28,7 @@ bool testCorrectQSort()
     }
     smartQSort(arrayOfEqualValues, 0, 99);
 
-    // Отсортированный массив
+    // Sorted array
     int sortedArray[100] = { 0 };
     for (int i = 0; i < 100; i++)
     {
@@ -36,7 +36,7 @@ bool testCorrectQSort()
     }
     smartQSort(sortedArray, 0, 99);
 
-    // Массив из одного элемента
+    // Array of one element
     int arrayOfOneElement[1] = { 109 };
     smartQSort(arrayOfEqualValues, 0, 0);
 
