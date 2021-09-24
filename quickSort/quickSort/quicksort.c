@@ -28,7 +28,7 @@ void smartQSort(int* arrayOfNumber, int initialElement, int endElement)
             {
                 decrement--;
             }
-            if (increment <= decrement)
+            if (increment < decrement)
             {
                 const int temporaryVariable = arrayOfNumber[decrement];
                 arrayOfNumber[decrement] = arrayOfNumber[increment];
@@ -113,10 +113,10 @@ testCorrectQSort()
     int arrayOfOneElement[1] = { 109 };
     smartQSort(arrayOfEqualValues, 0, 0);
 
-    return sortingÑheck(arrayOfNumber, 10) == true
-        && sortingÑheck(arrayOfEqualValues, 100) == true
-        && sortingÑheck(sortedArray, 100) == true
-        && sortingÑheck(arrayOfOneElement, 1) == true;
+    return sortingÑheck(arrayOfNumber, 10)
+        && sortingÑheck(arrayOfEqualValues, 100)
+        && sortingÑheck(sortedArray, 100)
+        && sortingÑheck(arrayOfOneElement, 1);
 }
 
 int main()
@@ -136,7 +136,7 @@ int main()
     }
     for (int i = 0; i < numberOfElements; i++)
     {
-        arrayOfNumber[i] = rand();
+        arrayOfNumber[i] = rand() % 14;
     }
     smartQSort(arrayOfNumber, 0, numberOfElements - 1);
     free(arrayOfNumber);
