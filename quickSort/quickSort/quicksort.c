@@ -41,29 +41,15 @@ void smartQSort(int* arrayOfNumber, int initialElement, int endElement)
         {
             smartQSort(arrayOfNumber, initialElement, decrement);
         }
-        if (increment < endElement)
-        {
-            smartQSort(arrayOfNumber, increment, endElement);
-        }
+       
     }
     else
     {
-        for (int i = initialElement; i <= decrement; i++)
+        for (int i = initialElement + 1; i <= endElement; i++)
         {
             int elementToTheLeftOfKey = i - 1;
             const int keyArray = arrayOfNumber[i];
-            while (arrayOfNumber[elementToTheLeftOfKey] > keyArray && elementToTheLeftOfKey >= 0)
-            {
-                arrayOfNumber[elementToTheLeftOfKey + 1] = arrayOfNumber[elementToTheLeftOfKey];
-                elementToTheLeftOfKey--;
-                arrayOfNumber[elementToTheLeftOfKey + 1] = keyArray;
-            }
-        }
-        for (int i = increment; i <= endElement; i++)
-        {
-            int elementToTheLeftOfKey = i - 1;
-            const int keyArray = arrayOfNumber[i];
-            while (arrayOfNumber[elementToTheLeftOfKey] > keyArray && elementToTheLeftOfKey >= 0)
+            while (arrayOfNumber[elementToTheLeftOfKey] > keyArray && elementToTheLeftOfKey >= initialElement)
             {
                 arrayOfNumber[elementToTheLeftOfKey + 1] = arrayOfNumber[elementToTheLeftOfKey];
                 elementToTheLeftOfKey--;
