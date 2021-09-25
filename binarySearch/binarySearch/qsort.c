@@ -1,71 +1,52 @@
-#include "Header.h"
-
 void smartQSort(int* arrayOfNumber, int initialElement, int endElement)
 {
-    int increment = initialElement;
-    int decrement = endElement;
+    int leftBorderOfSegment = initialElement;
+    int rightBorderOfSegment = endElement;
     int supportElement = 0;
-    if (arrayOfNumber[increment] <= arrayOfNumber[increment + 1])
+    if (arrayOfNumber[leftBorderOfSegment] <= arrayOfNumber[leftBorderOfSegment + 1])
     {
-        supportElement = arrayOfNumber[increment + 1];
-    }
-    else if (arrayOfNumber[increment] > arrayOfNumber[increment + 1])
-    {
-        supportElement = arrayOfNumber[increment];
-    }
-    if (endElement - initialElement + 1 >= 10)
-    {
-        while (increment < decrement)
-        {
-            while (arrayOfNumber[increment] < supportElement && increment <= decrement)
-            {
-                increment++;
-            }
-            while (arrayOfNumber[decrement] > supportElement && decrement >= increment)
-            {
-                decrement--;
-            }
-            if (increment < decrement)
-            {
-                const int temporaryVariable = arrayOfNumber[decrement];
-                arrayOfNumber[decrement] = arrayOfNumber[increment];
-                arrayOfNumber[increment] = temporaryVariable;
-                increment++;
-                decrement--;
-            }
-        }
-        if (initialElement < decrement)
-        {
-            smartQSort(arrayOfNumber, initialElement, decrement);
-        }
-        if (increment < endElement)
-        {
-            smartQSort(arrayOfNumber, increment, endElement);
-        }
+        supportElement = arrayOfNumber[leftBorderOfSegment + 1];
     }
     else
     {
-        for (int i = initialElement; i <= decrement; i++)
+        supportElement = arrayOfNumber[leftBorderOfSegment];
+    }
+    if (endElement - initialElement + 1 >= 10)
+    {
+        while (leftBorderOfSegment < rightBorderOfSegment)
         {
-            int elementToTheLeftOfKey = i - 1;
-            const int keyArray = arrayOfNumber[i];
-            while (arrayOfNumber[elementToTheLeftOfKey] > keyArray && elementToTheLeftOfKey >= 0)
+            while (arrayOfNumber[leftBorderOfSegment] < supportElement && leftBorderOfSegment <= rightBorderOfSegment)
             {
-                arrayOfNumber[elementToTheLeftOfKey + 1] = arrayOfNumber[elementToTheLeftOfKey];
-                elementToTheLeftOfKey--;
-                arrayOfNumber[elementToTheLeftOfKey + 1] = keyArray;
+                leftBorderOfSegment++;
+            }
+            while (arrayOfNumber[rightBorderOfSegment] > supportElement && rightBorderOfSegment >= leftBorderOfSegment)
+            {
+                rightBorderOfSegment--;
+            }
+            if (leftBorderOfSegment < rightBorderOfSegment)
+            {
+                const int temporaryVariable = arrayOfNumber[rightBorderOfSegment];
+                arrayOfNumber[rightBorderOfSegment] = arrayOfNumber[leftBorderOfSegment];
+                arrayOfNumber[leftBorderOfSegment] = temporaryVariable;
+                leftBorderOfSegment++;
+                rightBorderOfSegment--;
             }
         }
-        for (int i = increment; i <= endElement; i++)
+        smartQSort(arrayOfNumber, initialElement, rightBorderOfSegment);
+        smartQSort(arrayOfNumber, leftBorderOfSegment, endElement);
+    }
+    else
+    {
+        for (int i = initialElement + 1; i <= endElement; i++)
         {
             int elementToTheLeftOfKey = i - 1;
             const int keyArray = arrayOfNumber[i];
-            while (arrayOfNumber[elementToTheLeftOfKey] > keyArray && elementToTheLeftOfKey >= 0)
+            while (arrayOfNumber[elementToTheLeftOfKey] > keyArray && elementToTheLeftOfKey >= initialElement)
             {
                 arrayOfNumber[elementToTheLeftOfKey + 1] = arrayOfNumber[elementToTheLeftOfKey];
                 elementToTheLeftOfKey--;
-                arrayOfNumber[elementToTheLeftOfKey + 1] = keyArray;
             }
+            arrayOfNumber[elementToTheLeftOfKey + 1] = keyArray;
         }
     }
 }
