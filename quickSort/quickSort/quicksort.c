@@ -5,46 +5,40 @@
 
 void smartQSort(int* arrayOfNumber, int initialElement, int endElement)
 {
-    int increment = initialElement;
-    int decrement = endElement;
+    int leftBorderOfSegment = initialElement;
+    int rightBorderOfSegment = endElement;
     int supportElement = 0;
-    if (arrayOfNumber[increment] <= arrayOfNumber[increment + 1])
+    if (arrayOfNumber[leftBorderOfSegment] <= arrayOfNumber[leftBorderOfSegment + 1])
     {
-        supportElement = arrayOfNumber[increment + 1];
+        supportElement = arrayOfNumber[leftBorderOfSegment + 1];
     }
-    else if (arrayOfNumber[increment] > arrayOfNumber[increment + 1])
+    else 
     {
-        supportElement = arrayOfNumber[increment];
+        supportElement = arrayOfNumber[leftBorderOfSegment];
     }
     if (endElement - initialElement + 1 >= 10)
     {
-        while (increment < decrement)
+        while(leftBorderOfSegment < rightBorderOfSegment)
         {
-            while (arrayOfNumber[increment] < supportElement && increment <= decrement)
+            while (arrayOfNumber[leftBorderOfSegment] < supportElement && leftBorderOfSegment <= rightBorderOfSegment)
             {
-                increment++;
+                leftBorderOfSegment++;
             }
-            while (arrayOfNumber[decrement] > supportElement && decrement >= increment)
+            while (arrayOfNumber[rightBorderOfSegment] > supportElement && rightBorderOfSegment >= leftBorderOfSegment)
             {
-                decrement--;
+                rightBorderOfSegment--;
             }
-            if (increment < decrement)
+            if (leftBorderOfSegment < rightBorderOfSegment)
             {
-                const int temporaryVariable = arrayOfNumber[decrement];
-                arrayOfNumber[decrement] = arrayOfNumber[increment];
-                arrayOfNumber[increment] = temporaryVariable;
-                increment++;
-                decrement--;
+                const int temporaryVariable = arrayOfNumber[rightBorderOfSegment];
+                arrayOfNumber[rightBorderOfSegment] = arrayOfNumber[leftBorderOfSegment];
+                arrayOfNumber[leftBorderOfSegment] = temporaryVariable;
+                leftBorderOfSegment++;
+                rightBorderOfSegment--;
             }
-        }
-        if (initialElement < decrement)
-        {
-            smartQSort(arrayOfNumber, initialElement, decrement);
-        }
-        if (increment < endElement)
-        {
-            smartQSort(arrayOfNumber, increment, endElement);
-        }
+        }     
+    smartQSort(arrayOfNumber, initialElement, rightBorderOfSegment);
+    smartQSort(arrayOfNumber, leftBorderOfSegment, endElement);
     }
     else
     {
@@ -128,5 +122,9 @@ int main()
         arrayOfNumber[i] = rand() % 14;
     }
     smartQSort(arrayOfNumber, 0, numberOfElements - 1);
+    for (int i = 0; i < numberOfElements; i++)
+    {
+        printf("  %d", arrayOfNumber[i]);
+    }
     free(arrayOfNumber);
 }
