@@ -41,7 +41,10 @@ void smartQSort(int* arrayOfNumber, int initialElement, int endElement)
         {
             smartQSort(arrayOfNumber, initialElement, decrement);
         }
-       
+        if (increment < endElement)
+        {
+            smartQSort(arrayOfNumber, increment, endElement);
+        }
     }
     else
     {
@@ -53,8 +56,8 @@ void smartQSort(int* arrayOfNumber, int initialElement, int endElement)
             {
                 arrayOfNumber[elementToTheLeftOfKey + 1] = arrayOfNumber[elementToTheLeftOfKey];
                 elementToTheLeftOfKey--;
-                arrayOfNumber[elementToTheLeftOfKey + 1] = keyArray;
             }
+            arrayOfNumber[elementToTheLeftOfKey + 1] = keyArray;
         }
     }
 }
@@ -76,7 +79,7 @@ bool sortingСheck(int* arrayOfNumber, int numberOfElements)
 bool testCorrectQSort()
 {
     // Массив из случайных чисел
-    int arrayOfNumber[10] = {9, 7, 8, 6, 3, 1, 7, 0, 3, 2};
+    int arrayOfNumber[10] = { 9, 7, 8, 6, 3, 1, 7, 0, 3, 2 };
     smartQSort(arrayOfNumber, 0, 9);
 
     // Массив из равных чисел
