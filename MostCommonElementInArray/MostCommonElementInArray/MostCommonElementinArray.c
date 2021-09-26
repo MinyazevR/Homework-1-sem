@@ -24,6 +24,7 @@ int searchMostCommonElementInArray(int* arrayOfNumber, int numberOfElements)
         }
 
     }
+    // condition for the last element (if the last element was repeated, then else from the for loop will not work for it)
     if (counterThePreviousElement < counterTheCurrentElement)
     {
         savingTheCurrentElement = currentElement;
