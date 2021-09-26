@@ -33,7 +33,9 @@ int searchMostCommonElementInArray(int* arrayOfNumber, int numberOfElements)
 
 int main()
 {
-    int numberOfElements;
+    if(!testCorrectQSort() || !testSearchMostCommonElement());
+    int numberOfElements = 0;
+    printf("enter the number of elements in the array\n");
     scanf_s("%d", &numberOfElements);
     int* arrayOfNumber = (int*)calloc(numberOfElements, sizeof(int));
     if (arrayOfNumber == NULL)
