@@ -117,6 +117,7 @@ int main()
     {
         return -1;
     }
+    // % 14 for clear output to the screen
     for (int i = 0; i < numberOfElements; i++)
     {
         arrayOfNumber[i] = rand() % 14;
