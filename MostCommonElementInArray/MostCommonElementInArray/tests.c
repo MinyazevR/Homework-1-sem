@@ -1,7 +1,7 @@
 #include "Header.h"
 
 // Function for checking sorting
-bool sorting—heck(int* arrayOfNumber, int numberOfElements)
+bool sortingCheck(int* arrayOfNumber, int numberOfElements)
 {
     for (int i = 0; i < numberOfElements - 1; i++)
     {
@@ -40,10 +40,10 @@ bool testCorrectQSort()
     int arrayOfOneElement[1] = { 109 };
     smartQSort(arrayOfEqualValues, 0, 0);
 
-    return sorting—heck(arrayOfNumber, 10)
-        && sorting—heck(arrayOfEqualValues, 100)
-        && sorting—heck(sortedArray, 100)
-        && sorting—heck(arrayOfOneElement, 1);
+    return sortingCheck(arrayOfNumber, 10)
+        && sortingCheck(arrayOfEqualValues, 100)
+        && sortingCheck(sortedArray, 100)
+        && sortingCheck(arrayOfOneElement, 1);
 }
 
 bool testSearchMostCommonElement()

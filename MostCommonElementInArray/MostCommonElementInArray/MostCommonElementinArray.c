@@ -48,5 +48,5 @@ int main()
         arrayOfNumber[i] = rand();
     }
     smartQSort(arrayOfNumber, 0, numberOfElements - 1);
-    printf("%d", searchMostCommonElementInArray(arrayOfNumber, numberOfElements));
+    printf("the most common element in the array : %d\n", searchMostCommonElementInArray(arrayOfNumber, numberOfElements));
 }
