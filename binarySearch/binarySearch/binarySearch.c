@@ -7,7 +7,7 @@ int binarySearch(int* arrayOfNumber, int numberOfElements, int requiredNumber)
     while (leftBorderOfTheArray <= rightBorderOfTheArray)
     {
         //this form of recording is needed in order to avoid overflow
-        int middleElementIndex = leftBorderOfTheArray + (rightBorderOfTheArray - leftBorderOfTheArray) / 2;
+        const int middleElementIndex = leftBorderOfTheArray + (rightBorderOfTheArray - leftBorderOfTheArray) / 2;
         if (arrayOfNumber[middleElementIndex] < requiredNumber)
         {
             leftBorderOfTheArray = middleElementIndex + 1;
@@ -28,7 +28,7 @@ int main()
 {
     if (!testCorrectBinarySearch() || !testCorrectQSort())
     {
-        printf(" error");
+        printf("error");
         return 0;
     }
     int numberOfElements = 0;
