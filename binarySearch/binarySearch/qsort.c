@@ -1,4 +1,5 @@
 #include "Header.h"
+
 void smartQSort(int* arrayOfNumber, int initialElement, int endElement)
 {
     int leftBorderOfSegment = initialElement;

@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-
 //function for sorting an array
 void smartQSort(int* arrayOfNumber, int initialElement, int endElement);
 
