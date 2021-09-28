@@ -1,4 +1,5 @@
 #include "Header.h"
+#include <stdio.h>
 
 void smartQSort(int* arrayOfNumber, int initialElement, int endElement)
 {

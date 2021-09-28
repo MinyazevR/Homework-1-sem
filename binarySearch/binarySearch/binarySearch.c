@@ -1,4 +1,7 @@
 #include "Header.h"
+#include <stdio.h>
+#include <malloc.h>
+#include <stdlib.h>
 
 int binarySearch(int* arrayOfNumber, int numberOfElements, int requiredNumber)
 {

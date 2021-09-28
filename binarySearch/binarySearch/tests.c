@@ -1,4 +1,6 @@
 #include "Header.h"
+#include <stdio.h>
+#include <stdbool.h>
 
 // Function for checking if an array is sorted
 bool sortingCheck(int* arrayOfNumber, int numberOfElements)
