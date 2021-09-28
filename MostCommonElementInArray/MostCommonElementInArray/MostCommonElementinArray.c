@@ -1,4 +1,5 @@
 #include "Header.h"
+#include <stdlib.h>
 
 int searchMostCommonElementInArray(int* arrayOfNumber, int numberOfElements)
 {
