@@ -1,5 +1,4 @@
 #pragma once
-#include <stdio.h>
 #include <stdbool.h>
 
 //function for sorting an array
