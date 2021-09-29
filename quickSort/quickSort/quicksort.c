@@ -3,6 +3,20 @@
 #include <malloc.h>
 #include <stdlib.h>
 
+void sortByInserts(int* arrayOfNumber, int initialElement, int endElement)
+{
+    for (int i = initialElement + 1; i <= endElement; i++)
+    {
+        int elementToTheLeftOfKey = i - 1;
+        const int keyArray = arrayOfNumber[i];
+        while (arrayOfNumber[elementToTheLeftOfKey] > keyArray && elementToTheLeftOfKey >= initialElement)
+        {
+            arrayOfNumber[elementToTheLeftOfKey + 1] = arrayOfNumber[elementToTheLeftOfKey];
+            elementToTheLeftOfKey--;
+        }
+        arrayOfNumber[elementToTheLeftOfKey + 1] = keyArray;
+    }
+}
 void smartQSort(int* arrayOfNumber, int initialElement, int endElement)
 {
     int leftBorderOfSegment = initialElement;
@@ -18,7 +32,7 @@ void smartQSort(int* arrayOfNumber, int initialElement, int endElement)
     }
     if (endElement - initialElement + 1 >= 10)
     {
-        while(leftBorderOfSegment < rightBorderOfSegment)
+        while (leftBorderOfSegment < rightBorderOfSegment)
         {
             while (arrayOfNumber[leftBorderOfSegment] < supportElement && leftBorderOfSegment <= rightBorderOfSegment)
             {
@@ -37,22 +51,12 @@ void smartQSort(int* arrayOfNumber, int initialElement, int endElement)
                 rightBorderOfSegment--;
             }
         }     
-    smartQSort(arrayOfNumber, initialElement, rightBorderOfSegment);
-    smartQSort(arrayOfNumber, leftBorderOfSegment, endElement);
+        smartQSort(arrayOfNumber, initialElement, rightBorderOfSegment);
+        smartQSort(arrayOfNumber, leftBorderOfSegment, endElement);
     }
     else
     {
-        for (int i = initialElement + 1; i <= endElement; i++)
-        {
-            int elementToTheLeftOfKey = i - 1;
-            const int keyArray = arrayOfNumber[i];
-            while (arrayOfNumber[elementToTheLeftOfKey] > keyArray && elementToTheLeftOfKey >= initialElement)
-            {
-                arrayOfNumber[elementToTheLeftOfKey + 1] = arrayOfNumber[elementToTheLeftOfKey];
-                elementToTheLeftOfKey--;
-            }
-            arrayOfNumber[elementToTheLeftOfKey + 1] = keyArray;
-        }
+        sortByInserts(arrayOfNumber, initialElement, endElement);
     }
 }
 
@@ -72,7 +76,7 @@ bool sortingCheck(int* arrayOfNumber, int numberOfElements)
 // Function for testing QSort sorting
 bool testCorrectQSort()
 {
-    //An array of random numbers
+    // An array of random numbers
     int arrayOfNumber[10] = { 9, 7, 8, 6, 3, 1, 7, 0, 3, 2 };
     smartQSort(arrayOfNumber, 0, 9);
 
