@@ -1,6 +1,7 @@
 #include "binary.h"
-#include <stdio.h>
+#include <stdlib.h>
 
+// binary search function
 int binarySearch(int* arrayOfNumber, int numberOfElements, int requiredNumber)
 {
     int leftBorderOfTheArray = 0;
@@ -25,6 +26,7 @@ int binarySearch(int* arrayOfNumber, int numberOfElements, int requiredNumber)
     return -1;
 }
 
+// check if binary search works
 bool testCorrectBinarySearch()
 {
     // test for a random set of numbers

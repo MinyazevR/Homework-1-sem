@@ -1,6 +1,6 @@
 #include "qsort.h"
-#include <stdio.h>
 
+// function for sorting by inserts
 void sortByInserts(int* arrayOfNumber, int initialElement, int endElement)
 {
     for (int i = initialElement + 1; i <= endElement; i++)
@@ -16,6 +16,7 @@ void sortByInserts(int* arrayOfNumber, int initialElement, int endElement)
     }
 }
 
+// function for sorting an array
 void smartQSort(int* arrayOfNumber, int initialElement, int endElement)
 {
     int leftBorderOfSegment = initialElement;
@@ -59,7 +60,7 @@ void smartQSort(int* arrayOfNumber, int initialElement, int endElement)
     }
 }
 
-// Function for checking the sorting of an array
+// function for checking the sorting of an array
 bool sortingCheck(int* arrayOfNumber, int numberOfElements)
 {
     for (int i = 0; i < numberOfElements - 1; i++)
@@ -72,7 +73,7 @@ bool sortingCheck(int* arrayOfNumber, int numberOfElements)
     return true;
 }
 
-// Function for testing sorting QSort
+// function for testing sorting QSort
 bool testCorrectQSort()
 {
     // Array of random numbers
