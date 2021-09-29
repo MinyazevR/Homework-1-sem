@@ -2,10 +2,15 @@
 #include <stdlib.h>
 #include "MostCommonElementInArray.h"
 #include "qsort.h"
+#include "test.h"
 
 int main()
 {
-    if (!testCorrectQSort() || !testSearchMostCommonElement());
+    if (!testCorrectQSort() || !testSearchMostCommonElement())
+    {
+        printf("test failed");
+        return -1;
+    }
     int numberOfElements = 0;
     printf("enter the number of elements in the array\n");
     scanf_s("%d", &numberOfElements);

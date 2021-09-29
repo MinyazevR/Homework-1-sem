@@ -17,7 +17,7 @@ void sortByInserts(int* arrayOfNumber, int initialElement, int endElement)
 }
 
 // function for sorting an array
-void smartQSort(int* arrayOfNumber, int initialElement, int endElement)
+int smartQSort(int* arrayOfNumber, int initialElement, int endElement)
 {
     int leftBorderOfSegment = initialElement;
     int rightBorderOfSegment = endElement;
@@ -30,7 +30,12 @@ void smartQSort(int* arrayOfNumber, int initialElement, int endElement)
     {
         supportElement = arrayOfNumber[leftBorderOfSegment];
     }
-    if (endElement - initialElement + 1 >= 10)
+    if (endElement - initialElement + 1 < 10)
+    {
+        sortByInserts(arrayOfNumber, initialElement, endElement);
+        return 0;
+    }
+    else 
     {
         while (leftBorderOfSegment < rightBorderOfSegment)
         {
@@ -54,54 +59,5 @@ void smartQSort(int* arrayOfNumber, int initialElement, int endElement)
         smartQSort(arrayOfNumber, initialElement, rightBorderOfSegment);
         smartQSort(arrayOfNumber, leftBorderOfSegment, endElement);
     }
-    else
-    {
-        sortByInserts(arrayOfNumber, initialElement, endElement);
-    }
-}
-
-// function for checking the sorting of an array
-bool sortingCheck(int* arrayOfNumber, int numberOfElements)
-{
-    for (int i = 0; i < numberOfElements - 1; i++)
-    {
-        if (arrayOfNumber[i] > arrayOfNumber[i + 1])
-        {
-            return false;
-        }
-    }
-    return true;
-}
-
-// function for testing sorting QSort
-bool testCorrectQSort()
-{
-    // Array of random numbers
-    int arrayOfNumber[10] = { 9, 7, 8, 6, 3, 1, 7, 0, 3, 2 };
-    smartQSort(arrayOfNumber, 0, 9);
-
-    // Array of equal numbers
-    int arrayOfEqualValues[100] = { 0 };
-    for (int i = 0; i < 100; i++)
-    {
-        arrayOfEqualValues[i] = 12;
-    }
-    smartQSort(arrayOfEqualValues, 0, 99);
-
-    // Sorted array
-    int sortedArray[100] = { 0 };
-    for (int i = 0; i < 100; i++)
-    {
-        sortedArray[i] = i;
-    }
-    smartQSort(sortedArray, 0, 99);
-
-    // Array of one element
-    int arrayOfOneElement[1] = { 109 };
-    smartQSort(arrayOfEqualValues, 0, 0);
-
-    return sortingCheck(arrayOfNumber, 10)
-        && sortingCheck(arrayOfEqualValues, 100)
-        && sortingCheck(sortedArray, 100)
-        && sortingCheck(arrayOfOneElement, 1);
+    return 0;
 }
