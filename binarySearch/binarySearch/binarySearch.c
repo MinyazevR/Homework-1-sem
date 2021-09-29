@@ -1,7 +1,5 @@
-#include "Header.h"
+#include "binary.h"
 #include <stdio.h>
-#include <malloc.h>
-#include <stdlib.h>
 
 int binarySearch(int* arrayOfNumber, int numberOfElements, int requiredNumber)
 {
@@ -27,34 +25,35 @@ int binarySearch(int* arrayOfNumber, int numberOfElements, int requiredNumber)
     return -1;
 }
 
-int main()
+bool testCorrectBinarySearch()
 {
-    if (!testCorrectBinarySearch() || !testCorrectQSort())
+    // test for a random set of numbers
+    int arrayofNumber[10] = { 0, 1, 4, 7, 8, 9, 10, 123, 132, 134 };
+
+    // test for overflow
+    int arrayOfLargeNumbers[10] = { 2147483630, 2147483631, 2147483632, 2147483633, 2147483634, 2147483635, 2147483636, 2147483637, 2147483638, 2147483639 };
+
+    // find the first and last element
+    int arrayToFindTheFirstAndLastElement[100] = { 0 };
+    for (int i = 0; i < 100; i++)
     {
-        printf("error");
-        return 0;
+        arrayToFindTheFirstAndLastElement[i] = i;
     }
-    int numberOfElements = 0;
-    printf("Enter the number of elements in the array\n");
-    scanf_s("%d", &numberOfElements);
-    int* arrayOfNumber = (int*)calloc(numberOfElements, sizeof(int));
-    if (arrayOfNumber == NULL)
+
+    // testForEmptyArray
+    int emptyArray[1] = { 0 };
+
+    // search for a nonexistent element
+    int arrayOfRandomNumbers[1000] = { 0 };
+    for (int i = 0; i < 1000; i++)
     {
-        return -1;
+        arrayOfRandomNumbers[i] = rand() % 226;
     }
-    for (int i = 0; i < numberOfElements; i++)
-    {
-        arrayOfNumber[i] = rand();
-    }
-    smartQSort(arrayOfNumber, 0, numberOfElements - 1);
-    printf("Enter the number of numbers that you need to enter to search in the array\n");
-    int numberOfRequiredNumbers = 0;
-    scanf_s("%d", &numberOfRequiredNumbers);
-    printf("if (- 1) : then the number is not in the array\n");
-    for (int i = 0; i < numberOfRequiredNumbers; i++)
-    {
-        const int temporary = rand();
-        printf("the number %d : % d array number\n", temporary, binarySearch(arrayOfNumber, numberOfElements, temporary));
-    }
-    free(arrayOfNumber);
+
+    return binarySearch(arrayofNumber, 10, 134) == 9
+        && binarySearch(arrayOfLargeNumbers, 10, 2147483631) == 1
+        && binarySearch(emptyArray, 0, 0) == -1
+        && binarySearch(arrayToFindTheFirstAndLastElement, 100, 0) == 0
+        && binarySearch(arrayToFindTheFirstAndLastElement, 100, 99) == 99
+        && binarySearch(arrayOfRandomNumbers, 1000, 227) == -1;
 }
