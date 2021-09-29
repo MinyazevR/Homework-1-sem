@@ -139,12 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="MostCommonElementinArray.c" />
-    <ClCompile Include="quicksort.c" />
-    <ClCompile Include="tests.c" />
+    <ClCompile Include="main.c" />
+    <ClCompile Include="MostCommonElementInArray.c" />
+    <ClCompile Include="qsort.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Header.h" />
+    <ClInclude Include="MostCommonElementInArray.h" />
+    <ClInclude Include="qsort.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

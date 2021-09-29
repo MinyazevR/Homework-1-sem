@@ -15,18 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MostCommonElementinArray.c">
+    <ClCompile Include="MostCommonElementInArray.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="quicksort.c">
+    <ClCompile Include="qsort.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="tests.c">
+    <ClCompile Include="main.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Header.h">
+    <ClInclude Include="qsort.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="MostCommonElementInArray.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,8 @@
-#include "Header.h"
+#include "mostCommonElementInArray.h"
 #include <stdlib.h>
+#include "qsort.h";
 
+// function to find the most frequent element in an array
 int searchMostCommonElementInArray(int* arrayOfNumber, int numberOfElements)
 {
     int currentElement = arrayOfNumber[0];
@@ -33,21 +35,24 @@ int searchMostCommonElementInArray(int* arrayOfNumber, int numberOfElements)
     return savingTheCurrentElement;
 }
 
-int main()
+// test for function searchMostCommonElementInArray
+bool testSearchMostCommonElement()
 {
-    if(!testCorrectQSort() || !testSearchMostCommonElement());
-    int numberOfElements = 0;
-    printf("enter the number of elements in the array\n");
-    scanf_s("%d", &numberOfElements);
-    int* arrayOfNumber = (int*)calloc(numberOfElements, sizeof(int));
-    if (arrayOfNumber == NULL)
-    {
-        return -1;
-    }
-    for (int i = 0; i < numberOfElements; i++)
-    {
-        arrayOfNumber[i] = rand();
-    }
-    smartQSort(arrayOfNumber, 0, numberOfElements - 1);
-    printf("the most common element in the array : %d\n", searchMostCommonElementInArray(arrayOfNumber, numberOfElements));
+    // Checking for a random set of numbers
+    int arrayOfRandonNumbers[15] = { 1, 12, 3, 6, 4, 3, 3, 3, 9, 8, 4, 4, 2, 13, 2 };
+    smartQSort(arrayOfRandonNumbers, 0, 14);
+
+    // checking for an array of a single number
+    int arrayOfOneElement[1] = { 12 };
+
+    // checking for an array of equal number
+    int arrayOfEqualNumbers[8] = { 1, 1, 1, 1, 1, 1, 1, 1 };
+
+    // check for an array of different number
+    int arrayOfDifferentNumbers[15] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
+
+    return searchMostCommonElementInArray(arrayOfRandonNumbers, 15) == 3
+        && searchMostCommonElementInArray(arrayOfOneElement, 1) == 12
+        && searchMostCommonElementInArray(arrayOfEqualNumbers, 8) == 1
+        && searchMostCommonElementInArray(arrayOfDifferentNumbers, 15) == 1;
 }
