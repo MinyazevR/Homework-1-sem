@@ -17,6 +17,7 @@ void sortByInserts(int* arrayOfNumber, int initialElement, int endElement)
         arrayOfNumber[elementToTheLeftOfKey + 1] = keyArray;
     }
 }
+
 void smartQSort(int* arrayOfNumber, int initialElement, int endElement)
 {
     int leftBorderOfSegment = initialElement;
