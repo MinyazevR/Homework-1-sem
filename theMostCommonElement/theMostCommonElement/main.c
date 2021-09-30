@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "TheMostCommonElement.h"
+#include "theMostCommonElement.h"
 #include "qsort.h"
 #include "test.h"
 
@@ -21,8 +21,8 @@ int main()
     }
     for (int i = 0; i < numberOfElements; i++)
     {
-        arrayOfNumber[i] = rand();
+        arrayOfNumber[i] = rand() % 11;
     }
-    smartQSort(arrayOfNumber, 0, numberOfElements - 1);
+    QSort(arrayOfNumber, numberOfElements);
     printf("the most common element in the array : %d\n", searchMostCommonElementInArray(arrayOfNumber, numberOfElements));
 }

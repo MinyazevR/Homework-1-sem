@@ -1,39 +1,6 @@
 #include "test.h"
 #include "qsort.h"
-#include "TheMostCommonElement.h"
-
-// function for testing sorting QSort
-bool testCorrectQSort()
-{
-    // Array of random numbers
-    int arrayOfNumber[10] = { 9, 7, 8, 6, 3, 1, 7, 0, 3, 2 };
-    smartQSort(arrayOfNumber, 0, 9);
-
-    // Array of equal numbers
-    int arrayOfEqualValues[100] = { 0 };
-    for (int i = 0; i < 100; i++)
-    {
-        arrayOfEqualValues[i] = 12;
-    }
-    smartQSort(arrayOfEqualValues, 0, 99);
-
-    // Sorted array
-    int sortedArray[100] = { 0 };
-    for (int i = 0; i < 100; i++)
-    {
-        sortedArray[i] = i;
-    }
-    smartQSort(sortedArray, 0, 99);
-
-    // Array of one element
-    int arrayOfOneElement[1] = { 109 };
-    smartQSort(arrayOfEqualValues, 0, 0);
-
-    return sortingCheck(arrayOfNumber, 10)
-        && sortingCheck(arrayOfEqualValues, 100)
-        && sortingCheck(sortedArray, 100)
-        && sortingCheck(arrayOfOneElement, 1);
-}
+#include "theMostCommonElement.h"
 
 // function for checking the sorting of an array
 bool sortingCheck(int* arrayOfNumber, int numberOfElements)
@@ -46,6 +13,39 @@ bool sortingCheck(int* arrayOfNumber, int numberOfElements)
         }
     }
     return true;
+}
+
+// function for testing sorting QSort
+bool testCorrectQSort()
+{
+    // Array of random numbers
+    int arrayOfNumber[10] = { 9, 7, 8, 6, 3, 1, 7, 0, 3, 2 };
+    QSort(arrayOfNumber, 10);
+
+    // Array of equal numbers
+    int arrayOfEqualValues[100] = { 0 };
+    for (int i = 0; i < 100; i++)
+    {
+        arrayOfEqualValues[i] = 12;
+    }
+    QSort(arrayOfEqualValues, 100);
+
+    // Sorted array
+    int sortedArray[100] = { 0 };
+    for (int i = 0; i < 100; i++)
+    {
+        sortedArray[i] = i;
+    }
+    QSort(sortedArray, 100);
+
+    // Array of one element
+    int arrayOfOneElement[1] = { 109 };
+    QSort(arrayOfEqualValues, 1);
+
+    return sortingCheck(arrayOfNumber, 10)
+        && sortingCheck(arrayOfEqualValues, 100)
+        && sortingCheck(sortedArray, 100)
+        && sortingCheck(arrayOfOneElement, 1);
 }
 
 // test for function searchMostCommonElementInArray

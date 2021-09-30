@@ -142,12 +142,12 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="qsort.c" />
     <ClCompile Include="tests.c" />
-    <ClCompile Include="TheMostCommonElement.c" />
+    <ClCompile Include="theMostCommonElement.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="qsort.h" />
     <ClInclude Include="test.h" />
-    <ClInclude Include="TheMostCommonElement.h" />
+    <ClInclude Include="theMostCommonElement.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

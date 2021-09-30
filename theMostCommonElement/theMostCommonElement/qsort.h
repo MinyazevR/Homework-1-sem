@@ -1,4 +1,4 @@
 #pragma once
 
 // function for sorting an array
-int smartQSort(int* arrayOfNumber, int initialElement, int endElement);
+void QSort(int* arrayOfNumber, int numberOfElements);
