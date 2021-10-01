@@ -23,5 +23,5 @@ int main()
     dataOutput(file, arrayOfNumber);
     QSort(arrayOfNumber, 150000);
     printf("%d", searchMostCommonElementInArray(arrayOfNumber, 150000));
-
+    free(arrayOfNumber);
 }
