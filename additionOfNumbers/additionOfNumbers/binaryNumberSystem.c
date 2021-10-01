@@ -1,4 +1,5 @@
 #include "binaryNumberSystem.h"
+#include <stdio.h>
 
 void writingDigitsToArray(int* arrayOfNumber, int numberToWrite)
 {
