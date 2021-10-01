@@ -2,26 +2,26 @@
 #include <stdlib.h>
 #include <locale.h>
 #include "binaryNumberSystem.h"
+#include "tests.h"
 
 int main()
 {
-    if (!testWritingDigitsToArray())
+    setlocale(LC_ALL, "rus");
+    if (!testWritingDigitsToArray() || !testAdditionOfDigitsOfTwoNumbers() || !testConvertNumberFromBinaryToDecimal())
     {
-        printf("Tect провален");
+        printf("Tecт провален");
         return -1;
     }
     int firstNumber = 0;
-    printf("enter first number");
+    printf("введите первое число\n");
     const int scanfFirstNumberResult = scanf_s("%d", &firstNumber);
     if (scanfFirstNumberResult == 0)
     {
         return -1;
     }
-    printf("%d", firstNumber & 1);
     int secondNumber = 0;
-    printf("enter second number");
-    scanf_s("%d", &secondNumber);
-    const int scanfSecondNumberResult = scanf_s("%d", &firstNumber);
+    printf("введите второе число\n");
+    const int scanfSecondNumberResult = scanf_s("%d", &secondNumber);
     if (scanfSecondNumberResult == 0)
     {
         return -1;
@@ -33,25 +33,31 @@ int main()
         return -1;
     }
     writingDigitsToArray(arrayForWritingTheDigitsOfFirstNumber, firstNumber);
+    printf("первое число в 2 системе счисления:    ");
     outputtingNumberInBinaryNotation(arrayForWritingTheDigitsOfFirstNumber);
     printf("\n\n");
+
     int* arrayForWritingTheDigitsOfSecondNumber = (int*)calloc(32, sizeof(int));
     if (arrayForWritingTheDigitsOfSecondNumber == NULL)
     {
         return -1;
     }
     writingDigitsToArray(arrayForWritingTheDigitsOfSecondNumber, secondNumber);
+    printf("второе число в 2 системе счисления:    ");
     outputtingNumberInBinaryNotation(arrayForWritingTheDigitsOfSecondNumber);
     printf("\n\n");
+
     int* arrayForWritingTheSumOfDigits = (int*)calloc(32, sizeof(int));
     if (arrayForWritingTheSumOfDigits == NULL)
     {
         return -1;
     }
+
     additionOfDigitsOfTwoNumbers(arrayForWritingTheDigitsOfFirstNumber, arrayForWritingTheDigitsOfSecondNumber, arrayForWritingTheSumOfDigits);
+    printf("сумма чисел в 2 системе счисления:     ");
     outputtingNumberInBinaryNotation(arrayForWritingTheSumOfDigits);
     printf("\n\n");
-    printf("%d", convertNumberFromBinaryToDecimal(arrayForWritingTheSumOfDigits));
+    printf("сумма чисел в 10 системе счисления: %d", convertNumberFromBinaryToDecimal(arrayForWritingTheSumOfDigits));
     free(arrayForWritingTheDigitsOfFirstNumber);
     free(arrayForWritingTheDigitsOfSecondNumber);
     free(arrayForWritingTheSumOfDigits);
