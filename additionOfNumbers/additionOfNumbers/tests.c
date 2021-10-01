@@ -12,6 +12,7 @@ bool comparingDigitsInArrays(int* firstArrayOfDigits, int* secondArrayOFDigits)
     }
     return true;
 }
+
 bool testWritingDigitsToArray()
 {
     // check for writing positive numbers
