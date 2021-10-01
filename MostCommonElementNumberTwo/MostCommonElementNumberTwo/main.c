@@ -13,15 +13,19 @@ int main()
         printf("test failed");
         return -1;
     }
-    int* arrayOfNumber = (int*)calloc(150000, sizeof(int));
+    FILE* file = 0;
+
+    /*in a dataInput function that writes random elements to a text file,
+    a random number of elements will be selected (so as not to set an array in advance and not
+    send the number of elements to the dataInput function)*/
+    const int numberOfElements = dataInput(file);
+    int* arrayOfNumber = (int*)calloc(numberOfElements, sizeof(int));
     if (arrayOfNumber == NULL)
     {
         return -1;
     }
-    FILE* file = 0;
-    dataInput(file);
     dataOutput(file, arrayOfNumber);
-    QSort(arrayOfNumber, 150000);
-    printf("%d", searchMostCommonElementInArray(arrayOfNumber, 150000));
+    QSort(arrayOfNumber, numberOfElements);
+    printf("most common element in an array : %d", searchMostCommonElementInArray(arrayOfNumber, numberOfElements));
     free(arrayOfNumber);
 }

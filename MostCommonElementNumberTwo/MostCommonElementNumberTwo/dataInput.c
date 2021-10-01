@@ -11,11 +11,13 @@ int dataInput(FILE *file)
         printf("file not found!");
         return -1;
     }
-    for (int i = 0; i < 150000; i++)
+    // "round() + 1" in case rand() returns 0
+    const int numberOfElements = rand() + 1 ;
+    for (int i = 0; i < numberOfElements; i++)
     {
-        int k = rand();
-        fprintf(file, "%d ", k);
+        const int temporaryVariable = (rand() % 11);
+        fprintf(file, "%d ", temporaryVariable);
     }
     fclose(file);
-    return 0;
+    return numberOfElements;
 }
