@@ -1,7 +1,8 @@
 #include "binaryNumberSystem.h"
 #include <stdio.h>
+#include <malloc.h>
 
-void writingDigitsToArray(int* arrayOfNumber, int numberToWrite)
+void writeDigitsToArray(int* arrayOfNumber, int numberToWrite)
 {
     for (int j = 0; j < sizeof(int) * 8; ++j)
     {
@@ -18,16 +19,20 @@ void outputtingNumberInBinaryNotation(int* arrayOfNumber)
     }
 }
 
-void additionOfDigitsOfTwoNumbers(int* arrayOfDigitsOfTheFirstNumber, int* arrayOfDigitsOfTheSecondNumber, int* arrayForWritingTheSumOfDigits)
+void additionOfDigitsOfTwoNumbers(int* arrayOfDigitsOfTheFirstNumber, int* arrayOfDigitsOfTheSecondNumber,int* arrayForWritingTheSumOfDigits)
 {
     int remainder = 0;
     for (int j = 0; j < sizeof(int) * 8; ++j)
     {
-        if (j > 0 && arrayOfDigitsOfTheFirstNumber[j - 1] + arrayOfDigitsOfTheSecondNumber[j - 1] + remainder == 2 || j > 0 && arrayOfDigitsOfTheFirstNumber[j - 1] + arrayOfDigitsOfTheSecondNumber[j - 1] + remainder == 3)
+        if (j > 0 && arrayOfDigitsOfTheFirstNumber[j - 1] + arrayOfDigitsOfTheSecondNumber[j - 1]
+            + remainder == 2 || j > 0 && arrayOfDigitsOfTheFirstNumber[j - 1] + arrayOfDigitsOfTheSecondNumber[j - 1] + remainder == 3)
         {
             remainder = 1;
         }
-        else remainder = 0;
+        else
+        {
+            remainder = 0;
+        }
         arrayForWritingTheSumOfDigits[j] = (arrayOfDigitsOfTheFirstNumber[j] + arrayOfDigitsOfTheSecondNumber[j] + remainder) % 2;
     }
 }
@@ -35,11 +40,11 @@ void additionOfDigitsOfTwoNumbers(int* arrayOfDigitsOfTheFirstNumber, int* array
 int convertNumberFromBinaryToDecimal(int* arrayForWritingTheSumOfDigits)
 {
     int decimalNumber = 0;
-    int dischargeMagnifier = 1;
+    int positionMagnifier = 1;
     for (int j = 0; j <= sizeof(int) * 8 - 1; j++)
     {
-        decimalNumber = decimalNumber | (arrayForWritingTheSumOfDigits[j] == 0 ? 0 : dischargeMagnifier);
-        dischargeMagnifier *= 2;
+        decimalNumber = decimalNumber | (arrayForWritingTheSumOfDigits[j] == 0 ? 0 : positionMagnifier);
+        positionMagnifier *= 2;
     }
     return decimalNumber;
 }

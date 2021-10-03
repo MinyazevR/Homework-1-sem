@@ -27,39 +27,23 @@ int main()
         return -1;
     }
 
-    int* arrayForWritingTheDigitsOfFirstNumber = (int*)calloc(32, sizeof(int));
-    if (arrayForWritingTheDigitsOfFirstNumber == NULL)
-    {
-        return -1;
-    }
-    writingDigitsToArray(arrayForWritingTheDigitsOfFirstNumber, firstNumber);
+    int arrayForWritingTheDigitsOfFirstNumber[8 * sizeof(int)] = { 0 };
+    writeDigitsToArray(arrayForWritingTheDigitsOfFirstNumber, firstNumber);
     printf("первое число в 2 системе счисления:    ");
     outputtingNumberInBinaryNotation(arrayForWritingTheDigitsOfFirstNumber);
     printf("\n\n");
 
-    int* arrayForWritingTheDigitsOfSecondNumber = (int*)calloc(32, sizeof(int));
-    if (arrayForWritingTheDigitsOfSecondNumber == NULL)
-    {
-        return -1;
-    }
-    writingDigitsToArray(arrayForWritingTheDigitsOfSecondNumber, secondNumber);
+    int arrayForWritingTheDigitsOfSecondNumber[8 * sizeof(int)] = { 0 };
+    writeDigitsToArray(arrayForWritingTheDigitsOfSecondNumber, secondNumber);
     printf("второе число в 2 системе счисления:    ");
     outputtingNumberInBinaryNotation(arrayForWritingTheDigitsOfSecondNumber);
     printf("\n\n");
 
-    int* arrayForWritingTheSumOfDigits = (int*)calloc(32, sizeof(int));
-    if (arrayForWritingTheSumOfDigits == NULL)
-    {
-        return -1;
-    }
-
+    int arrayForWritingTheSumOfDigits[8 * sizeof(int)] = { 0 };
     additionOfDigitsOfTwoNumbers(arrayForWritingTheDigitsOfFirstNumber, arrayForWritingTheDigitsOfSecondNumber, arrayForWritingTheSumOfDigits);
     printf("сумма чисел в 2 системе счисления:     ");
     outputtingNumberInBinaryNotation(arrayForWritingTheSumOfDigits);
     printf("\n\n");
     printf("сумма чисел в 10 системе счисления: %d", convertNumberFromBinaryToDecimal(arrayForWritingTheSumOfDigits));
-    free(arrayForWritingTheDigitsOfFirstNumber);
-    free(arrayForWritingTheDigitsOfSecondNumber);
-    free(arrayForWritingTheSumOfDigits);
 }
 
