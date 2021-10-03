@@ -1,6 +1,5 @@
 #include "binaryNumberSystem.h"
 #include <stdio.h>
-#include <malloc.h>
 
 void writeDigitsToArray(int* arrayOfNumber, int numberToWrite)
 {

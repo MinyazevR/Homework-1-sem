@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <malloc.h>
 #include <locale.h>
 #include "binaryNumberSystem.h"
 #include "tests.h"
