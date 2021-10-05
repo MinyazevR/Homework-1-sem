@@ -25,7 +25,7 @@ int largestSun(int *array,int* sum,int numberOfElements)
     int j = 0;
     for (int i = 1; i < numberOfElements; i++)
     {
-        while (sum[i] > temporary)
+        if (sum[i] > temporary)
         {
             temporary = sum[i];
             j = i;
