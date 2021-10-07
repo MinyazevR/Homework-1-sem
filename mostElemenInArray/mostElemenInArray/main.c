@@ -1,10 +1,9 @@
-#include "dataInput.h"
-#include "dataOutput.h"
 #include <malloc.h>
 #include "qsortTest.h"
 #include "testTheMostCommonElement.h"
 #include "theMostCommonElement.h"
 #include "qsort.h"
+#include <stdio.h>
 
 int main()
 {
@@ -13,19 +12,46 @@ int main()
         printf("test failed");
         return -1;
     }
-    FILE* file = 0;
-
-    /*in a dataInput function that writes random elements to a text file,
-    a random number of elements will be selected (so as not to set an array in advance and not
-    send the number of elements to the dataInput function)*/
-    const int numberOfElements = dataInput(file);
-    int* arrayOfNumber = (int*)calloc(numberOfElements, sizeof(int));
-    if (arrayOfNumber == NULL)
+    FILE* file = NULL;
+    errno_t err = fopen_s(&file, "qwerty.txt", "r");
+    if (file == NULL || err != 0)
     {
+        printf("file not found!");
         return -1;
     }
-    dataOutput(file, arrayOfNumber);
-    QSort(arrayOfNumber, numberOfElements);
-    printf("most common element in an array : %d", searchMostCommonElementInArray(arrayOfNumber, numberOfElements));
+    int counter = 0;
+    int variable = 0;
+    while (!feof(file))
+    {
+        fscanf_s(file, "%d", &variable);
+        counter++;
+    }
+    fclose(file);
+    err = fopen_s(&file, "qwerty.txt", "r");
+    if (file == NULL || err != 0)
+    {
+        printf("file not found!");
+        return -1;
+    }
+    int* arrayOfNumber = (int*)calloc(counter, sizeof(int));
+    if (arrayOfNumber == NULL)
+    {
+        printf("memory is not allocated");
+        // Can be used return as we are in main()
+        return -1;
+    }
+    int readNumber = 0;
+    while (fscanf_s(file, "%d", &arrayOfNumber[readNumber]) > 0)
+    {
+        readNumber++;
+    }
+    fclose(file);
+    QSort(arrayOfNumber, counter);
+    for (int i = 0; i < counter; i++)
+    {
+        printf("%d ", arrayOfNumber[i]);
+    }
+    printf("\n");
+    printf("most common element in an array : %d\n", searchMostCommonElementInArray(arrayOfNumber, counter));
     free(arrayOfNumber);
 }

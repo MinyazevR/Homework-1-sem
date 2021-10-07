@@ -139,8 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="dataInput.c" />
-    <ClCompile Include="dataOutput.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="qsort.c" />
     <ClCompile Include="qsortTest.c" />
@@ -148,8 +146,6 @@
     <ClCompile Include="theMostCommonElement.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="dataInput.h" />
-    <ClInclude Include="dataOutput.h" />
     <ClInclude Include="qsort.h" />
     <ClInclude Include="qsortTest.h" />
     <ClInclude Include="testTheMostCommonElement.h" />
