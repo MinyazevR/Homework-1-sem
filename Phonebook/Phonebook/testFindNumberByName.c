@@ -1,6 +1,7 @@
 #include "testFindNumberbyName.h"
 #include <stdio.h>
 #include "findNumberByName.h"
+#include "srtuct.h"
 #include <string.h>
 
 bool testFindNumberByName()
@@ -13,7 +14,7 @@ bool testFindNumberByName()
     }
     for (int i = 0; i < 4; i++)
     {
-        if (fscanf(file, "%s", arrayForTestFindNameByNumber[i].name) != EOF);
+        if (fscanf(file, "%s", &arrayForTestFindNameByNumber[i].name) != EOF);
         {
             const int fscanfResult = fscanf(file, "%s", &arrayForTestFindNameByNumber[i].number);
             if (fscanfResult == 0)

@@ -1,4 +1,3 @@
-#include "srtuct.h"
 #include "outputAllEntries.h"
 #include <stdio.h>
 

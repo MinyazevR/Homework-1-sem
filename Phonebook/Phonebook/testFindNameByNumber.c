@@ -1,6 +1,7 @@
 #include "testFindNamebyNumber.h"
 #include <stdio.h>
 #include "findNameByNumber.h"
+#include "srtuct.h"
 #include <string.h>
 
 bool testFindNameByNumber()
@@ -25,7 +26,7 @@ bool testFindNameByNumber()
     fclose(file);
     char firstName[5] = "Alex";
     char firstNumber[8] = "5642345";
-    char secondName[8] = "John";
+    char secondName[5] = "John";
     char secondNumber[8] = "5432356";
     char thirdName[6] = "James";
     char thirdNumber[9] = "90812345";

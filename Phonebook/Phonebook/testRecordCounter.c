@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include"testRecordCounter.h"
-#include "srtuct.h"
 #include "recordCounter.h"
+#include "srtuct.h"
 
 bool testRecordCounter()
 {

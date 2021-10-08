@@ -1,4 +1,3 @@
-#include "srtuct.h"
 #include <stdio.h>
 #include "findNumberByName.h"
 #include <string.h>

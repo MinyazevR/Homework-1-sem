@@ -26,12 +26,17 @@ int main()
     printf("3 - найти телефон по имени\n");
     printf("4 - найти имя по телефону\n");
     printf("5 - сохранить текущие данные в файл\n");
-    Phonebook array[100] = {'\0'};
+    Phonebook array[100] = {0};
     int number = 1;
     while(number != 0)
     {
         printf("Что вы хотите сделать?\n");
-        scanf_s("%d", &number);
+        const int scanfResult = scanf("%d", &number);
+        if (scanfResult == 0)
+        {
+            printf("Нужно было ввести число от 0 до 5");
+            return 0;
+        }
         switch (number)
         {
             case 0:

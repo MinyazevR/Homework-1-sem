@@ -1,5 +1,5 @@
 #pragma once
-#include "srtuct.h"
 #include <stdbool.h>
 
+// Function for testing a function that finds a name by phone number
 bool testFindNameByNumber();
