@@ -139,7 +139,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="addAnEntry.c" />
+    <ClCompile Include="findNameByNumber.c" />
+    <ClCompile Include="findNumberByName.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="outputAllEntries.c" />
+    <ClCompile Include="recordCounter.c" />
+    <ClCompile Include="saveTheChanges.c" />
+    <ClCompile Include="testFindNameByNumber.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="addAnEntry.h" />
+    <ClInclude Include="findNameByNumber.h" />
+    <ClInclude Include="findNumberByName.h" />
+    <ClInclude Include="outputAllEntries.h" />
+    <ClInclude Include="readCounter.h" />
+    <ClInclude Include="saveTheChanges.h" />
+    <ClInclude Include="srtuct.h" />
+    <ClInclude Include="testFindNamebyNumber.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
