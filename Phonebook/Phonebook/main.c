@@ -3,15 +3,20 @@
 #include "addAnEntry.h"
 #include "srtuct.h"
 #include "saveTheChanges.h"
-#include "readCounter.h"
+#include "recordCounter.h"
 #include "outputAllEntries.h"
 #include "findNameByNumber.h"
 #include "findNumberByName.h"
 #include "testFindNamebyNumber.h"
+#include "testFindNumberByName.h"
+#include "testRecordCounter.h"
+
 int main()
 {
-    if (!testFindNameByNumber())
+    setlocale(LC_ALL, "rus");
+    if (!testFindNameByNumber() || !testFindNumberByName() || !testRecordCounter())
     {
+        printf("Тест провален");
         return -1;
     }
     setlocale(LC_ALL, "rus");
@@ -35,7 +40,7 @@ int main()
             }
             case 1:
             {
-                const int addAnEntryResult = addAnEntry(array, recordCounter(array));
+                const int addAnEntryResult = addAnEntry(array, recordCounter(array, "qwerty.txt"));
                 if (addAnEntryResult == -1)
                 {
                     printf("К сожалению, не получилось добавить запись\n");
@@ -44,7 +49,7 @@ int main()
             }
             case 2:
             {
-                outputAllEntries(array, recordCounter(array));
+                outputAllEntries(array, recordCounter(array, "qwerty.txt"));
                 break;
             }
             case 3:
@@ -56,7 +61,7 @@ int main()
                     printf("Не удалось ввести имя");
                     break;
                 }
-                printf("%s\n", findNumberByName(array, name, recordCounter(array)));
+                printf("%s\n", findNumberByName(array, name, recordCounter(array, "qwerty.txt")));
                 break;
             }
             case 4:
@@ -68,13 +73,13 @@ int main()
                     printf("Не удалось ввести номер\n");
                     break;
                 }
-                printf("%s\n", findNameByNumber(array, phoneNumber, recordCounter(array)));
+                printf("%s\n", findNameByNumber(array, phoneNumber, recordCounter(array, "qwerty.txt")));
                 break;
             }
             case 5:
             {
                 printf("Сохранено\n");
-                saveTheChanges(array, recordCounter(array));
+                saveTheChanges(array, recordCounter(array, "qwerty.txt"));
                 break;
             }
             default:

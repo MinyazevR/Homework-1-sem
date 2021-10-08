@@ -1,10 +1,10 @@
 #include "srtuct.h"
 #include <stdio.h>
-#include "readCounter.h"
+#include "recordCounter.h"
 
-int recordCounter(Phonebook* array)
+int recordCounter(Phonebook* array, const char *fileName)
 {
-    FILE* file = fopen("qwerty.txt", "r");
+    FILE* file = fopen(fileName, "r");
     if (file == NULL)
     {
         return -1;

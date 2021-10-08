@@ -147,16 +147,20 @@
     <ClCompile Include="recordCounter.c" />
     <ClCompile Include="saveTheChanges.c" />
     <ClCompile Include="testFindNameByNumber.c" />
+    <ClCompile Include="testFindNumberByName.c" />
+    <ClCompile Include="testRecordCounter.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="addAnEntry.h" />
     <ClInclude Include="findNameByNumber.h" />
     <ClInclude Include="findNumberByName.h" />
     <ClInclude Include="outputAllEntries.h" />
-    <ClInclude Include="readCounter.h" />
+    <ClInclude Include="recordCounter.h" />
     <ClInclude Include="saveTheChanges.h" />
     <ClInclude Include="srtuct.h" />
     <ClInclude Include="testFindNamebyNumber.h" />
+    <ClInclude Include="testFindNumberByName.h" />
+    <ClInclude Include="testRecordCounter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

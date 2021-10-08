@@ -1,17 +1,17 @@
-#include "testFindNamebyNumber.h"
+#include "testFindNumberbyName.h"
 #include <stdio.h>
-#include "findNameByNumber.h"
+#include "findNumberByName.h"
 #include <string.h>
 
-bool testFindNameByNumber()
+bool testFindNumberByName()
 {
-    Phonebook arrayForTestFindNameByNumber[4] = {'\0'};
+    Phonebook arrayForTestFindNameByNumber[4] = { '\0' };
     FILE* file = fopen("test1.txt", "r");
     if (file == NULL)
     {
         return -1;
     }
-    for(int i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++)
     {
         if (fscanf(file, "%s", arrayForTestFindNameByNumber[i].name) != EOF);
         {
@@ -29,7 +29,7 @@ bool testFindNameByNumber()
     char secondNumber[8] = "5432356";
     char thirdName[6] = "James";
     char thirdNumber[9] = "90812345";
-    return strcmp(firstName, findNameByNumber(arrayForTestFindNameByNumber, firstNumber, 4)) == 0
-        && strcmp(secondName, findNameByNumber(arrayForTestFindNameByNumber, secondNumber, 4)) == 0
-        && strcmp(thirdName, findNameByNumber(arrayForTestFindNameByNumber, thirdNumber, 4)) == 0;  
+    return strcmp(firstNumber, findNumberByName(arrayForTestFindNameByNumber, firstName, 4)) == 0
+        && strcmp(secondNumber, findNumberByName(arrayForTestFindNameByNumber, secondName, 4)) == 0
+        && strcmp(thirdNumber, findNumberByName(arrayForTestFindNameByNumber, thirdName, 4)) == 0;
 }
