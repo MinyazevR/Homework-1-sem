@@ -3,7 +3,7 @@
 
 int saveTheChanges(Phonebook* array, int numberOfRecords)
 {
-    FILE* file = fopen("qwerty.txt", "w");
+    FILE* file = fopen("phoneNumber.txt", "w");
     if (file == NULL)
     {
         return -1;
