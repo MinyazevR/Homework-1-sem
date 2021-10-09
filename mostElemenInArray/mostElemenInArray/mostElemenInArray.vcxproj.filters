@@ -21,7 +21,7 @@
     <ClCompile Include="qsort.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="qsortTest.c">
+    <ClCompile Include="testQSort.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="testTheMostCommonElement.c">
@@ -38,7 +38,7 @@
     <ClInclude Include="qsort.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="qsortTest.h">
+    <ClInclude Include="testQSort.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="testTheMostCommonElement.h">

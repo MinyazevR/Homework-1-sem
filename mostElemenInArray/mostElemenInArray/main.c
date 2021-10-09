@@ -1,5 +1,5 @@
 #include <malloc.h>
-#include "qsortTest.h"
+#include "testQSort.h"
 #include "testTheMostCommonElement.h"
 #include "theMostCommonElement.h"
 #include "qsort.h"
@@ -13,7 +13,7 @@ int main()
         return -1;
     }
     FILE* file = NULL;
-    errno_t err = fopen_s(&file, "qwerty.txt", "r");
+    errno_t err = fopen_s(&file, "number.txt", "r");
     if (file == NULL || err != 0)
     {
         printf("file not found!");
@@ -27,7 +27,7 @@ int main()
         counter++;
     }
     fclose(file);
-    err = fopen_s(&file, "qwerty.txt", "r");
+    err = fopen_s(&file, "number.txt", "r");
     if (file == NULL || err != 0)
     {
         printf("file not found!");
@@ -38,6 +38,7 @@ int main()
     {
         printf("memory is not allocated");
         // Can be used return as we are in main()
+        fclose(file);
         return -1;
     }
     int readNumber = 0;
@@ -46,7 +47,7 @@ int main()
         readNumber++;
     }
     fclose(file);
-    QSort(arrayOfNumber, counter);
+    qSort(arrayOfNumber, counter);
     for (int i = 0; i < counter; i++)
     {
         printf("%d ", arrayOfNumber[i]);

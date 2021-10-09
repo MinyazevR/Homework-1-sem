@@ -1,6 +1,6 @@
 #include "qsort.h"
 
-// function for sorting by inserts
+// Function for sorting by inserts
 void sortByInserts(int* arrayOfNumber, int initialElement, int endElement)
 {
     for (int i = initialElement + 1; i <= endElement; i++)
@@ -16,14 +16,9 @@ void sortByInserts(int* arrayOfNumber, int initialElement, int endElement)
     }
 }
 
-// function for sorting an array
-int smartQSort(int* arrayOfNumber, int initialElement, int endElement)
+// Function for sorting an array
+void smartQSort(int* arrayOfNumber, int initialElement, int endElement)
 {
-    if (endElement - initialElement + 1 < 10)
-    {
-        sortByInserts(arrayOfNumber, initialElement, endElement);
-        return 0;
-    }
     int leftBorderOfSegment = initialElement;
     int rightBorderOfSegment = endElement;
     int supportElement = 0;
@@ -54,12 +49,25 @@ int smartQSort(int* arrayOfNumber, int initialElement, int endElement)
             rightBorderOfSegment--;
         }
     }
-    smartQSort(arrayOfNumber, initialElement, rightBorderOfSegment);
-    smartQSort(arrayOfNumber, leftBorderOfSegment, endElement);
-    return 0;
+    if (endElement - leftBorderOfSegment + 1 < 10)
+    {
+        sortByInserts(arrayOfNumber, leftBorderOfSegment, endElement);
+    }
+    else
+    {
+        smartQSort(arrayOfNumber, leftBorderOfSegment, endElement);
+    }
+    if (rightBorderOfSegment - initialElement + 1 < 10)
+    {
+        sortByInserts(arrayOfNumber, initialElement, rightBorderOfSegment);
+    }
+    else 
+    {
+        smartQSort(arrayOfNumber, initialElement, rightBorderOfSegment);
+    }
 }
 
-void QSort(int* arrayOfNumber, int numberOfElement)
+void qSort(int* arrayOfNumber, int numberOfElement)
 {
     smartQSort(arrayOfNumber, 0, numberOfElement - 1);
 }

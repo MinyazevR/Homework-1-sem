@@ -141,13 +141,13 @@
   <ItemGroup>
     <ClCompile Include="main.c" />
     <ClCompile Include="qsort.c" />
-    <ClCompile Include="qsortTest.c" />
+    <ClCompile Include="testQSort.c" />
     <ClCompile Include="testTheMostCommonElement.c" />
     <ClCompile Include="theMostCommonElement.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="qsort.h" />
-    <ClInclude Include="qsortTest.h" />
+    <ClInclude Include="testQSort.h" />
     <ClInclude Include="testTheMostCommonElement.h" />
     <ClInclude Include="theMostCommonElement.h" />
   </ItemGroup>
