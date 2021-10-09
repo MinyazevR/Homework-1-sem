@@ -45,7 +45,7 @@ int main()
             }
             case 1:
             {
-                const int addAnEntryResult = addAnEntry(array, recordCounter(array, "qwerty.txt"));
+                const int addAnEntryResult = addAnEntry(array, recordCounter(array, "phoneNumber.txt"));
                 if (addAnEntryResult == -1)
                 {
                     printf("К сожалению, не получилось добавить запись\n");
@@ -54,7 +54,7 @@ int main()
             }
             case 2:
             {
-                outputAllEntries(array, recordCounter(array, "qwerty.txt"));
+                outputAllEntries(array, recordCounter(array, "phoneNumber.txt"));
                 break;
             }
             case 3:
@@ -66,7 +66,7 @@ int main()
                     printf("Не удалось ввести имя");
                     break;
                 }
-                printf("%s\n", findNumberByName(array, name, recordCounter(array, "qwerty.txt")));
+                printf("%s\n", findNumberByName(array, name, recordCounter(array, "phoneNumber.txt")));
                 break;
             }
             case 4:
@@ -78,13 +78,13 @@ int main()
                     printf("Не удалось ввести номер\n");
                     break;
                 }
-                printf("%s\n", findNameByNumber(array, phoneNumber, recordCounter(array, "qwerty.txt")));
+                printf("%s\n", findNameByNumber(array, phoneNumber, recordCounter(array, "phoneNumber.txt")));
                 break;
             }
             case 5:
             {
                 printf("Сохранено\n");
-                saveTheChanges(array, recordCounter(array, "qwerty.txt"));
+                saveTheChanges(array, recordCounter(array, "phoneNumber.txt"));
                 break;
             }
             default:
