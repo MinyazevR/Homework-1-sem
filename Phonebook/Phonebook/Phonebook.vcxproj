@@ -139,28 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="addAnEntry.c" />
-    <ClCompile Include="findNameByNumber.c" />
-    <ClCompile Include="findNumberByName.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="outputAllEntries.c" />
-    <ClCompile Include="recordCounter.c" />
-    <ClCompile Include="saveTheChanges.c" />
-    <ClCompile Include="testFindNameByNumber.c" />
-    <ClCompile Include="testFindNumberByName.c" />
-    <ClCompile Include="testRecordCounter.c" />
+    <ClCompile Include="phoneBook.c" />
+    <ClCompile Include="tests.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="addAnEntry.h" />
-    <ClInclude Include="findNameByNumber.h" />
-    <ClInclude Include="findNumberByName.h" />
-    <ClInclude Include="outputAllEntries.h" />
-    <ClInclude Include="recordCounter.h" />
-    <ClInclude Include="saveTheChanges.h" />
-    <ClInclude Include="srtuct.h" />
-    <ClInclude Include="testFindNamebyNumber.h" />
-    <ClInclude Include="testFindNumberByName.h" />
-    <ClInclude Include="testRecordCounter.h" />
+    <ClInclude Include="phoneBook.h" />
+    <ClInclude Include="tests.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,20 +1,12 @@
+#include "phoneBook.h"
+#include "tests.h"
 #include <stdio.h>
 #include <locale.h>
-#include "addAnEntry.h"
-#include "srtuct.h"
-#include "saveTheChanges.h"
-#include "recordCounter.h"
-#include "outputAllEntries.h"
-#include "findNameByNumber.h"
-#include "findNumberByName.h"
-#include "testFindNamebyNumber.h"
-#include "testFindNumberByName.h"
-#include "testRecordCounter.h"
 
 int main()
 {
     setlocale(LC_ALL, "rus");
-    if (!testFindNameByNumber() || !testFindNumberByName() || !testRecordCounter())
+    if (!testFunctionsWorkingWithFile())
     {
         printf("Тест провален");
         return -1;
@@ -28,14 +20,17 @@ int main()
     printf("5 - сохранить текущие данные в файл\n");
     Phonebook array[100] = {0};
     int number = 1;
-    while(number != 0)
+    int numberOfRecords = recordsCounter(array, "phoneNumber.txt");
+    while (number != 0)
     {
         printf("Что вы хотите сделать?\n");
-        const int scanfResult = scanf("%d", &number);
-        if (scanfResult == 0)
+        while(scanf("%d", &number) == 0)
         {
-            printf("Нужно было ввести число от 0 до 5");
-            return 0;
+            printf("Пожалуйста, введите число от 0 до 5\n");
+            while (getchar() != '\n')
+            {
+                continue;
+            }
         }
         switch (number)
         {
@@ -45,7 +40,7 @@ int main()
             }
             case 1:
             {
-                const int addAnEntryResult = addAnEntry(array, recordCounter(array, "phoneNumber.txt"));
+                const int addAnEntryResult = addAnEntry(array, &numberOfRecords);
                 if (addAnEntryResult == -1)
                 {
                     printf("К сожалению, не получилось добавить запись\n");
@@ -54,7 +49,7 @@ int main()
             }
             case 2:
             {
-                outputAllEntries(array, recordCounter(array, "phoneNumber.txt"));
+                outputAllEntries(array, numberOfRecords);
                 break;
             }
             case 3:
@@ -66,7 +61,7 @@ int main()
                     printf("Не удалось ввести имя");
                     break;
                 }
-                printf("%s\n", findNumberByName(array, name, recordCounter(array, "phoneNumber.txt")));
+                printf("%s\n", findNumberByName(array, name, numberOfRecords));
                 break;
             }
             case 4:
@@ -78,13 +73,19 @@ int main()
                     printf("Не удалось ввести номер\n");
                     break;
                 }
-                printf("%s\n", findNameByNumber(array, phoneNumber, recordCounter(array, "phoneNumber.txt")));
+                printf("%s\n", findNameByNumber(array, phoneNumber, numberOfRecords));
                 break;
             }
             case 5:
             {
-                printf("Сохранено\n");
-                saveTheChanges(array, recordCounter(array, "phoneNumber.txt"));
+                if (saveTheChanges(array, numberOfRecords) == 0)
+                { 
+                    printf("Сохранено\n");
+                }
+                else
+                {
+                    printf("Не удалось сохранить изменения\n");
+                }
                 break;
             }
             default:
