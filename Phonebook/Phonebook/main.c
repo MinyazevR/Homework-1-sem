@@ -24,7 +24,7 @@ int main()
     while (number != 0)
     {
         printf("Что вы хотите сделать?\n");
-        while(scanf("%d", &number) == 0)
+        while (scanf("%d", &number) == 0)
         {
             printf("Пожалуйста, введите число от 0 до 5\n");
             while (getchar() != '\n')
