@@ -55,6 +55,10 @@ int main()
                     break;
                 }
                 const int addAnEntryResult = addAnEntry(array, &numberOfRecords, name, phoneNumber);
+                if (addAnEntryResult == -1)
+                {
+                    printf("Переполнение : уже записано 100 номеров");
+                }
                 break;
             }
             case 2:
