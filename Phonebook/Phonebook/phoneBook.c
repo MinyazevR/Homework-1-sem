@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int recordsCounter(Phonebook* array, const char *fileName)
+int readPhonebook(Phonebook* array, const char *fileName)
 {
     FILE* file = fopen(fileName, "r");
     if (file == NULL)
@@ -26,42 +26,27 @@ int recordsCounter(Phonebook* array, const char *fileName)
     return numberOfRecords - 1;
 }
 
-int addAnEntry(Phonebook* array, int* numberOfRecords)
+int addAnEntry(Phonebook* array, int* numberOfRecords, const char* name, const char* phoneNumber)
 {
     if (*numberOfRecords >= 100)
     {
         return -1;
     }
     (*numberOfRecords)++;
-    printf("Введите имя\n");
-    const int firstResultScanf = scanf("%s[^\n]", &array[*numberOfRecords].name);
-    if (firstResultScanf == 0)
-    {
-        printf("ошибка ввода\n");
-        return -1;
-    }
-    printf("Введите номер\n");
-    int number = 0;
-    const int secondResultScanf = scanf("%s[^\n]", &array[*numberOfRecords].number);
-    if (secondResultScanf == 0)
-    {
-        printf("ошибка ввода\n");
-        return -1;
-    }
-    printf("Запись добавлена\n");
+    strncpy(array[*numberOfRecords].name, name, 20);
+    strncpy(array[*numberOfRecords].number, phoneNumber, 20);
     return 1;
 }
 
-char* findNameByNumber(Phonebook* array, char* number, int numberOfRecords)
+char* findNameByNumber(Phonebook* array, const char* number, int numberOfRecords)
 {
-    for (int i = 0; i < numberOfRecords; i++)
+    for (int i = 0; i <= numberOfRecords; i++)
     {
         if (strcmp(array[i].number, number) == 0)
         {
             return array[i].name;
         }
     }
-    printf("Такого номера нет");
     return NULL;
 }
 
@@ -84,16 +69,15 @@ int saveTheChanges(Phonebook* array, int numberOfRecords)
     return 0;
 }
 
-char* findNumberByName(Phonebook* array, char* name, int numberOfRecords)
+char* findNumberByName(Phonebook* array, const char* name, int numberOfRecords)
 {
-    for (int i = 0; i < numberOfRecords; i++)
+    for (int i = 0; i <= numberOfRecords; i++)
     {
         if (strcmp(array[i].name, name) == 0)
         {
             return array[i].number;
         }
     }
-    printf("Такого имени нет");
     return NULL;
 }
 

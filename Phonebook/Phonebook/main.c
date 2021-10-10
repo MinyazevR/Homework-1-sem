@@ -20,7 +20,7 @@ int main()
     printf("5 - сохранить текущие данные в файл\n");
     Phonebook array[100] = {0};
     int number = 1;
-    int numberOfRecords = recordsCounter(array, "phoneNumber.txt");
+    int numberOfRecords = readPhonebook(array, "phoneNumber.txt");
     while (number != 0)
     {
         printf("Что вы хотите сделать?\n");
@@ -40,11 +40,21 @@ int main()
             }
             case 1:
             {
-                const int addAnEntryResult = addAnEntry(array, &numberOfRecords);
-                if (addAnEntryResult == -1)
+                printf("Введите имя\n");
+                char name[20] = {'\0'};
+                if (scanf("%s", name) == 0)
                 {
-                    printf("К сожалению, не получилось добавить запись\n");
+                    printf("Не удалось ввести имя\n");
+                    break;
                 }
+                printf("Введите номер\n");
+                char phoneNumber[20] = {'\0'};
+                if (scanf("%s", phoneNumber) == 0)
+                {
+                    printf("Не удалось ввести номер\n");
+                    break;
+                }
+                const int addAnEntryResult = addAnEntry(array, &numberOfRecords, name, phoneNumber);
                 break;
             }
             case 2:
@@ -58,10 +68,18 @@ int main()
                 printf("Введите имя\n");
                 if (scanf("%s", name) == 0)
                 {
-                    printf("Не удалось ввести имя");
+                    printf("Не удалось ввести имя\n");
                     break;
                 }
-                printf("%s\n", findNumberByName(array, name, numberOfRecords));
+                const char* findNumberByNameResult = findNumberByName(array, name, numberOfRecords);
+                if (findNumberByNameResult == NULL)
+                {
+                    printf("Такого имени нет\n");
+                }
+                else
+                {
+                    printf("%s\n", findNumberByNameResult);
+                }
                 break;
             }
             case 4:
@@ -73,7 +91,15 @@ int main()
                     printf("Не удалось ввести номер\n");
                     break;
                 }
-                printf("%s\n", findNameByNumber(array, phoneNumber, numberOfRecords));
+                const char *findNameByNumberResult = findNameByNumber(array, phoneNumber, numberOfRecords);
+                if (findNameByNumberResult == NULL)
+                {
+                    printf("Такого номера нет\n");
+                }
+                else
+                {
+                    printf("%s\n", findNameByNumberResult);
+                }
                 break;
             }
             case 5:

@@ -23,19 +23,12 @@ bool testFunctionsWorkingWithFile()
         }
     }
     fclose(file);
-    char firstName[5] = "Alex";
-    char firstNumber[8] = "5642345";
-    char secondName[5] = "John";
-    char secondNumber[8] = "5432356";
-    char thirdName[6] = "James";
-    char thirdNumber[9] = "90812345";
 
-    return strcmp(firstName, findNameByNumber(arrayForTest, firstNumber, 4)) == 0
-        && strcmp(secondName, findNameByNumber(arrayForTest, secondNumber, 4)) == 0
-        && strcmp(thirdName, findNameByNumber(arrayForTest, thirdNumber, 4)) == 0
-        && strcmp(firstNumber, findNumberByName(arrayForTest, firstName, 4)) == 0
-        && strcmp(secondNumber, findNumberByName(arrayForTest, secondName, 4)) == 0
-        && strcmp(thirdNumber, findNumberByName(arrayForTest, thirdName, 4)) == 0
-        // The return value is 3 since the count starts from 0 (actually there are 4 records)
-        && recordsCounter(arrayForTest, "test1.txt") == 3;
+    return strcmp("Alex", findNameByNumber(arrayForTest, "5642345", 4)) == 0
+        && strcmp("John", findNameByNumber(arrayForTest, "5432356", 4)) == 0
+        && strcmp("James", findNameByNumber(arrayForTest, "90812345", 4)) == 0
+        && strcmp("5642345", findNumberByName(arrayForTest, "Alex", 4)) == 0
+        && strcmp("5432356", findNumberByName(arrayForTest, "John", 4)) == 0
+        && strcmp("90812345", findNumberByName(arrayForTest, "James", 4)) == 0
+        && readPhonebook(arrayForTest, "test1.txt") == 3;
 }
