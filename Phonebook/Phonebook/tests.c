@@ -11,7 +11,7 @@ bool testFunctionsWorkingWithFile()
     {
         return -1;
     }
-    for(int i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++)
     {
         if (fscanf(file, "%s", arrayForTest[i].name) != EOF);
         {
