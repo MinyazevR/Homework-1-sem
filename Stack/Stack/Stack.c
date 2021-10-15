@@ -1,12 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <malloc.h>
-
-typedef struct Stack
-{
-    int value;
-    struct Stack* next;
-}Stack;
+#include "Stack.h"
 
 bool isEmpty(Stack* head)
 {
