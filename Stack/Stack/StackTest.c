@@ -4,33 +4,33 @@
 
 bool pushTest()
 {
-    Stack* p = NULL;
-    push(&p, 12);
-    int firstResult = p->value;
-    push(&p, 128);
-    int secondResult = p->value;
+    Stack* head = NULL;
+    push(&head, 12);
+    int firstResult = head->value;
+    push(&head, 128);
+    int secondResult = head->value;
     return firstResult == 12 && secondResult == 128;
 }
 
 bool popTest()
 {
-    Stack* p = NULL;
-    push(&p, 12);
-    push(&p, 128);
-    push(&p, 147);
-    int firstPopResult = pop(&p);
-    int firstUpperElement = p -> value;
-    int secondPopResult = pop(&p);
-    int secondUpperElement = p->value;
+    Stack* head = NULL;
+    push(&head, 12);
+    push(&head, 128);
+    push(&head, 147);
+    int firstPopResult = pop(&head);
+    int firstUpperElement = head -> value;
+    int secondPopResult = pop(&head);
+    int secondUpperElement = head->value;
     return firstPopResult == 147 && firstUpperElement == 128 && secondPopResult == 128 && secondUpperElement == 12;
 }
 
 bool deleteStackTest()
 {
-    Stack* p = NULL;
-    push(&p, 12);
-    push(&p, 128);
-    push(&p, 147);
-    deleteStack(&p);
-    return p == NULL;
+    Stack* head = NULL;
+    push(&head, 12);
+    push(&head, 128);
+    push(&head, 147);
+    deleteStack(&head);
+    return head == NULL;
 }
