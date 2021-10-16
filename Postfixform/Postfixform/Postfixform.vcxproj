@@ -20,6 +20,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Postfix.c" />
+    <ClCompile Include="Stack.c" />
+    <ClCompile Include="StackTest.c" />
+    <ClCompile Include="PostfixFormTest.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Postfix.h" />
+    <ClInclude Include="Stack.h" />
+    <ClInclude Include="StackTest.h" />
+    <ClInclude Include="PostfixFormTest.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
