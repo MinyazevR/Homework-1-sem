@@ -19,9 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Postfix.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="Postfix.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
