@@ -1,5 +1,6 @@
 #pragma once
 #include <stdbool.h>
+
 // Structure for implementing a stack consisting of a value and a pointer to the next element
 typedef struct Stack
 {
