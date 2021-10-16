@@ -18,27 +18,27 @@
     <ClCompile Include="BalanceBrackets.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="StackTest.c">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Stack.c">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="BalanceBracketsTest.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Stack\Stack\Stack.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Stack\Stack\StackTest.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="StackTest.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Stack.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="BalanceBracketsTest.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="BalanceBrackets.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Stack\Stack\Stack.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Stack\Stack\StackTest.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

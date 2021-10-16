@@ -139,16 +139,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Stack\Stack\Stack.c" />
+    <ClCompile Include="..\..\Stack\Stack\StackTest.c" />
     <ClCompile Include="BalanceBrackets.c" />
     <ClCompile Include="BalanceBracketsTest.c" />
-    <ClCompile Include="Stack.c" />
-    <ClCompile Include="StackTest.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Stack\Stack\Stack.h" />
+    <ClInclude Include="..\..\Stack\Stack\StackTest.h" />
     <ClInclude Include="BalanceBrackets.h" />
     <ClInclude Include="BalanceBracketsTest.h" />
-    <ClInclude Include="Stack.h" />
-    <ClInclude Include="StackTest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
