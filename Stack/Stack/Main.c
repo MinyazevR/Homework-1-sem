@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include "StackTest.h"
+#include <stdio.h>
 
 int main()
 {
