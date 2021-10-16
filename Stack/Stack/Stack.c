@@ -1,7 +1,6 @@
-#include <stdio.h>
-#include <stdbool.h>
-#include <malloc.h>
 #include "Stack.h"
+#include <stdio.h>
+#include <malloc.h>
 
 bool isEmpty(Stack* head)
 {
@@ -15,14 +14,14 @@ void push(Stack** head, int element)
     {
         return;
     }
-    newStack->value = element; 
-    newStack->next = *head; 
+    newStack -> value = element; 
+    newStack -> next = *head; 
     *head = newStack;
 }
 
 int pop(Stack** head)
 {
-    int element = ((*head)->value);
+    int element = (*head) -> value;
     Stack* temporary = *head;
     Stack* help = (*head) -> next;
     free(temporary);

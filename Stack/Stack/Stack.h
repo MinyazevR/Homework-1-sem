@@ -1,5 +1,5 @@
 #pragma once
-
+#include <stdbool.h>
 // Structure for implementing a stack consisting of a value and a pointer to the next element
 typedef struct Stack
 {
@@ -7,7 +7,7 @@ typedef struct Stack
     struct Stack* next;
 }Stack;
 
-// Function that checks the stack for emptiness
+// Function for test empty stack
 bool isEmpty(Stack* head);
 
 // Function for adding an element to the top of the stack
