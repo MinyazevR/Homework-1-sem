@@ -19,15 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Stack\Stack\Stack.c" />
+    <ClCompile Include="..\..\Stack\Stack\StackTest.c" />
     <ClCompile Include="Postfix.c" />
-    <ClCompile Include="Stack.c" />
-    <ClCompile Include="StackTest.c" />
     <ClCompile Include="PostfixFormTest.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Stack\Stack\Stack.h" />
+    <ClInclude Include="..\..\Stack\Stack\StackTest.h" />
     <ClInclude Include="Postfix.h" />
-    <ClInclude Include="Stack.h" />
-    <ClInclude Include="StackTest.h" />
     <ClInclude Include="PostfixFormTest.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

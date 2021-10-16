@@ -18,27 +18,27 @@
     <ClCompile Include="Postfix.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Stack.c">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="StackTest.c">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="PostfixFormTest.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Stack\Stack\Stack.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Stack\Stack\StackTest.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Stack.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="StackTest.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="PostfixFormTest.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Postfix.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Stack\Stack\StackTest.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Stack\Stack\Stack.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

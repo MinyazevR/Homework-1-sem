@@ -1,5 +1,5 @@
-#include "Stack.h"
-#include "StackTest.h"
+#include "../../Stack/Stack/Stack.h"
+#include "../../Stack/Stack/StackTest.h"
 #include "postfixFormTest.h"
 #include <stdio.h>
 #include <stdlib.h>
