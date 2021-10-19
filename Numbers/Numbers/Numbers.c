@@ -36,7 +36,7 @@ int readNumbersSmallerSelected(int* data, int numberToCompare, const char* filen
 
 int outputOfNumbers(int* data, int counter, const char* filename)
 {
-    FILE* file = fopen("h.txt", "w");
+    FILE* file = fopen(filename, "w");
     if (file == NULL)
     {
         printf("File not found");

@@ -15,9 +15,9 @@ bool checkTheReadNumbers(int* data, int* arrayOfCorrectNumbers, int counter)
     return true;
 }
 
-bool checkTheOutputOfNumbersToFile(int counter, int secondCounter, int* data, int* arrayOfNumbers)
+bool checkTheOutputOfNumbersToFile(int counter, int secondCounter, int* arrayOfCorrectNumbers, int* arrayOfNumbers)
 {
-    return checkTheReadNumbers(data, arrayOfNumbers, counter) && counter == secondCounter;
+    return checkTheReadNumbers(arrayOfCorrectNumbers, arrayOfNumbers, counter) && counter == secondCounter;
 }
 
 bool numbersTest()
@@ -42,6 +42,7 @@ bool numbersTest()
     int data[100] = { 0 };
     int arrayOf—orrectNumbers[12] = { 5, 12, 12, 12, 3, 4, 5, 6, 7, 7, 12, 13 };
     int counter = readNumbersSmallerSelected(data, numberToCompare, "f.txt");
+    outputOfNumbers(data, counter, "h.txt");
     int arrayOfNumbers[100] = {0};
     file = fopen("h.txt", "r");
     if (file == NULL)
@@ -51,7 +52,7 @@ bool numbersTest()
     int secondCounter = 0;
     while (!feof(file))
     {
-        int* buffer = (int*)malloc(sizeof(int) * 100);
+        int* buffer = (int*)malloc(sizeof(int) * 10);
         {
             if (buffer == NULL)
             {
@@ -68,5 +69,5 @@ bool numbersTest()
     }
     fclose(file);
     return checkTheReadNumbers(data, arrayOf—orrectNumbers, counter)
-        && checkTheOutputOfNumbersToFile(counter, secondCounter, data, arrayOfNumbers);
+        && checkTheOutputOfNumbersToFile(counter, secondCounter, arrayOf—orrectNumbers, arrayOfNumbers);
 }
