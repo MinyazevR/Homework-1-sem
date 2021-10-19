@@ -38,7 +38,7 @@ int main()
         printf("memory allocation error");
         return 0;
     }
-    int result = outputOfNumbers(data, counter, "g.txt");
+    int result = outputOfNumbers(data, counter, "h.txt");
     if (result == -2)
     {
         printf("failed to create a file");
