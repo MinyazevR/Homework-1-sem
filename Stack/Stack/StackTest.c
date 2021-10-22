@@ -14,13 +14,14 @@ bool pushTest()
 
 bool popTest()
 {
+    bool err = true;
     Stack* head = NULL;
     push(&head, 12);
     push(&head, 128);
     push(&head, 147);
-    int firstPopResult = pop(&head);
+    int firstPopResult = pop(&head, &err);
     int firstUpperElement = head -> value;
-    int secondPopResult = pop(&head);
+    int secondPopResult = pop(&head, &err);
     int secondUpperElement = head->value;
     return firstPopResult == 147 && firstUpperElement == 128 && secondPopResult == 128 && secondUpperElement == 12;
 }
