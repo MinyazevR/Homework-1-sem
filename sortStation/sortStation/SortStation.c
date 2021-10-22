@@ -19,17 +19,41 @@ char* sortStation(char* array)
         }
         if (array[counter] == '-' || array[counter] == '+')
         {
-            while (!isEmpty(head) && (array[counter] != '*' || array[counter] != '/'))
+            while (!isEmpty(head) && (top(&head, &check) != '*' || top(&head, &check) != '/'))
             {
                 arrayToOutput[counterForTheOutputArray] = pop(&head, &check);
                 counterForTheOutputArray++;
             }
             push(&head, array[counter]);
         }      
+        if (array[counter] == '(')
+        {
+            push(&head, array[counter]);
+        }
+        if (array[counter] == ')')
+        {
+            while ((!isEmpty) && top(&head, check) != ')')
+            {
+                arrayToOutput[counterForTheOutputArray] = pop(&head, &check);
+                counterForTheOutputArray;
+                if (isEmpty(head))
+                {
+                    check = false;
+                    return NULL;
+                }
+            }
+            pop(&head, &check);
+        }
     }
-    if (array[counter] == '(')
+    while (!isEmpty(head))
     {
-        push(&head, array[counter])
+        if(top(&head, &check) == ')')
+        {
+            check = false;
+            return NULL;
+        }
+        arrayToOutput[counterForTheOutputArray] = pop(&head, &check);
+        counterForTheOutputArray++;
     }
 }
 
