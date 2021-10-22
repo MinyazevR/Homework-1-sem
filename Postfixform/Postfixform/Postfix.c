@@ -25,13 +25,13 @@ int countTheExpression(char* postfixEntry, bool* check)
         int secondNumber = 0;
         int firstNumber = 0;
         secondNumber = pop(&head, &copy);
-        if (copy == false)
+        if (!copy)
         {
             *check = false;
             return 0;
         }
         firstNumber = pop(&head, &copy);
-        if (copy == false)
+        if (!copy)
         {
             *check = false;
             return 0; 
