@@ -19,11 +19,11 @@ void push(Stack** head, int element)
     *head = newStack;
 }
 
-int pop(Stack** head, bool* err)
+char pop(Stack** head, bool* err)
 {
     if (*head != NULL)
     {
-        int element = (*head)->value;
+        char element = (*head)->value;
         Stack* temporary = *head;
         *head = (*head)->next;
         free(temporary);
@@ -40,4 +40,13 @@ void deleteStack(Stack** head)
     {
         pop(head, &err);
     }
+}
+
+char top(Stack* head, bool* check)
+{
+    if (!isEmpty(head))
+    {
+        return head->value;
+    }
+    return 0;
 }
