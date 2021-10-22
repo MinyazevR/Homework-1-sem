@@ -19,6 +19,3 @@ char pop(Stack** head, bool* check);
 
 // Function for deleting all stack elements
 void deleteStack(Stack** head);
-
-// Function that returns the value of an element from the top of the stack
-char top(Stack*head, bool* check);

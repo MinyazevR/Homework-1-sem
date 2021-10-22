@@ -41,12 +41,3 @@ void deleteStack(Stack** head)
         pop(head, &err);
     }
 }
-
-char top(Stack* head, bool* check)
-{
-    if (!isEmpty(head))
-    {
-        return head->value;
-    }
-    return 0;
-}
