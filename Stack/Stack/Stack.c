@@ -19,7 +19,7 @@ void push(Stack** head, int element)
     *head = newStack;
 }
 
-int pop(Stack** head, errno_t err)
+int pop(Stack** head, bool* err)
 {
     if (*head != NULL)
     {
@@ -29,15 +29,15 @@ int pop(Stack** head, errno_t err)
         free(temporary);
         return element;
     }
-    errno_t err = 1;
-    error(err);
+    *err = false;
     return 0;
 }
 
 void deleteStack(Stack** head)
 {
+    bool err = true;
     while (!isEmpty(*head))
     {
-        pop(head);
+        pop(head, &err);
     }
 }
