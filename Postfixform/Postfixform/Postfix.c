@@ -1,12 +1,12 @@
 #include "../../Stack/Stack/Stack.h"
 #include "../../Stack/Stack/StackTest.h"
-#include "postfixFormTest.h"
-#include <stdio.h>
+#include "Postfix.h"
 #include <stdlib.h>
 #include <stdbool.h>
 
-int convertFromThePostfixForm(char* postfixEntry, bool* check)
+int countTheExpression(char* postfixEntry, bool* check)
 {
+    bool copy = *check;
     Stack* head = NULL;
     int counter = 0; 
     while (postfixEntry[counter] != '\0')
@@ -24,23 +24,17 @@ int convertFromThePostfixForm(char* postfixEntry, bool* check)
         }
         int secondNumber = 0;
         int firstNumber = 0;
-        if (!isEmpty(head))
-        {
-            secondNumber = pop(&head);
-        }
-        else 
+        secondNumber = pop(&head, &copy);
+        if (copy == false)
         {
             *check = false;
             return 0;
         }
-        if (!isEmpty(head))
-        {
-            firstNumber = pop(&head);
-        }
-        else
+        firstNumber = pop(&head, &copy);
+        if (copy == false)
         {
             *check = false;
-            return 0;
+            return 0; 
         }
         if (postfixEntry[counter] == '-')
         {
@@ -65,7 +59,7 @@ int convertFromThePostfixForm(char* postfixEntry, bool* check)
         }     
         counter++;
     }
-    const int answer = pop(&head);
+    const int answer = pop(&head, &copy);
     if (!isEmpty(head))
     {
         *check = false;
@@ -73,24 +67,4 @@ int convertFromThePostfixForm(char* postfixEntry, bool* check)
     }
     deleteStack(&head);
     return answer;
-}
-
-int main()
-{
-    if (!pushTest() || !popTest() || !deleteStackTest() || !postfixFormTest())
-    {
-        printf("Test failed");
-        return -1;
-    }
-    char postfixEntry[250] = {'\0'};
-    printf("enter the expression in postfix form\n");
-    scanf_s("%[^\n]s", postfixEntry, (unsigned)_countof(postfixEntry));
-    bool check = true;
-    const int answer = convertFromThePostfixForm(postfixEntry, &check);
-    if (!check)
-    {
-        printf("Incorrect input");
-        return 0;
-    }
-    printf("%d", answer);
 }

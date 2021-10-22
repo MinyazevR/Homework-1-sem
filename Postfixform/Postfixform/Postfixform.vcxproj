@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\Stack\Stack\Stack.c" />
     <ClCompile Include="..\..\Stack\Stack\StackTest.c" />
+    <ClCompile Include="Main.c" />
     <ClCompile Include="Postfix.c" />
     <ClCompile Include="PostfixFormTest.c" />
   </ItemGroup>
