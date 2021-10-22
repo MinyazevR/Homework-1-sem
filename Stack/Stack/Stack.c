@@ -7,7 +7,7 @@ bool isEmpty(Stack* head)
     return head == NULL;
 }
 
-void push(Stack** head, int element)
+void push(Stack** head, char element)
 {
     Stack* newStack = (Stack*)calloc(1, sizeof(Stack));
     if (newStack == NULL)
@@ -42,11 +42,11 @@ void deleteStack(Stack** head)
     }
 }
 
-char top(Stack* head, bool* check)
+char top(Stack** head, bool* check)
 {
-    if (!isEmpty(head))
+    if (!isEmpty(*head))
     {
-        return head->value;
+        return (*head)->value;
     }
     return 0;
 }
