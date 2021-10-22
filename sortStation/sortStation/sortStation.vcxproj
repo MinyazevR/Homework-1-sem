@@ -142,6 +142,9 @@
     <ClCompile Include="..\..\Stack\Stack\Stack.c" />
     <ClCompile Include="SortStation.c" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Stack\Stack\Stack.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

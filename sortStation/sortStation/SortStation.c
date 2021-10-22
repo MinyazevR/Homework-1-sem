@@ -6,6 +6,7 @@
 char* sortStation(char* array)
 {
     Stack* head = NULL;
+    bool check = true;
     int counterForTheOutputArray = 0;
     int counter = 0;
     char* arrayToOutput = (char*)malloc(1000*sizeof(char));
@@ -14,10 +15,21 @@ char* sortStation(char* array)
         if (array[counter] >= '0' || array[counter] <= '9')
         {
             arrayToOutput[counterForTheOutputArray] = array[counter];
-            counterForTheOutputArray;
+            counterForTheOutputArray++;
         }
-        if(array[counter] == '-' || array[counter] == '+')
-        
+        if (array[counter] == '-' || array[counter] == '+')
+        {
+            while (!isEmpty(head) && (array[counter] != '*' || array[counter] != '/'))
+            {
+                arrayToOutput[counterForTheOutputArray] = pop(&head, &check);
+                counterForTheOutputArray++;
+            }
+            push(&head, array[counter]);
+        }      
+    }
+    if (array[counter] == '(')
+    {
+        push(&head, array[counter])
     }
 }
 
