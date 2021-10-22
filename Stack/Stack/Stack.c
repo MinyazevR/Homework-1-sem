@@ -7,7 +7,7 @@ bool isEmpty(Stack* head)
     return head == NULL;
 }
 
-void push(Stack** head, int element)
+void push(Stack** head, char element)
 {
     Stack* newStack = (Stack*)calloc(1, sizeof(Stack));
     if (newStack == NULL)
