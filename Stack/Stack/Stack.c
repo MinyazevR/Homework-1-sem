@@ -14,19 +14,24 @@ void push(Stack** head, int element)
     {
         return;
     }
-    newStack -> value = element; 
-    newStack -> next = *head; 
+    newStack->value = element;
+    newStack->next = *head;
     *head = newStack;
 }
 
-int pop(Stack** head)
+int pop(Stack** head, errno_t err)
 {
-    int element = (*head) -> value;
-    Stack* temporary = *head;
-    Stack* help = (*head) -> next;
-    free(temporary);
-    *head = help;
-    return element;
+    if (*head != NULL)
+    {
+        int element = (*head)->value;
+        Stack* temporary = *head;
+        *head = (*head)->next;
+        free(temporary);
+        return element;
+    }
+    errno_t err = 1;
+    error(err);
+    return 0;
 }
 
 void deleteStack(Stack** head)
