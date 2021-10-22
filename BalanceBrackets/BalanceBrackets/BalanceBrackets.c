@@ -7,6 +7,7 @@
 
 bool checkCorrectOrderBrackets(char* expressionFromParentheses)
 {
+    bool check = true;
     Stack* head = NULL;
     int counter = 0;
     while (expressionFromParentheses[counter] != '\0')
@@ -23,7 +24,13 @@ bool checkCorrectOrderBrackets(char* expressionFromParentheses)
             {
                 return false;
             }
-            char k = pop(&head);
+            char k = pop(&head, &check);
+            {
+                if (!check)
+                {
+                    return false;
+                }
+            }
             if ((k == '(' && expressionFromParentheses[counter] != ')')
                 || (k == '{' && expressionFromParentheses[counter] != '}')
                 || (k == '[' && expressionFromParentheses[counter] != ']'))
