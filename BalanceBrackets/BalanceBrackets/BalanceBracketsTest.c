@@ -30,6 +30,5 @@ bool balanceBracketsTest()
         && !checkCorrectOrderBrackets(fourthIncorrectExpressionFromParentheses)
         && !checkCorrectOrderBrackets(fifthIncorrectExpressionFromParentheses)
         && !checkCorrectOrderBrackets(sixthIncorrectExpressionFromParentheses)
-        && !checkCorrectOrderBrackets(seventhIncorrectExpressionFromParentheses);
-    
+        && !checkCorrectOrderBrackets(seventhIncorrectExpressionFromParentheses);   
 }

@@ -1,10 +1,10 @@
 #include "BalanceBrackets.h"
 #include "../../Stack/Stack/Stack.h"
 #include <stdlib.h>
+#include <errno.h>
 
 bool checkCorrectOrderBrackets(char* expressionFromParentheses)
 {
-    bool check = true;
     Stack* head = NULL;
     int counter = 0;
     while (expressionFromParentheses[counter] != '\0')
@@ -17,13 +17,9 @@ bool checkCorrectOrderBrackets(char* expressionFromParentheses)
         else if (expressionFromParentheses[counter] == ')' || expressionFromParentheses[counter] == '}'
                  || expressionFromParentheses[counter] == ']')
         {
-            if (isEmpty(head))
+            char topOfTheStack = pop(&head);
             {
-                return false;
-            }
-            char topOfTheStack = pop(&head, &check);
-            {
-                if (!check)
+                if (errno == 1)
                 {
                     return false;
                 }
@@ -39,7 +35,6 @@ bool checkCorrectOrderBrackets(char* expressionFromParentheses)
     }
     if (isEmpty(head))
     {
-        deleteStack(&head);
         return true;
     }
     deleteStack(&head);

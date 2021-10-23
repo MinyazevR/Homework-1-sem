@@ -140,14 +140,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Stack\Stack\Stack.c" />
-    <ClCompile Include="..\..\Stack\Stack\StackTest.c" />
     <ClCompile Include="BalanceBrackets.c" />
     <ClCompile Include="BalanceBracketsTest.c" />
     <ClCompile Include="Main.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Stack\Stack\Stack.h" />
-    <ClInclude Include="..\..\Stack\Stack\StackTest.h" />
     <ClInclude Include="BalanceBrackets.h" />
     <ClInclude Include="BalanceBracketsTest.h" />
   </ItemGroup>
