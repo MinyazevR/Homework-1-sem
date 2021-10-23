@@ -15,7 +15,7 @@ int main()
     }
     char postfixEntry[250] = { '\0' };
     printf("enter the expression in postfix form\n");
-    scanf_s("%[^\n]s", postfixEntry, (unsigned)_countof(postfixEntry));
+    scanf_s("%[^\n]s", postfixEntry, (unsigned)sizeof(postfixEntry));
     bool check = true;
     const int answer = countTheExpression(postfixEntry, &check);
     if (!check)
