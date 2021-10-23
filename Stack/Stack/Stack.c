@@ -7,7 +7,7 @@ bool isEmpty(Stack* head)
     return head == NULL;
 }
 
-void push(Stack** head, int element)
+void push(Stack** head, float element)
 {
     Stack* newStack = (Stack*)calloc(1, sizeof(Stack));
     if (newStack == NULL)
@@ -19,12 +19,12 @@ void push(Stack** head, int element)
     *head = newStack;
 }
 
-int pop(Stack** head)
+float pop(Stack** head)
 {
     errno = 0;
     if (*head != NULL)
     {
-        const int element = (*head)->value;
+        const float element = (*head)->value;
         Stack* temporary = *head;
         *head = (*head)->next;
         free(temporary);
