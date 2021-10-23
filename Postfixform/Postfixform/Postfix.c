@@ -1,6 +1,7 @@
 #include "../../Stack/Stack/Stack.h"
 #include "Postfix.h"
 #include <stdlib.h>
+#include <errno.h>
 
 int countTheExpression(char* postfixEntry)
 {

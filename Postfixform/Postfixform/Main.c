@@ -3,6 +3,7 @@
 #include "postfixFormTest.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 
 int main()
 {
@@ -14,6 +15,7 @@ int main()
     char postfixEntry[250] = { '\0' };
     printf("enter the expression in postfix form\n");
     scanf_s("%[^\n]s", postfixEntry, (unsigned)sizeof(postfixEntry));
+    errno = 0;
     const int answer = countTheExpression(postfixEntry);
     if (errno == 1)
     {
