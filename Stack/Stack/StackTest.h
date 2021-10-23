@@ -9,3 +9,6 @@ bool popTest();
 
 // Function for checking a function that removes all stack elements
 bool deleteStackTest();
+
+// Function for testing a function that returns the value of an element from the top of the stack
+bool topTest();
