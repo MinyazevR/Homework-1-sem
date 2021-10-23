@@ -12,7 +12,7 @@ int main()
         return -1;
     }
     char expressionFromParentheses[250] = { '\0' };
-    printf("enter the expression in postfix form\n");
+    printf("enter the expression that you want to check for the correct placement of brackets\n");
     scanf_s("%[^\n]s", expressionFromParentheses, (unsigned)sizeof(expressionFromParentheses));
     if (!checkCorrectOrderBrackets(expressionFromParentheses))
     {

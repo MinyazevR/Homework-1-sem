@@ -1,6 +1,5 @@
 #include "BalanceBrackets.h"
 #include "../../Stack/Stack/Stack.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 bool checkCorrectOrderBrackets(char* expressionFromParentheses)
