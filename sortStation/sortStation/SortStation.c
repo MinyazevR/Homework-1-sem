@@ -1,22 +1,21 @@
 #include "../../Stack/Stack/Stack.h"
-#include "../../Stack/Stack/StackTest.h"
 #include <stdio.h>
 #include <malloc.h>
+#include <errno.h>
 
-char* sortStation(char* array, bool* check)
+char* translationIntoPostfixForm(char* array)
 {
-    bool err = *check;
     Stack* head = NULL;
     int counterForTheOutputArray = 0;
     int counter = 0;
     char* arrayToOutput = (char*)malloc(1000 * sizeof(char));
     if (arrayToOutput == NULL)
     {
+        errno = 2;
         return NULL;
     }
     while (array[counter] != '\0')
     {
-
         if (array[counter] >= '0' && array[counter] <= '9')
         {
             arrayToOutput[counterForTheOutputArray] = array[counter];
@@ -27,20 +26,16 @@ char* sortStation(char* array, bool* check)
             counter++;
             continue;
         }
-        else if (array[counter] == '-' || array[counter] == '+')
+        else if (array[counter] == '-' || array[counter] == '+'
+                 || array[counter] == '/' || array[counter] == '*')
         {
-            while (!isEmpty(head) && top(&head, &err) == '*' || top(&head, &err) == '/')
+            while (!isEmpty(head) && top(&head) == '*' || top(&head) == '/')
             {
-                arrayToOutput[counterForTheOutputArray] = pop(&head, &err);
-                counterForTheOutputArray++;
-            }
-            push(&head, array[counter]);
-        }
-        else if (array[counter] == '/' || array[counter] == '*')
-        {
-            while (!isEmpty(head) && top(&head, &err) == '*' || top(&head, &err) == '/')
-            {
-                arrayToOutput[counterForTheOutputArray] = pop(&head, &err);
+                arrayToOutput[counterForTheOutputArray] = pop(&head);
+                if (errno == 1)
+                {
+                    return NULL;
+                }
                 counterForTheOutputArray++;
             }
             push(&head, array[counter]);
@@ -51,64 +46,53 @@ char* sortStation(char* array, bool* check)
         }
         else if (array[counter] == ')')
         {
-            while ((!isEmpty(head)) && top(&head, &err) != '(')
+            while (top(&head) != '(')
             {
-                arrayToOutput[counterForTheOutputArray] = pop(&head, &err);
-                counterForTheOutputArray++;
-                if (!err)
+                if(!isEmpty(head))
                 {
-                    *check = false;
-                    return NULL;
+                    arrayToOutput[counterForTheOutputArray] = pop(&head);
+                    if (errno == 1)
+                    {
+                        return NULL;
+                    }
+                    counterForTheOutputArray++;
+                }
+                if (isEmpty(head))
+                {
+                    errno = 3;
+                    return 0;
                 }
             }
-            if ((!isEmpty(head)) && top(&head, &err) == '(')
+            if ((!isEmpty(head)) && top(&head) == '(')
             {
-                pop(&head, &err);
-            }
-            else
-            {
-                *check = false;
-                return NULL;
+                pop(&head);
+                if (errno == 1)
+                {
+                    return NULL;
+                }
             }
         }
         else
         {
-            *check = false;
+            errno = 3;
             return NULL;
         }
         counter++;
     }
     while (!isEmpty(head))
     {
-        if (top(&head, &err) == '(')
+        if (top(&head) == '(')
         {
-            *check = false;
+            errno = 3;
             return NULL;
         }
-        arrayToOutput[counterForTheOutputArray] = pop(&head, &err);
+        arrayToOutput[counterForTheOutputArray] = pop(&head);
+        if (errno == 1)
+        {
+            return NULL;
+        }
         counterForTheOutputArray++;
     }
     arrayToOutput[counterForTheOutputArray] = '\0';
     return arrayToOutput;
-}
-
-int main()
-{
-    char array[1000] = {'\0'};
-    printf("aa\n");
-    bool check = true;
-    scanf("%s", array);
-    char* arrayToOutput = sortStation(array, &check);
-    {
-        if (!check)
-        {
-            return -1;
-        }
-    }
-    int counter = 0;
-    while (arrayToOutput[counter] != '\0')
-    {
-        printf("%c ", arrayToOutput[counter]);
-        counter++;
-    }
 }
