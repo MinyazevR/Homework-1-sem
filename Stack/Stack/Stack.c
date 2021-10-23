@@ -1,6 +1,6 @@
 #include "Stack.h"
-#include <stdio.h>
 #include <malloc.h>
+#include <errno.h>
 
 bool isEmpty(Stack* head)
 {
@@ -19,25 +19,36 @@ void push(Stack** head, char element)
     *head = newStack;
 }
 
-char pop(Stack** head, bool* err)
+char pop(Stack** head)
 {
+    errno = 0;
     if (*head != NULL)
     {
-        char element = (*head)->value;
+        const int element = (*head)->value;
         Stack* temporary = *head;
         *head = (*head)->next;
         free(temporary);
         return element;
     }
-    *err = false;
+    errno = 1;
     return 0;
 }
 
 void deleteStack(Stack** head)
 {
-    bool err = true;
     while (!isEmpty(*head))
     {
-        pop(head, &err);
+        pop(head);
     }
+}
+
+char top(Stack** head)
+{
+    errno =  0;
+    if (!isEmpty(*head))
+    {
+        return (*head)->value;
+    }
+    errno = 1;
+    return 0;
 }
