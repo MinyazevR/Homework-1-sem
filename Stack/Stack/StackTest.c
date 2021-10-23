@@ -5,33 +5,33 @@
 bool pushTest()
 {
     Stack* head = NULL;
-    push(&head, 12);
-    int firstResult = head->value;
-    push(&head, 128);
-    int secondResult = head->value;
-    return firstResult == 12 && secondResult == 128;
+    push(&head, '[');
+    char firstResult = head->value;
+    push(&head, ')');
+    char secondResult = head->value;
+    return firstResult == '[' && secondResult == ')';
 }
 
 bool popTest()
 {
     bool err = true;
     Stack* head = NULL;
-    push(&head, 12);
-    push(&head, 128);
-    push(&head, 147);
-    int firstPopResult = pop(&head, &err);
-    int firstUpperElement = head -> value;
-    int secondPopResult = pop(&head, &err);
-    int secondUpperElement = head->value;
-    return firstPopResult == 147 && firstUpperElement == 128 && secondPopResult == 128 && secondUpperElement == 12;
+    push(&head, 'a');
+    push(&head, '^');
+    push(&head, '1');
+    char firstPopResult = pop(&head, &err);
+    char firstUpperElement = head->value;
+    char secondPopResult = pop(&head, &err);
+    char secondUpperElement = head->value;
+    return firstPopResult == '1' && firstUpperElement == '^' && secondPopResult == '^' && secondUpperElement == 'a';
 }
 
 bool deleteStackTest()
 {
     Stack* head = NULL;
-    push(&head, 12);
-    push(&head, 128);
-    push(&head, 147);
+    push(&head, 'a');
+    push(&head, 'b');
+    push(&head, 'c');
     deleteStack(&head);
     return head == NULL;
 }

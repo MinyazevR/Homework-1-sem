@@ -12,7 +12,7 @@ typedef struct Stack
 bool isEmpty(Stack* head);
 
 // Function for adding an element to the top of the stack
-void push(Stack** head, int element);
+void push(Stack** head, char element);
 
 // Function to remove an element from the top of the stack that returns the value of that element
 char pop(Stack** head, bool* check);
