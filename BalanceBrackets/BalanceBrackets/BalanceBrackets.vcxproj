@@ -143,6 +143,7 @@
     <ClCompile Include="..\..\Stack\Stack\StackTest.c" />
     <ClCompile Include="BalanceBrackets.c" />
     <ClCompile Include="BalanceBracketsTest.c" />
+    <ClCompile Include="Main.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Stack\Stack\Stack.h" />

@@ -3,7 +3,7 @@
 
 bool balanceBracketsTest()
 {
-    char firstCorrectExpressionFromParentheses[250] = "((15 - x) - (13 + 45) * ( 10 - 16))";
+    char firstCorrectExpressionFromParentheses[250] = "((15 - x) - (13 + 45) * ( 1 0 - 1 6))";
     char secondCorrectExpressionFromParentheses[250] = "(([(){()}][]{}{}{()}))";
     char thirdCorrectExpressionFromParentheses[250] = "([[]({})]({}(())))";
     char fourthCorrectExpressionFromParentheses[250] = "(x * x) * ( c - a)";
