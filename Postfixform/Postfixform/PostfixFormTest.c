@@ -6,7 +6,7 @@ bool areTestPassingPostfixForm()
     char firstCorrectPostfixEntry[250] = "3 2 - 4 5 * + 2 9 - *";
     char secondCorrectPostfixEntry[250] = "2 3 - 4 5 * +";
     char thirdCorrectPostfixEntry[250] = "9 6 - 1 2 + *";
-    char fourthCorrectPostfixEntry[250] = "9 6 - 3 4 * + 5 6 - +";
+    char fourthCorrectPostfixEntry[250] = "9 6 - 5 2 / +";
     char fifthCorrectPostfixEntry[250] = "9 6 - 3 -";
 
     char firstIncorrectPostfixEntry[250] = "--35 a-";
@@ -18,7 +18,7 @@ bool areTestPassingPostfixForm()
     return countTheExpression(firstCorrectPostfixEntry) == -147
         && countTheExpression(secondCorrectPostfixEntry)  == 19
         && countTheExpression(thirdCorrectPostfixEntry) == 9
-        && countTheExpression(fourthCorrectPostfixEntry) == 14
+        && countTheExpression(fourthCorrectPostfixEntry) == 5.5
         && countTheExpression(fifthCorrectPostfixEntry) == 0
 
         && countTheExpression(firstIncorrectPostfixEntry) == 0 

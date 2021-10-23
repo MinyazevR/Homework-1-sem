@@ -16,7 +16,7 @@ int main()
     printf("enter the expression in postfix form\n");
     scanf_s("%[^\n]s", postfixEntry, (unsigned)sizeof(postfixEntry));
     errno = 0;
-    const int answer = countTheExpression(postfixEntry);
+    const float answer = countTheExpression(postfixEntry);
     if (errno == 1)
     {
         printf("Stack is empty");
@@ -32,5 +32,5 @@ int main()
         printf("Incorrect input of an expression in postfix form");
         return -1;
     }
-    printf("%d", answer);
+    printf("%f", answer);
 }
