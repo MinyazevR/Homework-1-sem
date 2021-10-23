@@ -2,4 +2,4 @@
 #include <stdbool.h>
 
 // Function for testing a function that translates an expression from a postfix form
-bool postfixFormTest();
+bool areTestPassingPostfixForm();

@@ -1,19 +1,16 @@
 #include "../../Stack/Stack/Stack.h"
-#include "../../Stack/Stack/StackTest.h"
 #include "Postfix.h"
 #include <stdlib.h>
-#include <stdbool.h>
 
-int countTheExpression(char* postfixEntry, bool* check)
+int countTheExpression(char* postfixEntry)
 {
-    bool copy = *check;
     Stack* head = NULL;
     int counter = 0; 
     while (postfixEntry[counter] != '\0')
     {
         if (postfixEntry[counter] >= '0' && postfixEntry[counter] <= '9')
         {
-            push(&head, (postfixEntry[counter] - '0'));
+            push(&head, postfixEntry[counter] - '0');
             counter++;
             continue;
         }
@@ -22,18 +19,14 @@ int countTheExpression(char* postfixEntry, bool* check)
             counter++;
             continue;
         }
-        int secondNumber = 0;
-        int firstNumber = 0;
-        secondNumber = pop(&head, &copy);
-        if (!copy)
+        int secondNumber = pop(&head);
+        if (errno == 1)
         {
-            *check = false;
             return 0;
         }
-        firstNumber = pop(&head, &copy);
-        if (!copy)
+        int firstNumber = pop(&head);
+        if (errno == 1)
         {
-            *check = false;
             return 0; 
         }
         if (postfixEntry[counter] == '-')
@@ -54,15 +47,20 @@ int countTheExpression(char* postfixEntry, bool* check)
         }
         else
         {
-            *check = false;
+            deleteStack(&head);
+            errno = 2;
             return 0;
         }     
         counter++;
     }
-    const int answer = pop(&head, &copy);
+    const int answer = pop(&head);
+    if (errno == 1)
+    {
+        return 0;
+    }
     if (!isEmpty(head))
     {
-        *check = false;
+        errno = 3;
         return 0;
     }
     deleteStack(&head);

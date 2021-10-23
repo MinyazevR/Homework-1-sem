@@ -20,14 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Stack\Stack\Stack.c" />
-    <ClCompile Include="..\..\Stack\Stack\StackTest.c" />
     <ClCompile Include="Main.c" />
     <ClCompile Include="Postfix.c" />
     <ClCompile Include="PostfixFormTest.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Stack\Stack\Stack.h" />
-    <ClInclude Include="..\..\Stack\Stack\StackTest.h" />
     <ClInclude Include="Postfix.h" />
     <ClInclude Include="PostfixFormTest.h" />
   </ItemGroup>
@@ -136,7 +134,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
