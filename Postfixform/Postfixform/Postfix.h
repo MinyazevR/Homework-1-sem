@@ -1,4 +1,4 @@
 #pragma once
 
-// Function that translates an expression from a postfix form to an infix form
+// Function for outputting the value of an expression in postfix form
 float countTheExpression(char* postfixEntry);
