@@ -18,20 +18,20 @@ bool checkCorrectOrderBrackets(char* expressionFromParentheses)
         else if (expressionFromParentheses[counter] == ')' || expressionFromParentheses[counter] == '}'
                  || expressionFromParentheses[counter] == ']')
         {
-            if(isEmpty(head))
+            if (isEmpty(head))
             {
                 return false;
             }
-            char k = pop(&head, &check);
+            char topOfTheStack = pop(&head, &check);
             {
                 if (!check)
                 {
                     return false;
                 }
             }
-            if ((k == '(' && expressionFromParentheses[counter] != ')')
-                || (k == '{' && expressionFromParentheses[counter] != '}')
-                || (k == '[' && expressionFromParentheses[counter] != ']'))
+            if ((topOfTheStack == '(' && expressionFromParentheses[counter] != ')')
+                || (topOfTheStack == '{' && expressionFromParentheses[counter] != '}')
+                || (topOfTheStack == '[' && expressionFromParentheses[counter] != ']'))
             {
                 return false;
             }
