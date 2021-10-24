@@ -65,6 +65,5 @@ float countTheExpression(char* postfixEntry)
         errno = 3;
         return 0;
     }
-    deleteStack(&head);
     return answer;
 }
