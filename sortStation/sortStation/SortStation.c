@@ -16,18 +16,55 @@ char* translationIntoPostfixForm(char* array)
     }
     while (array[counter] != '\0')
     {
-        if (array[counter] >= '0' && array[counter] <= '9')
+        if (array[counter] == ' ')
         {
+            if (array[counter - 1] == ' ')
+            {
+                deleteStack(&head);
+                if (errno == 1)
+                {
+                    return NULL;
+                }
+                errno = 4;
+                return NULL;
+            }
+            if (arrayToOutput[counterForTheOutputArray - 1] == ' ')
+            {
+                counter++;
+                continue;
+            }
             arrayToOutput[counterForTheOutputArray] = array[counter];
             counterForTheOutputArray++;
-        }
-        else if (array[counter] == ' ')
-        {
             counter++;
             continue;
         }
-        else if (array[counter] == '-' || array[counter] == '+'
-                 || array[counter] == '/' || array[counter] == '*')
+        else if (array[counter] == '*' || array[counter] == '/')
+        {
+            if (array[counter + 1] != ' ')
+            {
+                deleteStack(&head);
+                if (errno == 1)
+                {
+                    return NULL;
+                }
+                errno = 4;
+                return NULL;
+            }
+        }
+        if (array[counter] >= '0' && array[counter] <= '9')
+        {
+            if (array[counter + 1] != ' ' && array[counter + 1] != ')' && array[counter + 1] != '\0')
+            {
+                deleteStack(&head);
+                errno = 1;
+                return NULL;
+            }
+            arrayToOutput[counterForTheOutputArray] = array[counter];
+            counterForTheOutputArray++;
+            counter++;
+            continue;
+        }
+        else if (array[counter] == '-' || array[counter] == '+' || array[counter] == '/' || array[counter] == '*')
         {
             while (!isEmpty(head) && top(&head) == '*' || top(&head) == '/')
             {
@@ -42,14 +79,28 @@ char* translationIntoPostfixForm(char* array)
         }
         else if (array[counter] == '(')
         {
+            if (array[counter + 1] == ' ')
+            {
+                deleteStack(&head);
+                errno = 1;
+                return NULL;
+            }
             push(&head, array[counter]);
         }
         else if (array[counter] == ')')
         {
+            if (array[counter - 1] == ' ')
+            {
+                deleteStack(&head);
+                errno = 1;
+                return NULL;
+            }
             while (top(&head) != '(')
             {
                 if(!isEmpty(head))
                 {
+                    arrayToOutput[counterForTheOutputArray] = ' ';
+                    counterForTheOutputArray++;
                     arrayToOutput[counterForTheOutputArray] = pop(&head);
                     if (errno == 1)
                     {
@@ -74,6 +125,7 @@ char* translationIntoPostfixForm(char* array)
         }
         else
         {
+            deleteStack(&head);
             errno = 3;
             return NULL;
         }
@@ -83,9 +135,12 @@ char* translationIntoPostfixForm(char* array)
     {
         if (top(&head) == '(')
         {
+            deleteStack(&head);
             errno = 3;
             return NULL;
         }
+        arrayToOutput[counterForTheOutputArray] = ' ';
+        counterForTheOutputArray++;
         arrayToOutput[counterForTheOutputArray] = pop(&head);
         if (errno == 1)
         {

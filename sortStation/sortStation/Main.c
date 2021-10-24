@@ -18,7 +18,7 @@ int main()
     char* arrayToOutput = translationIntoPostfixForm(array);
     if (errno == 1)
     {
-        printf("Stack is empty(Incorrect expression input)");
+        printf("Stack is empty(Due to an incorrectly entered expression)");
         return -1;
     }
     if (errno == 2)
@@ -31,10 +31,15 @@ int main()
         printf("The parenthesis is missing in the expression");
         return -1;
     }
+    if (errno == 4)
+    {
+        printf("Incorrect expression input)");
+        return -1;
+    }
     int counter = 0;
     while (arrayToOutput[counter] != '\0')
     {
-        printf("%c ", arrayToOutput[counter]);
+        printf("%c", arrayToOutput[counter]);
         counter++;
     }
 }
