@@ -21,10 +21,6 @@ char* translationIntoPostfixForm(char* array)
             if (array[counter - 1] == ' ')
             {
                 deleteStack(&head);
-                if (errno == 1)
-                {
-                    return NULL;
-                }
                 errno = 4;
                 return NULL;
             }
@@ -38,25 +34,12 @@ char* translationIntoPostfixForm(char* array)
             counter++;
             continue;
         }
-        else if (array[counter] == '*' || array[counter] == '/')
-        {
-            if (array[counter + 1] != ' ')
-            {
-                deleteStack(&head);
-                if (errno == 1)
-                {
-                    return NULL;
-                }
-                errno = 4;
-                return NULL;
-            }
-        }
         if (array[counter] >= '0' && array[counter] <= '9')
         {
-            if (array[counter + 1] != ' ' && array[counter + 1] != ')' && array[counter + 1] != '\0')
+            if (array[counter + 1] == '*' || array[counter + 1] == '/' || array[counter + 1] == '(' || array[counter + 1] == '+' || array[counter + 1] == '-')
             {
                 deleteStack(&head);
-                errno = 1;
+                errno = 4;
                 return NULL;
             }
             arrayToOutput[counterForTheOutputArray] = array[counter];
@@ -66,6 +49,12 @@ char* translationIntoPostfixForm(char* array)
         }
         else if (array[counter] == '-' || array[counter] == '+' || array[counter] == '/' || array[counter] == '*')
         {
+            if (array[counter + 1] != ' ')
+            {
+                deleteStack(&head);
+                errno = 4;
+                return NULL;
+            }
             while (!isEmpty(head) && top(&head) == '*' || top(&head) == '/')
             {
                 arrayToOutput[counterForTheOutputArray] = pop(&head);
@@ -82,7 +71,7 @@ char* translationIntoPostfixForm(char* array)
             if (array[counter + 1] == ' ')
             {
                 deleteStack(&head);
-                errno = 1;
+                errno = 4;
                 return NULL;
             }
             push(&head, array[counter]);
@@ -92,7 +81,7 @@ char* translationIntoPostfixForm(char* array)
             if (array[counter - 1] == ' ')
             {
                 deleteStack(&head);
-                errno = 1;
+                errno = 4;
                 return NULL;
             }
             while (top(&head) != '(')

@@ -28,12 +28,12 @@ int main()
     }
     if (errno == 3)
     {
-        printf("The parenthesis is missing in the expression");
+        printf("A parenthesis is missing or an invalid character is entered");
         return -1;
     }
     if (errno == 4)
     {
-        printf("Incorrect expression input)");
+        printf("An extra space has been put (or skipped)");
         return -1;
     }
     int counter = 0;
