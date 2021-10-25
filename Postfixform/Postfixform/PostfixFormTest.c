@@ -3,17 +3,17 @@
 
 bool areTestPassingPostfixForm()
 {
-    char firstCorrectPostfixEntry[250] = "3 2 - 4 5 * + 2 9 - *";
-    char secondCorrectPostfixEntry[250] = "2 3 - 4 5 * +";
-    char thirdCorrectPostfixEntry[250] = "9 6 - 1 2 + *";
-    char fourthCorrectPostfixEntry[250] = "9 6 - 5 2 / +";
-    char fifthCorrectPostfixEntry[250] = "9 6 - 3 -";
+    const char firstCorrectPostfixEntry[250] = "3 2 - 4 5 * + 2 9 - *";
+    const char secondCorrectPostfixEntry[250] = "2 3 - 4 5 * +";
+    const char thirdCorrectPostfixEntry[250] = "9 6 - 1 2 + *";
+    const char fourthCorrectPostfixEntry[250] = "9 6 - 5 2 / +";
+    const char fifthCorrectPostfixEntry[250] = "9 6 - 3 -";
 
-    char firstIncorrectPostfixEntry[250] = "3 5 a";
-    char secondIncorrectPostfixEntry[250] = "4 0 /";
-    char thirdIncorrectPostfixEntry[250] = "34 - 345";
-    char fourthIncorrectPostfixEntry[250] = "12 - 34 + 4";
-    char fifthIncorrectPostfixEntry[250] = "1234 - 12";
+    const char firstIncorrectPostfixEntry[250] = "3 5 a";
+    const char secondIncorrectPostfixEntry[250] = "4 0 /";
+    const char thirdIncorrectPostfixEntry[250] = "34 - 345";
+    const char fourthIncorrectPostfixEntry[250] = "12 - 34 + 4";
+    const char fifthIncorrectPostfixEntry[250] = "1234 - 12";
 
     int errorCode[10] = {0};
     

@@ -2,7 +2,7 @@
 #include "Postfix.h"
 #include <stdlib.h>
 
-float countTheExpression(char* postfixEntry, int* errorCode)
+float countTheExpression(const char* postfixEntry, int* errorCode)
 {
     Stack* head = NULL;
     int counter = 0; 
