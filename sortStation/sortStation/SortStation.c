@@ -3,7 +3,7 @@
 #include <malloc.h>
 #include <errno.h>
 
-char* translationIntoPostfixForm(const  char* array, int* errorCode)
+char* translationIntoPostfixForm(const char* array, int* errorCode)
 {
     Stack* head = NULL;
     int counterForTheOutputArray = 0;
