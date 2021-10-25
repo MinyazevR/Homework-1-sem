@@ -1,7 +1,6 @@
 #include "BalanceBrackets.h"
 #include "../../Stack/Stack/Stack.h"
 #include <stdlib.h>
-#include <errno.h>
 
 bool checkCorrectOrderBrackets(char* expressionFromParentheses)
 {
@@ -17,16 +16,17 @@ bool checkCorrectOrderBrackets(char* expressionFromParentheses)
         else if (expressionFromParentheses[counter] == ')' || expressionFromParentheses[counter] == '}'
                  || expressionFromParentheses[counter] == ']')
         {
-            char topOfTheStack = pop(&head);
+            int error = 0;
+            char topOfTheStack = pop(&head, &error);
             {
-                if (errno == 1)
+                if (error == 1)
                 {
                     return false;
                 }
             }
-            if ((topOfTheStack == '(' && expressionFromParentheses[counter] != ')')
-                || (topOfTheStack == '{' && expressionFromParentheses[counter] != '}')
-                || (topOfTheStack == '[' && expressionFromParentheses[counter] != ']'))
+            if ((topOfTheStack != '(' && expressionFromParentheses[counter] == ')')
+                || (topOfTheStack != '{' && expressionFromParentheses[counter] == '}')
+                || (topOfTheStack != '[' && expressionFromParentheses[counter] == ']'))
             {
                 return false;
             }

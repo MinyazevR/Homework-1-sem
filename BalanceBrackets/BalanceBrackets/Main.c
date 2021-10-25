@@ -2,7 +2,6 @@
 #include "../../Stack/Stack/Stack.h"
 #include "BalanceBracketsTest.h"
 #include <stdio.h>
-#include <errno.h>
 
 int main()
 {
@@ -14,12 +13,10 @@ int main()
     char expressionFromParentheses[250] = { '\0' };
     printf("enter the expression that you want to check for the correct placement of brackets\n");
     scanf_s("%[^\n]s", expressionFromParentheses, (unsigned)sizeof(expressionFromParentheses));
-    errno = 0;
-    bool result = checkCorrectOrderBrackets(expressionFromParentheses);
-    if (!result || errno == 1)
+    if (!checkCorrectOrderBrackets(expressionFromParentheses))
     {
-        printf("incorrect");
+        printf("The balance of the brackets is incorrect");
         return 0;
     }
-    printf("correct");
+    printf("The balance of the brackets is correct");
 }

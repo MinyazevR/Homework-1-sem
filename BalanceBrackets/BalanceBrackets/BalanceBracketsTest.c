@@ -10,6 +10,7 @@ bool balanceBracketsTest()
     char fifthCorrectExpressionFromParentheses[250] = "[[]]{{}}(())";
     char sixthCorrectExpressionFromParentheses[250] = "(({{{}[]}[]}[]))";
     char seventhCorrectExpressionFromParentheses[250] = "{}()[]";
+
     char firstIncorrectExpressionFromParentheses[250] = "{{";
     char secondIncorrectExpressionFromParentheses[250] = "{())[][]}";
     char thirdIncorrectExpressionFromParentheses[250] = "(x-a)*(c+a))";
@@ -17,6 +18,7 @@ bool balanceBracketsTest()
     char fifthIncorrectExpressionFromParentheses[250] = "{()[]{}{{))))))(}";
     char sixthIncorrectExpressionFromParentheses[250] = "{{}}(((";
     char seventhIncorrectExpressionFromParentheses[250] = "(";
+
     return checkCorrectOrderBrackets(firstCorrectExpressionFromParentheses)
         && checkCorrectOrderBrackets(secondCorrectExpressionFromParentheses)
         && checkCorrectOrderBrackets(thirdCorrectExpressionFromParentheses)
@@ -24,6 +26,7 @@ bool balanceBracketsTest()
         && checkCorrectOrderBrackets(fifthCorrectExpressionFromParentheses)
         && checkCorrectOrderBrackets(sixthCorrectExpressionFromParentheses)
         && checkCorrectOrderBrackets(seventhCorrectExpressionFromParentheses)
+
         && !checkCorrectOrderBrackets(firstIncorrectExpressionFromParentheses)
         && !checkCorrectOrderBrackets(secondIncorrectExpressionFromParentheses)
         && !checkCorrectOrderBrackets(thirdIncorrectExpressionFromParentheses)
