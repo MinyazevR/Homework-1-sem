@@ -1,6 +1,5 @@
 #include "Stack.h"
 #include <malloc.h>
-#include <errno.h>
 
 bool isEmpty(Stack* head)
 {
