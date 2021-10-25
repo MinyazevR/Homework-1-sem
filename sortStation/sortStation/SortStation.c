@@ -3,15 +3,16 @@
 #include <malloc.h>
 #include <errno.h>
 
-char* translationIntoPostfixForm(char* array)
+char* translationIntoPostfixForm(const  char* array, int* errorCode)
 {
     Stack* head = NULL;
     int counterForTheOutputArray = 0;
     int counter = 0;
+    int error = 0 ;
     char* arrayToOutput = (char*)malloc(1000 * sizeof(char));
     if (arrayToOutput == NULL)
     {
-        errno = 2;
+        *errorCode = 2;
         return NULL;
     }
     while (array[counter] != '\0')
@@ -21,7 +22,7 @@ char* translationIntoPostfixForm(char* array)
             if (array[counter - 1] == ' ')
             {
                 deleteStack(&head);
-                errno = 4;
+                *errorCode = 4;
                 return NULL;
             }
             if (arrayToOutput[counterForTheOutputArray - 1] == ' ')
@@ -39,7 +40,7 @@ char* translationIntoPostfixForm(char* array)
             if (array[counter + 1] == '*' || array[counter + 1] == '/' || array[counter + 1] == '(' || array[counter + 1] == '+' || array[counter + 1] == '-')
             {
                 deleteStack(&head);
-                errno = 4;
+                *errorCode = 4;
                 return NULL;
             }
             arrayToOutput[counterForTheOutputArray] = array[counter];
@@ -52,14 +53,15 @@ char* translationIntoPostfixForm(char* array)
             if (array[counter + 1] != ' ')
             {
                 deleteStack(&head);
-                errno = 4;
+                *errorCode = 4;
                 return NULL;
             }
-            while (!isEmpty(head) && top(&head) == '*' || top(&head) == '/')
+            while (!isEmpty(head) && top(&head, &error) == '*' || top(&head, &error) == '/')
             {
-                arrayToOutput[counterForTheOutputArray] = pop(&head);
-                if (errno == 1)
+                arrayToOutput[counterForTheOutputArray] = pop(&head, &error);
+                if (error == 1)
                 {
+                    *errorCode = 1;
                     return NULL;
                 }
                 counterForTheOutputArray++;
@@ -71,7 +73,7 @@ char* translationIntoPostfixForm(char* array)
             if (array[counter + 1] == ' ')
             {
                 deleteStack(&head);
-                errno = 4;
+                *errorCode = 4;
                 return NULL;
             }
             push(&head, array[counter]);
@@ -81,33 +83,35 @@ char* translationIntoPostfixForm(char* array)
             if (array[counter - 1] == ' ')
             {
                 deleteStack(&head);
-                errno = 4;
+                *errorCode = 4;
                 return NULL;
             }
-            while (top(&head) != '(')
+            while (top(&head, &error) != '(')
             {
                 if(!isEmpty(head))
                 {
                     arrayToOutput[counterForTheOutputArray] = ' ';
                     counterForTheOutputArray++;
-                    arrayToOutput[counterForTheOutputArray] = pop(&head);
-                    if (errno == 1)
+                    arrayToOutput[counterForTheOutputArray] = pop(&head, &error);
+                    if (error == 1)
                     {
+                        *errorCode = 1;
                         return NULL;
                     }
                     counterForTheOutputArray++;
                 }
                 if (isEmpty(head))
                 {
-                    errno = 3;
+                    *errorCode = 3;
                     return 0;
                 }
             }
-            if ((!isEmpty(head)) && top(&head) == '(')
+            if ((!isEmpty(head)) && top(&head, &error) == '(')
             {
-                pop(&head);
-                if (errno == 1)
+                pop(&head, &error);
+                if (error == 1)
                 {
+                    *errorCode = 1;
                     return NULL;
                 }
             }
@@ -115,24 +119,25 @@ char* translationIntoPostfixForm(char* array)
         else
         {
             deleteStack(&head);
-            errno = 3;
+            *errorCode = 3;
             return NULL;
         }
         counter++;
     }
     while (!isEmpty(head))
     {
-        if (top(&head) == '(')
+        if (top(&head, &error) == '(')
         {
             deleteStack(&head);
-            errno = 3;
+            *errorCode = 3;
             return NULL;
         }
         arrayToOutput[counterForTheOutputArray] = ' ';
         counterForTheOutputArray++;
-        arrayToOutput[counterForTheOutputArray] = pop(&head);
-        if (errno == 1)
+        arrayToOutput[counterForTheOutputArray] = pop(&head, &error);
+        if (error == 1)
         {
+            *errorCode = 1;
             return NULL;
         }
         counterForTheOutputArray++;
