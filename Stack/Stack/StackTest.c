@@ -9,6 +9,7 @@ bool pushTest()
     char firstResult = head->value;
     push(&head, ')');
     char secondResult = head->value;
+    deleteStack(&head);
     return firstResult == '[' && secondResult == ')';
 }
 
@@ -18,10 +19,20 @@ bool popTest()
     push(&head, 'a');
     push(&head, '^');
     push(&head, '1');
-    char firstPopResult = pop(&head);
+    int error = 0;
+    char firstPopResult = pop(&head, &error);
+    if (error == 1)
+    {
+        return false;
+    }
     char firstUpperElement = head->value;
-    char secondPopResult = pop(&head);
+    char secondPopResult = pop(&head, &error);
+    if (error == 1)
+    {
+        return false;
+    }
     char secondUpperElement = head->value;
+    deleteStack(&head);
     return firstPopResult == '1' && firstUpperElement == '^' && secondPopResult == '^' && secondUpperElement == 'a';
 }
 
@@ -33,16 +44,4 @@ bool deleteStackTest()
     push(&head, 'c');
     deleteStack(&head);
     return head == NULL;
-}
-
-bool topTest()
-{
-    Stack* head = NULL;
-    push(&head, 'a');
-    char firstTopResult = head->value;
-    push(&head, '^');
-    char secondTopResult = head->value;
-    push(&head, '1');
-    char thirdTopResult = head->value;
-    return firstTopResult == 'a' && secondTopResult == '^' && thirdTopResult == '1';
 }

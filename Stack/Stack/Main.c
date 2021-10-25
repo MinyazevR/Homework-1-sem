@@ -3,7 +3,7 @@
 
 int main()
 {
-    if (!pushTest() || !popTest() || !deleteStackTest() || !topTest())
+    if (!pushTest() || !popTest() || !deleteStackTest())
     {
         printf("Test failed");
         return -1;
