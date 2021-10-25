@@ -17,13 +17,11 @@ bool checkCorrectOrderBrackets(char* expressionFromParentheses)
                  || expressionFromParentheses[counter] == ']')
         {
             int error = 0;
-            char topOfTheStack = pop(&head, &error);
-            {
-                if (error == 1)
-                {
-                    return false;
-                }
-            }
+            char topOfTheStack = pop(&head, &error)æ
+             if (error == 1)
+             {
+                return false;
+             }
             if ((topOfTheStack != '(' && expressionFromParentheses[counter] == ')')
                 || (topOfTheStack != '{' && expressionFromParentheses[counter] == '}')
                 || (topOfTheStack != '[' && expressionFromParentheses[counter] == ']'))
