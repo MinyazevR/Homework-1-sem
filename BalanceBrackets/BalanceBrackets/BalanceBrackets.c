@@ -2,7 +2,7 @@
 #include "../../Stack/Stack/Stack.h"
 #include <stdlib.h>
 
-bool checkCorrectOrderBrackets(char* expressionFromParentheses)
+bool checkCorrectOrderBrackets(const char* expressionFromParentheses)
 {
     Stack* head = NULL;
     int counter = 0;
@@ -17,11 +17,11 @@ bool checkCorrectOrderBrackets(char* expressionFromParentheses)
                  || expressionFromParentheses[counter] == ']')
         {
             int error = 0;
-            char topOfTheStack = pop(&head, &error)æ
-             if (error == 1)
-             {
+            char topOfTheStack = pop(&head, &error);
+            if (error == 1)
+            {
                 return false;
-             }
+            }
             if ((topOfTheStack != '(' && expressionFromParentheses[counter] == ')')
                 || (topOfTheStack != '{' && expressionFromParentheses[counter] == '}')
                 || (topOfTheStack != '[' && expressionFromParentheses[counter] == ']'))

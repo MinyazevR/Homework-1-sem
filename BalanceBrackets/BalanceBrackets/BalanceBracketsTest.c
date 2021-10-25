@@ -3,21 +3,21 @@
 
 bool balanceBracketsTest()
 {
-    char firstCorrectExpressionFromParentheses[250] = "((15 - x) - (13 + 45) * ( 1 0 - 1 6))";
-    char secondCorrectExpressionFromParentheses[250] = "(([(){()}][]{}{}{()}))";
-    char thirdCorrectExpressionFromParentheses[250] = "([[]({})]({}(())))";
-    char fourthCorrectExpressionFromParentheses[250] = "(x * x) * ( c - a)";
-    char fifthCorrectExpressionFromParentheses[250] = "[[]]{{}}(())";
-    char sixthCorrectExpressionFromParentheses[250] = "(({{{}[]}[]}[]))";
-    char seventhCorrectExpressionFromParentheses[250] = "{}()[]";
+    const char firstCorrectExpressionFromParentheses[250] = "((15 - x) - (13 + 45) * ( 1 0 - 1 6))";
+    const char secondCorrectExpressionFromParentheses[250] = "(([(){()}][]{}{}{()}))";
+    const char thirdCorrectExpressionFromParentheses[250] = "([[]({})]({}(())))";
+    const char fourthCorrectExpressionFromParentheses[250] = "(x * x) * ( c - a)";
+    const char fifthCorrectExpressionFromParentheses[250] = "[[]]{{}}(())";
+    const char sixthCorrectExpressionFromParentheses[250] = "(({{{}[]}[]}[]))";
+    const char seventhCorrectExpressionFromParentheses[250] = "{}()[]";
 
-    char firstIncorrectExpressionFromParentheses[250] = "{{";
-    char secondIncorrectExpressionFromParentheses[250] = "{())[][]}";
-    char thirdIncorrectExpressionFromParentheses[250] = "(x-a)*(c+a))";
-    char fourthIncorrectExpressionFromParentheses[250] = "(]])()()[][]{}{{}}";
-    char fifthIncorrectExpressionFromParentheses[250] = "{()[]{}{{))))))(}";
-    char sixthIncorrectExpressionFromParentheses[250] = "{{}}(((";
-    char seventhIncorrectExpressionFromParentheses[250] = "(";
+    const char firstIncorrectExpressionFromParentheses[250] = "{{";
+    const char secondIncorrectExpressionFromParentheses[250] = "{())[][]}";
+    const char thirdIncorrectExpressionFromParentheses[250] = "(x-a)*(c+a))";
+    const char fourthIncorrectExpressionFromParentheses[250] = "(]])()()[][]{}{{}}";
+    const char fifthIncorrectExpressionFromParentheses[250] = "{()[]{}{{))))))(}";
+    const char sixthIncorrectExpressionFromParentheses[250] = "{{}}(((";
+    const char seventhIncorrectExpressionFromParentheses[250] = "(";
 
     return checkCorrectOrderBrackets(firstCorrectExpressionFromParentheses)
         && checkCorrectOrderBrackets(secondCorrectExpressionFromParentheses)
