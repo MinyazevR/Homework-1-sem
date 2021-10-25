@@ -6,9 +6,10 @@ bool pushTest()
 {
     Stack* head = NULL;
     push(&head, '[');
-    char firstResult = head->value;
+    const char firstResult = head->value;
     push(&head, ')');
-    char secondResult = head->value;
+    const char secondResult = head->value;
+    deleteStack(&head);
     return firstResult == '[' && secondResult == ')';
 }
 
@@ -18,10 +19,20 @@ bool popTest()
     push(&head, 'a');
     push(&head, '^');
     push(&head, '1');
-    char firstPopResult = pop(&head);
-    char firstUpperElement = head->value;
-    char secondPopResult = pop(&head);
-    char secondUpperElement = head->value;
+    int error = 0;
+    const char firstPopResult = pop(&head, &error);
+    if (error == 1)
+    {
+        return false;
+    }
+    const char firstUpperElement = head->value;
+    const char secondPopResult = pop(&head, &error);
+    if (error == 1)
+    {
+        return false;
+    }
+    const char secondUpperElement = head->value;
+    deleteStack(&head);
     return firstPopResult == '1' && firstUpperElement == '^' && secondPopResult == '^' && secondUpperElement == 'a';
 }
 
@@ -39,10 +50,24 @@ bool topTest()
 {
     Stack* head = NULL;
     push(&head, 'a');
-    char firstTopResult = head->value;
+    int error = 0;
+    const char firstTopResult = top(&head, &error);
+    if (error == 1)
+    {
+        return false;
+    }
     push(&head, '^');
-    char secondTopResult = head->value;
+    const char secondTopResult = top(&head, &error);
+    if (error == 1)
+    {
+        return false;
+    }
     push(&head, '1');
-    char thirdTopResult = head->value;
+    const char thirdTopResult = top(&head, &error);
+    if (error == 1)
+    {
+        return false;
+    }
+    deleteStack(&head);
     return firstTopResult == 'a' && secondTopResult == '^' && thirdTopResult == '1';
 }
