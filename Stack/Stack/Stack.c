@@ -6,11 +6,18 @@ bool isEmpty(Stack* head)
     return head == NULL;
 }
 
-void push(Stack** head, char element)
+Stack* createStack()
 {
+    return NULL;
+}
+
+void push(Stack** head, int element, int* error)
+{
+    *error = 0;
     Stack* newStack = (Stack*)calloc(1, sizeof(Stack));
     if (newStack == NULL)
     {
+        *error = 2;
         return;
     }
     newStack->value = element;
@@ -18,7 +25,7 @@ void push(Stack** head, char element)
     *head = newStack;
 }
 
-char pop(Stack** head, int* error)
+int pop(Stack** head, int* error)
 {
     *error = 0;
     if (*head != NULL)

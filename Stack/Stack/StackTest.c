@@ -5,10 +5,19 @@
 bool pushTest()
 {
     Stack* head = NULL;
-    push(&head, '[');
-    const char firstResult = head->value;
-    push(&head, ')');
-    const char secondResult = head->value;
+    int error = 0;
+    push(&head, '[', &error);
+    if (error == 2)
+    {
+        return false;
+    }
+    const int firstResult = head->value;
+    push(&head, ')', &error);
+    if (error == 2)
+    {
+        return false;
+    }
+    const int secondResult = head->value;
     deleteStack(&head);
     return firstResult == '[' && secondResult == ')';
 }
@@ -16,22 +25,34 @@ bool pushTest()
 bool popTest()
 {
     Stack* head = NULL;
-    push(&head, 'a');
-    push(&head, '^');
-    push(&head, '1');
     int error = 0;
-    const char firstPopResult = pop(&head, &error);
+    push(&head, 'a', &error);
+    if (error == 2)
+    {
+        return false;
+    }
+    push(&head, '^', &error);
+    if (error == 2)
+    {
+        return false;
+    }
+    push(&head, '1', &error);
+    if (error == 2)
+    {
+        return false;
+    }
+    const int firstPopResult = pop(&head, &error);
     if (error == 1)
     {
         return false;
     }
-    const char firstUpperElement = head->value;
-    const char secondPopResult = pop(&head, &error);
+    const int firstUpperElement = head->value;
+    const int secondPopResult = pop(&head, &error);
     if (error == 1)
     {
         return false;
     }
-    const char secondUpperElement = head->value;
+    const int secondUpperElement = head->value;
     deleteStack(&head);
     return firstPopResult == '1' && firstUpperElement == '^' && secondPopResult == '^' && secondUpperElement == 'a';
 }
@@ -39,9 +60,22 @@ bool popTest()
 bool deleteStackTest()
 {
     Stack* head = NULL;
-    push(&head, 'a');
-    push(&head, 'b');
-    push(&head, 'c');
+    int error = 0;
+    push(&head, 'a', &error);
+    if (error == 2)
+    {
+        return false;
+    }
+    push(&head, 'b', &error);
+    if (error == 2)
+    {
+        return false;
+    }
+    push(&head, 'c', &error);
+    if (error == 2)
+    {
+        return false;
+    }
     deleteStack(&head);
     return head == NULL;
 }
