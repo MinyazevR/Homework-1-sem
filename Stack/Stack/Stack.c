@@ -23,7 +23,7 @@ char pop(Stack** head, int* error)
     *error = 0;
     if (*head != NULL)
     {
-        const int element = (*head)->value;
+        const char element = (*head)->value;
         Stack* temporary = *head;
         *head = (*head)->next;
         free(temporary);
