@@ -2,4 +2,4 @@
 #include <stdbool.h>
 
 // Function to check the correct position of the brackets
-bool checkCorrectOrderBrackets(const char* expressionFromParenthesesá);
+bool checkCorrectOrderBrackets(const char* expressionFromParentheses, int* errorCode);

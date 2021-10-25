@@ -1,31 +1,51 @@
 #include "BalanceBrackets.h"
 #include "../../Stack/Stack/Stack.h"
-#include <stdlib.h>
 
-bool checkCorrectOrderBrackets(const char* expressionFromParentheses)
+bool isOpeningBracket(char parentheses)
 {
-    Stack* head = NULL;
+    return parentheses == '(' || parentheses == '{' || parentheses == '[';
+}
+
+bool isClosingBracket(char paretheses)
+{
+    return paretheses == ')' || paretheses == '}' || paretheses == ']';
+}
+
+bool openingAndClosingOfTheSameType(char openingParetheses, char closingParetheses)
+{
+    return openingParetheses != '(' && closingParetheses == ')'
+        || openingParetheses != '{' && closingParetheses == '}'
+        || openingParetheses != '[' && closingParetheses == ']';
+}
+
+bool checkCorrectOrderBrackets(const char* expressionFromParentheses, int* errorCode)
+{
+    Stack* head = createStack();
     int counter = 0;
     while (expressionFromParentheses[counter] != '\0')
     {
-        if (expressionFromParentheses[counter] == '(' || expressionFromParentheses[counter] == '{'
-            || expressionFromParentheses[counter] == '[')
-        {
-            push(&head, expressionFromParentheses[counter]);
-        }
-        else if (expressionFromParentheses[counter] == ')' || expressionFromParentheses[counter] == '}'
-                 || expressionFromParentheses[counter] == ']')
+        if (isOpeningBracket(expressionFromParentheses[counter]))
         {
             int error = 0;
-            char topOfTheStack = pop(&head, &error);
-            if (error == 1)
+            push(&head, expressionFromParentheses[counter], &error);
+            if (error == 2)
             {
+                deleteStack(&head);
                 return false;
             }
-            if ((topOfTheStack != '(' && expressionFromParentheses[counter] == ')')
-                || (topOfTheStack != '{' && expressionFromParentheses[counter] == '}')
-                || (topOfTheStack != '[' && expressionFromParentheses[counter] == ']'))
+        }
+        else if (isClosingBracket(expressionFromParentheses[counter]))
+        {
+            int error = 0;
+            char topOfTheStack = (char)pop(&head, &error);
+            if (error == 1)
             {
+                deleteStack(&head);
+                return false;
+            }
+            if (openingAndClosingOfTheSameType(topOfTheStack, expressionFromParentheses[counter]))
+            {
+                deleteStack(&head);
                 return false;
             }
         }
@@ -33,6 +53,7 @@ bool checkCorrectOrderBrackets(const char* expressionFromParentheses)
     }
     if (isEmpty(head))
     {
+        deleteStack(&head);
         return true;
     }
     deleteStack(&head);
