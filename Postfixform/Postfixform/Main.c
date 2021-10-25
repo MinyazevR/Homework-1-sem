@@ -1,9 +1,7 @@
 #include "../../Stack/Stack/Stack.h"
-#include  "Postfix.h"
-#include "postfixFormTest.h"
+#include "Postfix.h"
+#include "PostfixFormTest.h"
 #include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
 
 int main()
 {
@@ -15,21 +13,21 @@ int main()
     char postfixEntry[250] = { '\0' };
     printf("enter the expression in postfix form\n");
     scanf_s("%[^\n]s", postfixEntry, (unsigned)sizeof(postfixEntry));
-    errno = 0;
-    const float answer = countTheExpression(postfixEntry);
-    if (errno == 1)
+    int errorCode = 0;
+    const float answer = countTheExpression(postfixEntry, &errorCode);
+    if (errorCode == 1)
     {
-        printf("Stack is empty");
+        printf("Incorrect input of an expression in postfix form");
         return -1;
     }
-    if (errno == 2)
+    if (errorCode == 2)
     {
         printf("invalid character in the expression entry");
         return -1;
     }
-    if (errno == 3)
+    if (errorCode == 3)
     {
-        printf("Incorrect input of an expression in postfix form");
+        printf("it is impossible to divide by 0");
         return -1;
     }
     printf("%f", answer);

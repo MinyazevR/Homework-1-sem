@@ -1,12 +1,12 @@
 #include "../../Stack/Stack/Stack.h"
 #include "Postfix.h"
 #include <stdlib.h>
-#include <errno.h>
 
-float countTheExpression(char* postfixEntry)
+float countTheExpression(char* postfixEntry, int* errorCode)
 {
     Stack* head = NULL;
     int counter = 0; 
+    int error = 0;
     while (postfixEntry[counter] != '\0')
     {
         if (postfixEntry[counter] >= '0' && postfixEntry[counter] <= '9')
@@ -20,15 +20,17 @@ float countTheExpression(char* postfixEntry)
             counter++;
             continue;
         }
-        float secondNumber = pop(&head);
-        if (errno == 1)
+        float secondNumber = pop(&head, &error);
+        if (error == 1)
         {
+            *errorCode = error;
             return 0;
         }
-        float firstNumber = pop(&head);
-        if (errno == 1)
+        float firstNumber = pop(&head, &error);
+        if (error == 1)
         {
-            return 0; 
+            *errorCode = error;
+            return 0;
         }
         if (postfixEntry[counter] == '-')
         {
@@ -44,25 +46,31 @@ float countTheExpression(char* postfixEntry)
         }
         else if (postfixEntry[counter] == '/') 
         {
+            if (secondNumber == 0)
+            {
+                *errorCode = 3;
+                return 0;
+            }
             push(&head, firstNumber / secondNumber);
         }
         else
         {
             deleteStack(&head);
-            errno = 2;
+            *errorCode = 2;
             return 0;
         }     
         counter++;
     }
-    const float answer = pop(&head);
-    if (errno == 1)
+    const float answer = pop(&head, &error);
+    if (error == 1)
     {
+        *errorCode = error;
         return 0;
     }
     if (!isEmpty(head))
     {
         deleteStack(&head);
-        errno = 3;
+        *errorCode = 1;
         return 0;
     }
     return answer;

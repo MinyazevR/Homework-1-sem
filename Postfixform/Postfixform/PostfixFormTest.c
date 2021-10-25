@@ -9,21 +9,23 @@ bool areTestPassingPostfixForm()
     char fourthCorrectPostfixEntry[250] = "9 6 - 5 2 / +";
     char fifthCorrectPostfixEntry[250] = "9 6 - 3 -";
 
-    char firstIncorrectPostfixEntry[250] = "--35 a-";
-    char secondIncorrectPostfixEntry[250] = "456 26";
+    char firstIncorrectPostfixEntry[250] = "3 5 a";
+    char secondIncorrectPostfixEntry[250] = "4 0 /";
     char thirdIncorrectPostfixEntry[250] = "34 - 345";
     char fourthIncorrectPostfixEntry[250] = "12 - 34 + 4";
     char fifthIncorrectPostfixEntry[250] = "1234 - 12";
 
-    return countTheExpression(firstCorrectPostfixEntry) == -147
-        && countTheExpression(secondCorrectPostfixEntry)  == 19
-        && countTheExpression(thirdCorrectPostfixEntry) == 9
-        && countTheExpression(fourthCorrectPostfixEntry) == 5.5
-        && countTheExpression(fifthCorrectPostfixEntry) == 0
+    int errorCode[10] = {0};
+    
+    return countTheExpression(firstCorrectPostfixEntry, &errorCode[0]) == -147 && errorCode[0] == 0
+        && countTheExpression(secondCorrectPostfixEntry, &errorCode[1])  == 19 && errorCode[1] == 0
+        && countTheExpression(thirdCorrectPostfixEntry, &errorCode[2]) == 9 && errorCode[2] == 0
+        && countTheExpression(fourthCorrectPostfixEntry, &errorCode[3]) == 5.5 && errorCode[3] == 0
+        && countTheExpression(fifthCorrectPostfixEntry, &errorCode[4]) == 0 && errorCode[4] == 0
 
-        && countTheExpression(firstIncorrectPostfixEntry) == 0 
-        && countTheExpression(secondIncorrectPostfixEntry) == 0
-        && countTheExpression(thirdIncorrectPostfixEntry) == 0
-        && countTheExpression(fourthIncorrectPostfixEntry) == 0
-        && countTheExpression(fifthIncorrectPostfixEntry) == 0;
+        && countTheExpression(firstIncorrectPostfixEntry, &errorCode[5]) == 0 && errorCode[5] == 2
+        && countTheExpression(secondIncorrectPostfixEntry, &errorCode[6]) == 0 && errorCode[6] == 3
+        && countTheExpression(thirdIncorrectPostfixEntry, &errorCode[7]) == 0 && errorCode[7] == 1
+        && countTheExpression(fourthIncorrectPostfixEntry, &errorCode[8]) == 0 && errorCode[8] == 1
+        && countTheExpression(fifthIncorrectPostfixEntry, &errorCode[9]) == 0 && errorCode[9] == 1;
 }
