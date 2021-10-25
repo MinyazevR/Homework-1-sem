@@ -30,6 +30,7 @@ bool checkCorrectOrderBrackets(const char* expressionFromParentheses, int* error
             push(&head, expressionFromParentheses[counter], &error);
             if (error == 2)
             {
+                *errorCode = 2;
                 deleteStack(&head);
                 return false;
             }
@@ -40,11 +41,13 @@ bool checkCorrectOrderBrackets(const char* expressionFromParentheses, int* error
             char topOfTheStack = (char)pop(&head, &error);
             if (error == 1)
             {
+                *errorCode = 1;
                 deleteStack(&head);
                 return false;
             }
             if (openingAndClosingOfTheSameType(topOfTheStack, expressionFromParentheses[counter]))
             {
+                *errorCode = 1;
                 deleteStack(&head);
                 return false;
             }
@@ -53,9 +56,11 @@ bool checkCorrectOrderBrackets(const char* expressionFromParentheses, int* error
     }
     if (isEmpty(head))
     {
+        *errorCode = 0;
         deleteStack(&head);
         return true;
     }
+    *errorCode = 1;
     deleteStack(&head);
     return false;
 }

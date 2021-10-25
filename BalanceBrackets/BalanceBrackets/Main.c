@@ -13,7 +13,7 @@ int main()
     printf("enter the expression that you want to check for the correct placement of brackets\n");
     scanf_s("%[^\n]s", expressionFromParentheses, (unsigned)sizeof(expressionFromParentheses));
     int errorCode = 0;
-    bool result = checkCorrectOrderBrackets(expressionFromParentheses, &errorCode);
+    checkCorrectOrderBrackets(expressionFromParentheses, &errorCode);
     if (errorCode == 1)
     {
         printf("The balance of the brackets is incorrect");
@@ -23,11 +23,6 @@ int main()
     {
         printf("Insufficient memory");
         return -1;
-    }
-    if(!result)
-    {
-        printf("The balance of the brackets is incorrect");
-        return 0;
     }
     printf("The balance of the brackets is correct");
 }

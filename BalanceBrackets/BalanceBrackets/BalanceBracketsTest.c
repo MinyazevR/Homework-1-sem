@@ -17,5 +17,20 @@ bool balanceBracketsTest()
     && !checkCorrectOrderBrackets("(]])()()[][]{}{{}}", &errors[10])
     && !checkCorrectOrderBrackets("{()[]{}{{))))))(}", &errors[11])
     && !checkCorrectOrderBrackets("{{}}(((", &errors[12])
-    && !checkCorrectOrderBrackets("(", &errors[13]);
+    && !checkCorrectOrderBrackets("(", &errors[13])
+    && errors[0] == 0
+    && errors[1] == 0
+    && errors[2] == 0
+    && errors[3] == 0
+    && errors[4] == 0
+    && errors[5] == 0
+    && errors[6] == 0
+    && errors[7] == 1
+    && errors[8] == 1
+    && errors[9] == 1
+    && errors[10] == 1
+    && errors[11] == 1
+    && errors[12] == 1
+    && errors[13] == 1;
+
 }
