@@ -19,9 +19,9 @@ void push(Stack** head, float element)
     *head = newStack;
 }
 
-float pop(Stack** head)
+float pop(Stack** head, int* error)
 {
-    errno = 0;
+    *error = 0;
     if (*head != NULL)
     {
         const float element = (*head)->value;
@@ -30,14 +30,15 @@ float pop(Stack** head)
         free(temporary);
         return element;
     }
-    errno = 1;
+    *error = 1;
     return 0;
 }
 
 void deleteStack(Stack** head)
 {
+    int error = 0;
     while (!isEmpty(*head))
     {
-        pop(head);
+        pop(head, &error);
     }
 }

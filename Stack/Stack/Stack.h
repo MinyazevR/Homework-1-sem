@@ -15,7 +15,7 @@ bool isEmpty(Stack* head);
 void push(Stack** head, float element);
 
 // Function to remove an element from the top of the stack that returns the value of that element
-float pop(Stack** head);
+float pop(Stack** head, int* error);
 
 // Function for deleting all stack elements
 void deleteStack(Stack** head);
