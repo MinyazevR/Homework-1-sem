@@ -56,7 +56,6 @@ bool checkCorrectOrderBrackets(const char* expressionFromParentheses, int* error
     }
     if (isEmpty(head))
     {
-        *errorCode = 0;
         deleteStack(&head);
         return true;
     }

@@ -32,5 +32,4 @@ bool balanceBracketsTest()
     && errors[11] == 1
     && errors[12] == 1
     && errors[13] == 1;
-
 }
