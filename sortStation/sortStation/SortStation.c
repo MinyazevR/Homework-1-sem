@@ -3,6 +3,21 @@
 #include <malloc.h>
 #include <errno.h>
 
+bool isRepeatTheOperation(char operation)
+{
+    return operation == '+' || operation == '-' || operation == '*' || operation == '/';
+}
+
+bool isPriorityForDivisionandMultiplication(char operation)
+{
+    return operation == '*' || operation == '/';
+}
+
+bool isPriorityForMinusAndPlus(char operation)
+{
+    return isPriorityForDivisionandMultiplication(operation) || operation == '-' || operation == '+';
+}
+
 char* translationIntoPostfixForm(const char* array, int* errorCode)
 {
     Stack* head = NULL;
@@ -17,46 +32,23 @@ char* translationIntoPostfixForm(const char* array, int* errorCode)
     }
     while (array[counter] != '\0')
     {
-        if (array[counter] == ' ')
-        {
-            if (array[counter - 1] == ' ')
-            {
-                deleteStack(&head);
-                *errorCode = 4;
-                return NULL;
-            }
-            if (arrayToOutput[counterForTheOutputArray - 1] == ' ')
-            {
-                counter++;
-                continue;
-            }
-            arrayToOutput[counterForTheOutputArray] = array[counter];
-            counterForTheOutputArray++;
-            counter++;
-            continue;
-        }
         if (array[counter] >= '0' && array[counter] <= '9')
         {
-            if (array[counter + 1] == '*' || array[counter + 1] == '/' || array[counter + 1] == '(' || array[counter + 1] == '+' || array[counter + 1] == '-')
-            {
-                deleteStack(&head);
-                *errorCode = 4;
-                return NULL;
-            }
             arrayToOutput[counterForTheOutputArray] = array[counter];
+            counterForTheOutputArray++;
+            arrayToOutput[counterForTheOutputArray] = ' ';
             counterForTheOutputArray++;
             counter++;
             continue;
         }
-        else if (array[counter] == '-' || array[counter] == '+' || array[counter] == '/' || array[counter] == '*')
+        else if (array[counter] == '-' || array[counter] == '+')
         {
-            if (array[counter + 1] != ' ')
+            if (isRepeatTheOperation(array[counter + 1]) || isRepeatTheOperation(array[counter + 2]))
             {
-                deleteStack(&head);
-                *errorCode = 4;
+                *errorCode = 1;
                 return NULL;
             }
-            while (!isEmpty(head) && top(&head, &error) == '*' || top(&head, &error) == '/')
+            while (!isEmpty(head) && isPriorityForMinusAndPlus((char)top(&head, &error)))
             {
                 arrayToOutput[counterForTheOutputArray] = pop(&head, &error);
                 if (error == 1)
@@ -65,39 +57,51 @@ char* translationIntoPostfixForm(const char* array, int* errorCode)
                     return NULL;
                 }
                 counterForTheOutputArray++;
+                arrayToOutput[counterForTheOutputArray] = ' ';
+                counterForTheOutputArray++;
+            }
+            push(&head, array[counter]);
+        }
+        else if (array[counter] == '/' || array[counter] == '*')
+        {
+            if (isRepeatTheOperation(array[counter + 1]) || isRepeatTheOperation(array[counter + 2]))
+            {
+                *errorCode = 1;
+                return NULL;
+            }
+
+            while (!isEmpty(head) && isPriorityForDivisionandMultiplication((char)top(&head, &error)))
+            {
+                arrayToOutput[counterForTheOutputArray] = pop(&head, &error);
+                if (error == 1)
+                {
+                    *errorCode = 1;
+                    return NULL;
+                }
+                counterForTheOutputArray++;
+                arrayToOutput[counterForTheOutputArray] = ' ';
+                counterForTheOutputArray++;
             }
             push(&head, array[counter]);
         }
         else if (array[counter] == '(')
         {
-            if (array[counter + 1] == ' ')
-            {
-                deleteStack(&head);
-                *errorCode = 4;
-                return NULL;
-            }
             push(&head, array[counter]);
         }
         else if (array[counter] == ')')
         {
-            if (array[counter - 1] == ' ')
-            {
-                deleteStack(&head);
-                *errorCode = 4;
-                return NULL;
-            }
             while (top(&head, &error) != '(')
             {
                 if(!isEmpty(head))
-                {
-                    arrayToOutput[counterForTheOutputArray] = ' ';
-                    counterForTheOutputArray++;
+                {   
                     arrayToOutput[counterForTheOutputArray] = pop(&head, &error);
                     if (error == 1)
                     {
                         *errorCode = 1;
                         return NULL;
                     }
+                    counterForTheOutputArray++;
+                    arrayToOutput[counterForTheOutputArray] = ' ';
                     counterForTheOutputArray++;
                 }
                 if (isEmpty(head))
@@ -116,6 +120,11 @@ char* translationIntoPostfixForm(const char* array, int* errorCode)
                 }
             }
         }
+        else if (array[counter] == ' ')
+        {
+            counter++;
+            continue;
+        }
         else
         {
             deleteStack(&head);
@@ -132,8 +141,6 @@ char* translationIntoPostfixForm(const char* array, int* errorCode)
             *errorCode = 3;
             return NULL;
         }
-        arrayToOutput[counterForTheOutputArray] = ' ';
-        counterForTheOutputArray++;
         arrayToOutput[counterForTheOutputArray] = pop(&head, &error);
         if (error == 1)
         {
@@ -141,7 +148,9 @@ char* translationIntoPostfixForm(const char* array, int* errorCode)
             return NULL;
         }
         counterForTheOutputArray++;
+        arrayToOutput[counterForTheOutputArray] = ' ';
+        counterForTheOutputArray++;
     }
-    arrayToOutput[counterForTheOutputArray] = '\0';
+    arrayToOutput[counterForTheOutputArray - 1] = '\0';
     return arrayToOutput;
 }
