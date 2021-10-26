@@ -14,7 +14,7 @@ int main()
     printf("enter the expression in the infix form\n");
     scanf_s("%[^\n]s", array, (unsigned)sizeof(array));
     int errorCode = 0;
-    char* arrayToOutput = translationIntoPostfixForm(array, &errorCode);
+    const char* const arrayToOutput = translationIntoPostfixForm(array, &errorCode);
     if (errorCode == 1)
     {
         printf("Incorrectly entered expression");
@@ -30,15 +30,5 @@ int main()
         printf("A parenthesis is missing or an invalid character is entered");
         return -1;
     }
-    if (errorCode == 4)
-    {
-        printf("An extra space has been put (or skipped)");
-        return -1;
-    }
-    int counter = 0;
-    while (arrayToOutput[counter] != '\0')
-    {
-        printf("%c", arrayToOutput[counter]);
-        counter++;
-    }
+    printf("%s\n", arrayToOutput);
 }

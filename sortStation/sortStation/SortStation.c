@@ -1,7 +1,7 @@
 #include "../../Stack/Stack/Stack.h"
 #include <stdio.h>
 #include <malloc.h>
-#include <errno.h>
+#include <string.h>
 
 bool isRepeatTheOperation(char operation)
 {
@@ -18,16 +18,22 @@ bool isPriorityForMinusAndPlus(char operation)
     return isPriorityForDivisionandMultiplication(operation) || operation == '-' || operation == '+';
 }
 
+void addSpace(char* symbol)
+{
+    *symbol = ' ';
+}
+
 char* translationIntoPostfixForm(const char* array, int* errorCode)
 {
-    Stack* head = NULL;
+    Stack* head = createStack();
     int counterForTheOutputArray = 0;
     int counter = 0;
-    int error = 0 ;
-    char* arrayToOutput = (char*)malloc(1000 * sizeof(char));
+    int error = 0;
+    char* arrayToOutput = (char*)calloc((2 * strlen(array) + 1), sizeof(char));
     if (arrayToOutput == NULL)
     {
         *errorCode = 2;
+        deleteStack(&head);
         return NULL;
     }
     while (array[counter] != '\0')
@@ -36,8 +42,7 @@ char* translationIntoPostfixForm(const char* array, int* errorCode)
         {
             arrayToOutput[counterForTheOutputArray] = array[counter];
             counterForTheOutputArray++;
-            arrayToOutput[counterForTheOutputArray] = ' ';
-            counterForTheOutputArray++;
+            addSpace(&arrayToOutput[counterForTheOutputArray++]);
             counter++;
             continue;
         }
@@ -46,47 +51,67 @@ char* translationIntoPostfixForm(const char* array, int* errorCode)
             if (isRepeatTheOperation(array[counter + 1]) || isRepeatTheOperation(array[counter + 2]))
             {
                 *errorCode = 1;
+                deleteStack(&head);
                 return NULL;
             }
             while (!isEmpty(head) && isPriorityForMinusAndPlus((char)top(&head, &error)))
             {
-                arrayToOutput[counterForTheOutputArray] = pop(&head, &error);
+                arrayToOutput[counterForTheOutputArray] = (char)pop(&head, &error);
                 if (error == 1)
                 {
+                    deleteStack(&head);
                     *errorCode = 1;
                     return NULL;
                 }
                 counterForTheOutputArray++;
-                arrayToOutput[counterForTheOutputArray] = ' ';
-                counterForTheOutputArray++;
+                addSpace(&arrayToOutput[counterForTheOutputArray++]);
             }
-            push(&head, array[counter]);
+            push(&head, array[counter], &error);
+            if (error == 2)
+            {
+                *errorCode = 2;
+                deleteStack(&head);
+                return NULL;
+            }
         }
         else if (array[counter] == '/' || array[counter] == '*')
         {
             if (isRepeatTheOperation(array[counter + 1]) || isRepeatTheOperation(array[counter + 2]))
             {
+                deleteStack(&head);
                 *errorCode = 1;
                 return NULL;
             }
 
             while (!isEmpty(head) && isPriorityForDivisionandMultiplication((char)top(&head, &error)))
             {
-                arrayToOutput[counterForTheOutputArray] = pop(&head, &error);
+                arrayToOutput[counterForTheOutputArray] = (char)pop(&head, &error);
                 if (error == 1)
                 {
+                    deleteStack(&head);
                     *errorCode = 1;
                     return NULL;
                 }
                 counterForTheOutputArray++;
-                arrayToOutput[counterForTheOutputArray] = ' ';
-                counterForTheOutputArray++;
+                addSpace(&arrayToOutput[counterForTheOutputArray++]);
             }
-            push(&head, array[counter]);
+            push(&head, array[counter], &error);
+            if (error == 2)
+            {
+                *errorCode = 2;
+                deleteStack(&head);
+                return NULL;
+            }
         }
         else if (array[counter] == '(')
         {
-            push(&head, array[counter]);
+            push(&head, array[counter], &error);
+            if (error == 2)
+            {
+                *errorCode = 2;
+                deleteStack(&head);
+                return NULL;
+            }
         }
         else if (array[counter] == ')')
         {
@@ -94,18 +119,19 @@ char* translationIntoPostfixForm(const char* array, int* errorCode)
             {
                 if(!isEmpty(head))
                 {   
-                    arrayToOutput[counterForTheOutputArray] = pop(&head, &error);
+                    arrayToOutput[counterForTheOutputArray] = (char)pop(&head, &error);
                     if (error == 1)
                     {
+                        deleteStack(&head);
                         *errorCode = 1;
                         return NULL;
                     }
                     counterForTheOutputArray++;
-                    arrayToOutput[counterForTheOutputArray] = ' ';
-                    counterForTheOutputArray++;
+                    addSpace(&arrayToOutput[counterForTheOutputArray++]);
                 }
                 if (isEmpty(head))
                 {
+                    deleteStack(&head);
                     *errorCode = 3;
                     return 0;
                 }
@@ -115,6 +141,7 @@ char* translationIntoPostfixForm(const char* array, int* errorCode)
                 pop(&head, &error);
                 if (error == 1)
                 {
+                    deleteStack(&head);
                     *errorCode = 1;
                     return NULL;
                 }
@@ -141,16 +168,17 @@ char* translationIntoPostfixForm(const char* array, int* errorCode)
             *errorCode = 3;
             return NULL;
         }
-        arrayToOutput[counterForTheOutputArray] = pop(&head, &error);
+        arrayToOutput[counterForTheOutputArray] = (char)pop(&head, &error);
         if (error == 1)
         {
+            deleteStack(&head);
             *errorCode = 1;
             return NULL;
         }
         counterForTheOutputArray++;
-        arrayToOutput[counterForTheOutputArray] = ' ';
-        counterForTheOutputArray++;
+        addSpace(&arrayToOutput[counterForTheOutputArray++]);
     }
     arrayToOutput[counterForTheOutputArray - 1] = '\0';
+    deleteStack(&head);
     return arrayToOutput;
 }
