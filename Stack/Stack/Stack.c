@@ -6,11 +6,18 @@ bool isEmpty(Stack* head)
     return head == NULL;
 }
 
-void push(Stack** head, char element)
+Stack* createStack()
 {
+    return NULL;
+}
+
+void push(Stack** head, int element, int* error)
+{
+    *error = 0;
     Stack* newStack = (Stack*)calloc(1, sizeof(Stack));
     if (newStack == NULL)
     {
+        *error = 2;
         return;
     }
     newStack->value = element;
@@ -18,19 +25,19 @@ void push(Stack** head, char element)
     *head = newStack;
 }
 
-char pop(Stack** head, int* error)
+int pop(Stack** head, int* error)
 {
     *error = 0;
-    if (*head != NULL)
+    if (*head == NULL)
     {
-        const char element = (*head)->value;
-        Stack* temporary = *head;
-        *head = (*head)->next;
-        free(temporary);
-        return element;
+        *error = 1;
+        return 0;
     }
-    *error = 1;
-    return 0;
+    const int element = (*head)->value;
+    Stack* temporary = *head;
+    *head = (*head)->next;
+    free(temporary);
+    return element;
 }
 
 void deleteStack(Stack** head)
@@ -42,7 +49,7 @@ void deleteStack(Stack** head)
     }
 }
 
-char top(Stack** head, int* error)
+int top(Stack** head, int* error)
 {
     *error =  0;
     if (!isEmpty(*head))
