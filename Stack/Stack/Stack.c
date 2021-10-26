@@ -28,16 +28,16 @@ void push(Stack** head, int element, int* error)
 int pop(Stack** head, int* error)
 {
     *error = 0;
-    if (*head != NULL)
+    if (*head == NULL)
     {
-        const char element = (*head)->value;
-        Stack* temporary = *head;
-        *head = (*head)->next;
-        free(temporary);
-        return element;
+        *error = 1;
+        return 0;
     }
-    *error = 1;
-    return 0;
+    const int element = (*head)->value;
+    Stack* temporary = *head;
+    *head = (*head)->next;
+    free(temporary);
+    return element;
 }
 
 void deleteStack(Stack** head)
