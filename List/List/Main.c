@@ -55,7 +55,7 @@ int main()
             }
             case 2:
             {
-                printf("Если хотите удалить первый элемент списка нажмите на 1, если любой кроме первого, то нажмите на другую клавишу\n");
+                printf("Если хотите удалить первый элемент списка нажмите на 1, если любой кроме первого, то нажмите на другую цифру\n");
                 int result = 0;
                 scanf_s("%d", &result);
                 switch (result)
@@ -65,7 +65,7 @@ int main()
                         removeFirstElement(first(newList, &error), newList, &error);
                         if (error == 3)
                         {
-                            printf("Не удалось удалить первый элемент");
+                            printf("Не удалось удалить первый элемент\n");
                             deleteList(newList);
                             return -1;
                         }
@@ -89,12 +89,12 @@ int main()
                         removeElement(findPosition(deleteNumber, newList, &error), newList, &error);
                         if (error == 6 || error == 1)
                         {
-                            printf("Элемента нет в списке");
+                            printf("Элемента нет в списке\n");
                             break;
                         }
                         else if (error == 3)
                         {
-                            printf("Ошибка с выделением памяти");
+                            printf("Ошибка с выделением памяти\n");
                             deleteList(newList);
                             return -1;
                         }

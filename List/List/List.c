@@ -32,7 +32,7 @@ void deletePosition(Position* position, int* error)
 void removeElement(Position* position, List* list, int* error)
 {
     *error = 0;
-    if (position == NULL)
+    if (position->position == NULL)
     {
         *error = 1;
         return;
