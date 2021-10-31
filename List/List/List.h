@@ -55,4 +55,4 @@ int get(List* list, Position* position, int* error);
 void print(List* list);
 
 // Function for deleting the first element
-void removeFirstElement(Position* position, List* list, int* error);
+void removeFirstElement(Position* position,List* list, int* error);
