@@ -50,5 +50,5 @@ bool testRemoveElement()
 
 bool allTest()
 {
-    return testAdd() && testRemoveElement();
+    return  testRemoveElement();
 }
