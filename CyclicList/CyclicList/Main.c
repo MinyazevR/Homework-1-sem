@@ -8,7 +8,7 @@
 int main()
 {
     setlocale(LC_ALL, "rus");
-    if (!allTest() || !testFindSurviviorPosition())
+    if (!allTest() )
     {
         printf("Тест провален");
         return -1;
