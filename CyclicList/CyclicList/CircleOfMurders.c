@@ -51,7 +51,6 @@ int findSurvivorPosition(int numberOfWarriors, int frequencyOfMurders, int* erro
         counter++;
     }
     const int answer = newList->head->value;
-    free(firstPosition);
     deleteList(newList);
     return answer;
 }

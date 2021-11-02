@@ -44,6 +44,7 @@ bool testRemoveElement()
     }
     const int firstNumber = newList->head->value;
     const int secondNumber = newList->head->next->value;
+    free(position);
     deleteList(newList);
     return firstNumber == 10 && secondNumber == 30;
 }
