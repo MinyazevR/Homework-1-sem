@@ -119,6 +119,4 @@ int main()
             }
         }
     }
-    deleteList(newList);
-    printf("ghhgrhgrgrr");
 }
