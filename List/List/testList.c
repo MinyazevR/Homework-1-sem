@@ -11,6 +11,7 @@ bool testAdd()
     add(newList, 10, &error);
     if (error == 3)
     {
+        deleteList(newList);
         return false;
     }
     const int firstNumber = newList->head->value;
@@ -29,17 +30,20 @@ bool testRemoveHead()
     add(newList, 20, &error);
     if (error == 3)
     {
+        deleteList(newList);
         return false;
     }
     Position* firstPosition = findPosition(10, newList, &error);
     Position* secondPosition = findPosition(20, newList, &error);
     if (error == 6 || error == 3)
     {
+        deleteList(newList);
         return false;
     }
     removeFirstElement(firstPosition, newList, &error);
     if (error == 3 || error == 1)
     {
+        deleteList(newList);
         return false;
     }
     const int headOfList = newList->head->value;
@@ -57,11 +61,13 @@ bool testRemoveElement()
     add(newList, 30, &error);
     if (error == 3)
     {
+        deleteList(newList);
         return false;
     }
     removeElement(findPosition(20, newList, &error), newList, &error);
     if (error == 3 || error == 1 || error == 6)
     {
+        deleteList(newList);
         return false;
     }
     const int firstNumber = newList->head->value ;
@@ -80,21 +86,25 @@ bool testFindPosition()
     add(newList, 30, &error);
     if (error == 3)
     {
+        deleteList(newList);
         return false;
     }
     Position* firstPosition = findPosition(10, newList, &error);
     if (error == 3 || error == 6)
     {
+        deleteList(newList);
         return false;
     }
     Position* secondPosition = findPosition(20, newList, &error);
     if (error == 3 || error == 6)
     {
+        deleteList(newList);
         return false;
     }
     Position* thirdPosition = findPosition(30, newList, &error);
     if (error == 3 || error == 6)
     {
+        deleteList(newList);
         return false;
     }
     ListElement* checkThirdPosition = secondPosition->position->next;
