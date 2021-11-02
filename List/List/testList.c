@@ -40,6 +40,7 @@ bool testRemoveHead()
         return false;
     }
     const int headOfList = newList->head->value;
+    deleteList(newList);
     return headOfList == 20;
 }
 
