@@ -11,6 +11,7 @@ bool testAdd()
     add(newList, 34, &error);
     if (error == 3)
     {
+        deleteList(newList);
         return false;
     }
     const int firstNumber = newList->head->value;
@@ -30,6 +31,7 @@ bool testRemoveElement()
     add(newList, 30, &error);
     if (error == 3)
     {
+        deleteList(newList);
         return false;
     }
     Position* position = first(newList, &error);
@@ -37,6 +39,7 @@ bool testRemoveElement()
     removeElement(newList, position, &error);
     if (error == 1)
     {
+        deleteList(newList);
         return false;
     }
     const int firstNumber = newList->head->value;
