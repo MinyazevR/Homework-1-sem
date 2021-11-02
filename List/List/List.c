@@ -162,9 +162,10 @@ void add(List* list, int value, int* error)
 
 void print(List* list)
 {
-    int error = 0;
-    for (Position* i = first(list, &error); !last(i); i = next(i))
+    ListElement* element = list->head;
+    while (element != NULL)
     {
-        printf("%d ", get(list, i, &error));
+        printf("%d ", element->value);
+        element = element->next;
     }
 }

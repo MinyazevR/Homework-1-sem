@@ -42,7 +42,8 @@ void removeElement(ListElement* element, List* list, int* error);
 // Function for moving to the next position
 Position* next(Position* position);
 
-// Function for finding the position of a list item
+// Function for finding the location of an item in the list 
+// Actually returns the location of the item in front of it, in order for the delete function to work correctly
 ListElement* findPosition(int value, List* list, int* error);
 
 // Function for checking an item for being at the end of the list
