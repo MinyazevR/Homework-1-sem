@@ -11,6 +11,7 @@ bool testAdd()
     add(newList, last(newList, &error), (int*)"list", (int*)"add", & error);
     if (error == 3)
     {
+        deleteList(newList);
         return false;
     }
     const int* firstStringFirstValue = newList->head->firstValue;
@@ -31,11 +32,13 @@ bool testRemoveHead()
     add(newList, last(newList, &error), (int*)"Merge", (int*)"Sort", &error);
     if (error == 3)
     {
+        deleteList(newList);
         return false;
     }
     removeFirstElement(newList, &error);
     if (error == 2)
     {
+        deleteList(newList);
         return false;
     }
     const int* headOfListFirstValue = newList->head->firstValue;
@@ -52,26 +55,31 @@ bool testNumberOfElements()
     add(newList, last(newList, &error), (int*)"Hello", (int*)"World", &error);
     if (error == 3)
     {
+        deleteList(newList);
         return false;
     }
     add(newList, last(newList, &error), (int*)"Merge", (int*)"Sort", &error);
     if (error == 3)
     {
+        deleteList(newList);
         return false;
     }
     add(newList, last(newList, &error), (int*)"test", (int*)"¹ 1", &error);
     if (error == 3)
     {
+        deleteList(newList);
         return false;
     }
     add(newList, last(newList, &error), (int*)"list", (int*)"add", &error);
     if (error == 3)
     {
+       deleteList(newList);
         return false;
     }
     const int number = numberOfElements(newList, &error);
     if (error == 3)
     {
+        deleteList(newList);
         return false;
     }
     deleteList(newList);
@@ -86,11 +94,13 @@ bool testGetHeadFirstAndSecondValue()
     add(newList, last(newList, &error), (int*)"Hello", (int*)"World", &error);
     if (error == 3)
     {
+        deleteList(newList);
         return false;
     }
     add(newList, last(newList, &error), (int*)"Merge", (int*)"Sort", &error);
     if (error == 3)
     {
+        deleteList(newList);
         return false;
     }
     const int* firstHeadValue = getHeadFirstValue(newList);

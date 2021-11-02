@@ -10,25 +10,60 @@ bool testMergeSort()
     add(newFirstList, last(newFirstList, &error), (int*)"Pavel", (int*)"890345", &error);
     if (error == 3)
     {
+        deleteList(newFirstList);
         return false;
     }
     add(newFirstList, last(newFirstList, &error), (int*)"Alex", (int*)"765494", &error);
     if (error == 3)
     {
+        deleteList(newFirstList);
         return false;
     }
     add(newFirstList, last(newFirstList, &error), (int*)"Artem", (int*)"956469", &error);
     if (error == 3)
     {
+        deleteList(newFirstList);
         return false;
     }
     add(newFirstList, last(newFirstList, &error), (int*)"Ruslan", (int*)"2342424", &error);
     if (error == 3)
     {
+        deleteList(newFirstList);
         return false;
     }
+
+    List* newSecondList = createList();
+    add(newSecondList, last(newSecondList, &error), (int*)"Pavel", (int*)"890345", &error);
+    if (error == 3)
+    {
+        deleteList(newSecondList);
+        deleteList(newFirstList);
+        return false;
+    }
+    add(newSecondList, last(newSecondList, &error), (int*)"Alex", (int*)"765494", &error);
+    if (error == 3)
+    {
+        deleteList(newSecondList);
+        deleteList(newFirstList);
+        return false;
+    }
+    add(newSecondList, last(newSecondList, &error), (int*)"Artem", (int*)"956469", &error);
+    if (error == 3)
+    {
+        deleteList(newSecondList);
+        deleteList(newFirstList);
+        return false;
+    }
+    add(newSecondList, last(newSecondList, &error), (int*)"Ruslan", (int*)"2342424", &error);
+    if (error == 3)
+    {
+        deleteList(newSecondList);
+        deleteList(newFirstList);
+        return false;
+    }
+
     List* firstList = mergeSort(newFirstList, 1, &error);
-    
+
     const char* firstStringFirstValueFirstList = (char*)firstList->head->firstValue;
     const char* firstStringSecondValueFirstList = (char*)firstList->head->secondValue;
 
@@ -41,27 +76,6 @@ bool testMergeSort()
     const char* fourthStringFirstValueFirstList = (char*)firstList->head->next->next->next->firstValue;
     const char* fourthStringSecondValueFirstList = (char*)firstList->head->next->next->next->secondValue;
 
-    List* newSecondList = createList();
-    add(newSecondList, last(newSecondList, &error), (int*)"Pavel", (int*)"890345", &error);
-    if (error == 3)
-    {
-        return false;
-    }
-    add(newSecondList, last(newSecondList, &error), (int*)"Alex", (int*)"765494", &error);
-    if (error == 3)
-    {
-        return false;
-    }
-    add(newSecondList, last(newSecondList, &error), (int*)"Artem", (int*)"956469", &error);
-    if (error == 3)
-    {
-        return false;
-    }
-    add(newSecondList, last(newSecondList, &error), (int*)"Ruslan", (int*)"2342424", &error);
-    if (error == 3)
-    {
-        return false;
-    }
     List* secondList = mergeSort(newSecondList, 0, &error);
 
     const char* firstStringFirstValueSecondList = (char*)secondList->head->firstValue;

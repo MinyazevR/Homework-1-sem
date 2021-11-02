@@ -56,18 +56,22 @@ int main()
         return -1;
     }
     List* answer = mergeSort(newList, number, &error);
+    deleteList(newList);
     if (error == 1)
     {
+        deleteList(answer);
         printf("Файл не найден");
         return -1;
     }
     if (error == 2)
     {
+        deleteList(answer);
         printf("Ошибка в работе программы");
         return -1;
     }
     if (error == 3)
     {
+        deleteList(answer);
         printf("Недостаточно памяти");
         return -1;
     }
