@@ -34,10 +34,6 @@ Position* first(List* list, int* error)
 
 Position* next(Position* position)
 {
-    if (position->position == NULL)
-    {
-        return NULL;
-    }
     position->position = position->position->next;
     return position;
 }
@@ -68,7 +64,7 @@ void add(List* list, int value, int* error)
     {
         list->head = newElement;
         list->tail = newElement;
-        list->tail->next = list->head;
+        list->tail->previous = list->head;
         list->head->next = list->tail;
         return;
     }
@@ -80,7 +76,7 @@ void add(List* list, int value, int* error)
 
 void removeElement(List* list, Position* position, int* error)
 {
-    if (list->head == NULL || list->tail == NULL || position->position == NULL)
+    if (list->head == NULL || list->tail == NULL)
     {
         *error = 1;
         return;
