@@ -53,17 +53,12 @@ void add(List* list, int value, int* error)
         *error = 3;
         return;
     }
-    Position* firstPosition = first(list, &errorCode);
-    if (errorCode == 3)
-    {
-        *error = 3;
-        return;
-    }
     newElement->value = value;
-    if (firstPosition->position == NULL)
+    if (list->head == NULL)
     {
         list->head = newElement;
         list->tail = newElement;
+        list->tail->next = list->head;
         list->tail->previous = list->head;
         list->head->next = list->tail;
         return;
@@ -71,7 +66,7 @@ void add(List* list, int value, int* error)
     newElement->previous = list->tail;
     list->tail->next = newElement;
     newElement->next = list->head;
-    list->tail = newElement;
+    list->tail = list->tail->next;
 }
 
 void removeElement(List* list, Position* position, int* error)

@@ -40,6 +40,7 @@ int findSurvivorPosition(int numberOfWarriors, int frequencyOfMurders, int* erro
             removeElement(newList, firstPosition, &errorCode);
             if (errorCode == 1)
             {
+                free(firstPosition);
                 deleteList(newList);
                 *error = 1;
                 return 0;
@@ -50,6 +51,7 @@ int findSurvivorPosition(int numberOfWarriors, int frequencyOfMurders, int* erro
         counter++;
     }
     const int answer = newList->head->value;
+    free(firstPosition);
     deleteList(newList);
     return answer;
 }
