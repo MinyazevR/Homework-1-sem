@@ -29,28 +29,30 @@ void deletePosition(Position* position, int* error)
     free(position);
 }
 
-void removeElement(Position* position, List* list, int* error)
+void removeElement(ListElement* element, List* list, int* error)
 {
     *error = 0;
-    if (position->position == NULL || position->position->next == NULL)
+    if (element == NULL || element->next == NULL)
     {
         *error = 1;
         return;
     }
-    position->position->next = position->position->next->next;
-    free(position);
+    ListElement* temporary = element->next;
+    element->next = element->next->next;
+    free(temporary);
 }
 
-void removeFirstElement(Position* position, List* list, int* error)
+void removeFirstElement(List* list, int* error)
 {
     *error = 0;
-    if (position->position == NULL)
+    if (list->head == NULL)
     {
         *error = 2;
         return;
     }
-    list->head = position->position->next;
-    free(position);
+    ListElement* temporary = list->head;
+    list->head = list->head->next;
+    free(temporary);
 }
 
 Position* first(List* list, int* error)
@@ -88,42 +90,31 @@ int get(List* list, Position* position, int* error)
     return position->position->value;
 }
 
-Position* findPosition(int value, List* list, int* error)
+ListElement* findPosition(int value, List* list, int* error)
 {
     int errorCode = 0;
     if (list->head == NULL)
     {
-        return first(list, &errorCode);
+        return list->head;
     }
-    Position* firstPosition = first(list, &errorCode);
-    if (errorCode == 3)
-    {
-        *error = 3;
-        return NULL;
-    }
-    Position* secondPosition = first(list, &errorCode);
-    if (errorCode == 3)
-    {
-        *error = 3;
-        return NULL;
-    }
+    ListElement* firstTemporary = list->head;
+    ListElement* secondTemporary = list->head;
     int i = 0;
-    while (get(list, firstPosition, &errorCode) < value && firstPosition->position->next != NULL)
+    while (firstTemporary->value < value && firstTemporary->next != NULL)
     {
         if (i >= 1)
         {
-            secondPosition->position = secondPosition->position->next;
+            secondTemporary = secondTemporary->next;
         }
-        firstPosition->position = firstPosition->position->next;
+        firstTemporary = firstTemporary->next;
         i++;
     }
-    if (get(list, firstPosition, &errorCode) < value)
+    if (firstTemporary->value < value)
     {
         *error = 6;
         return NULL;
     }
-    free(firstPosition);
-    return secondPosition;
+    return secondTemporary;
 }
 
 void add(List* list, int value, int* error)
@@ -135,14 +126,8 @@ void add(List* list, int value, int* error)
         *error = 3;
         return;
     }
-    Position* firstPosition = first(list, &errorCode);
-    if (errorCode == 3)
-    {
-        *error = 3;
-        return;
-    }
     newElement->value = value;
-    if (firstPosition->position == NULL)
+    if (list->head == NULL)
     {
         list->head = newElement;
         return;
@@ -154,29 +139,25 @@ void add(List* list, int value, int* error)
         list->head = newElement;
         return;
     }
-    Position* secondPosition = first(list, &errorCode);
-    if (errorCode == 3)
-    {
-        *error = 3;
-        return;
-    }
-    while (get(list, firstPosition, &errorCode) < value && firstPosition->position->next != NULL)
+    ListElement* firstTemporary = list->head;
+    ListElement* secondTemporary = list->head;
+    while (firstTemporary->value < value && firstTemporary->next != NULL)
     {
         if (i >= 1)
         {
-            secondPosition->position = secondPosition->position->next;
+            secondTemporary = secondTemporary->next;
         }
-        firstPosition->position = firstPosition->position->next;
+        firstTemporary = firstTemporary->next;
         i++;
     }
-    if (firstPosition->position->next == NULL && get(list, firstPosition, &errorCode) < value)
+    if (firstTemporary->next == NULL && firstTemporary->value < value)
     {
         newElement->next = NULL;
-        firstPosition->position->next = newElement;
+        firstTemporary->next = newElement;
         return;
     }
-    newElement->next = secondPosition->position->next;
-    secondPosition->position->next = newElement;
+    newElement->next = secondTemporary->next;
+    secondTemporary->next = newElement;
 }
 
 void print(List* list)

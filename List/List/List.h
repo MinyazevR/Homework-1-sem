@@ -37,13 +37,13 @@ void add(List* list, int value, int* error);
 Position* first(List* list, int* error);
 
 // Function to remove an item from the list
-void removeElement(Position* position, List* list, int* error);
+void removeElement(ListElement* element, List* list, int* error);
 
 // Function for moving to the next position
 Position* next(Position* position);
 
 // Function for finding the position of a list item
-Position* findPosition(int value, List* list, int* error);
+ListElement* findPosition(int value, List* list, int* error);
 
 // Function for checking an item for being at the end of the list
 bool last(Position* position);
@@ -55,4 +55,4 @@ int get(List* list, Position* position, int* error);
 void print(List* list);
 
 // Function for deleting the first element
-void removeFirstElement(Position* position,List* list, int* error);
+void removeFirstElement(List* list, int* error);

@@ -33,21 +33,13 @@ bool testRemoveHead()
         deleteList(newList);
         return false;
     }
-    Position* firstPosition = findPosition(10, newList, &error);
-    Position* secondPosition = findPosition(20, newList, &error);
-    if (error == 6 || error == 3)
-    {
-        deleteList(newList);
-        return false;
-    }
-    removeFirstElement(firstPosition, newList, &error);
+    removeFirstElement(newList, &error);
     if (error == 3 || error == 1)
     {
         deleteList(newList);
         return false;
     }
     const int headOfList = newList->head->value;
-    deleteList(newList);
     return headOfList == 20;
 }
 
@@ -89,28 +81,31 @@ bool testFindPosition()
         deleteList(newList);
         return false;
     }
-    Position* firstPosition = findPosition(10, newList, &error);
+    ListElement* firstElementPositionPosition = findPosition(10, newList, &error);
     if (error == 3 || error == 6)
     {
         deleteList(newList);
         return false;
     }
-    Position* secondPosition = findPosition(20, newList, &error);
+    ListElement* secondElementPositionPosition = findPosition(20, newList, &error);
     if (error == 3 || error == 6)
     {
         deleteList(newList);
         return false;
     }
-    Position* thirdPosition = findPosition(30, newList, &error);
+    ListElement* thirdElementPositionPosition = findPosition(30, newList, &error);
     if (error == 3 || error == 6)
     {
         deleteList(newList);
         return false;
     }
-    ListElement* checkThirdPosition = secondPosition->position->next;
+    ListElement* checkThirdPosition = newList->head->next;
+    ListElement* checkSecondPosition = newList->head;
+    ListElement* checkFirstPosition = newList->head;
     deleteList(newList);
-    return  secondPosition->position == firstPosition->position
-    && thirdPosition->position == checkThirdPosition;
+    return  checkThirdPosition == thirdElementPositionPosition
+    && checkSecondPosition == secondElementPositionPosition
+    && checkFirstPosition == firstElementPositionPosition;
 }
 
 bool allTest()

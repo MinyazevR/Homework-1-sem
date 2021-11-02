@@ -64,7 +64,7 @@ int main()
                 {
                     case 1:
                     {
-                        removeFirstElement(first(newList, &error), newList, &error);
+                        removeFirstElement(newList, &error);
                         if (error == 3)
                         {
                             printf("Не удалось удалить первый элемент\n");
