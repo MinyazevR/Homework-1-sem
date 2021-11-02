@@ -33,17 +33,19 @@ int main()
         {
             case 0:
             {
+                deleteList(newList);
                 return 0;
             }
             case 1:
             {
                 printf("Введите число, которое хотите добавить\n");
-                if (scanf_s("%d", &number) == 0)
+                int numberForAdd = 0;
+                if (scanf_s("%d", &numberForAdd) == 0)
                 {
                     printf("Не удалось добавить число\n");
                     break;
                 }
-                add(newList, number, &error);
+                add(newList, numberForAdd, &error);
                 if (error == 3)
                 {
                     printf("Не удалось выделить память\n");
@@ -118,4 +120,5 @@ int main()
         }
     }
     deleteList(newList);
+    printf("ghhgrhgrgrr");
 }
