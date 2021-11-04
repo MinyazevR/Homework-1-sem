@@ -85,7 +85,7 @@ int main()
                         removeElement(findPosition(deleteNumber, newList, &error), newList, &error);
                         if (error == 6 || error == 1)
                         {
-                            printf("Ёлемента нет в списке или он стоит на первом месте\n");
+                            printf("Ёлемента нет в списке\n");
                             break;
                         }
                         else if (error == 3)
