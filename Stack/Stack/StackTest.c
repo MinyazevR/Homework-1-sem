@@ -128,6 +128,7 @@ bool topTest()
     if (error == 1)
     {
         deleteStack(&head);
+
         return false;
     }
     deleteStack(&head);
