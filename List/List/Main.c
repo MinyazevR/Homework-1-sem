@@ -65,15 +65,9 @@ int main()
                     case 1:
                     {
                         removeFirstElement(newList, &error);
-                        if (error == 3)
+                        if (error == 2)
                         {
-                            printf("Не удалось удалить первый элемент\n");
-                            deleteList(newList);
-                            return -1;
-                        }
-                        else if (error == 2)
-                        {
-                            printf("Список пуст, удалять нечего");
+                            printf("Список пуст, удалять нечего\n");
                             break;
                         }
                         printf("Первый элемент удален\n");

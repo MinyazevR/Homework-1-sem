@@ -14,11 +14,27 @@ bool testAdd()
         deleteList(newList);
         return false;
     }
-    const int firstNumber = newList->head->value;
-    const int secondNumber = newList->head->next->value;
-    const int thirdNumber = newList->head->next->next->value;
+    ListElement* firstElement = first(newList);
+    const int firstNumberValue = get(newList, firstElement, &error);
+    if (error == 5)
+    {
+        deleteList(newList);
+        return false;
+    }
+    const int secondNumberValue = get(newList, next(firstElement), &error);
+    if (error == 5)
+    {
+        deleteList(newList);
+        return false;
+    }
+    const int thirdNumberValue = get(newList, next(next(firstElement)), &error);
+    if (error == 5)
+    {
+        deleteList(newList);
+        return false;
+    }
     deleteList(newList);
-    return firstNumber == 10 && secondNumber == 20 && thirdNumber == 30;
+    return firstNumberValue == 10 && secondNumberValue == 20 && thirdNumberValue == 30;
 }
 
 // Function to check the function that deletes the first item in the list
@@ -34,14 +50,21 @@ bool testRemoveHead()
         return false;
     }
     removeFirstElement(newList, &error);
-    if (error == 3 || error == 1)
+    if (error == 2)
     {
         deleteList(newList);
         return false;
     }
-    const int headOfList = newList->head->value;
+    const int lastFirstOrdinaryNumber = findOrdinalNumberOfElementByValue(newList, 10);
+    const int newFirstOrdinaryNumber = findOrdinalNumberOfElementByValue(newList, 20);
+    const int firstNumberValue = get(newList, first(newList), &error);
+    if (error == 5)
+    {
+        deleteList(newList);
+        return false;
+    }
     deleteList(newList);
-    return headOfList == 20;
+    return newFirstOrdinaryNumber == 1 && lastFirstOrdinaryNumber == 0 && firstNumberValue == 20;
 }
 
 // A function for checking a function that deletes any list item except the first one
@@ -63,10 +86,17 @@ bool testRemoveElement()
         deleteList(newList);
         return false;
     }
-    const int firstNumber = newList->head->value ;
-    const int secondNumber = newList->head->next->value;
+    const int firstOrdinaryNumber = findOrdinalNumberOfElementByValue(newList, 10);
+    const int secondOrdinaryNumber = findOrdinalNumberOfElementByValue(newList, 20);
+    const int thirdOrdinaryNumber = findOrdinalNumberOfElementByValue(newList, 30);
+
+    ListElement* firstElement = first(newList);
+    const int firstNumberValue = get(newList, firstElement, &error);
+    const int secondNumberValue = get(newList, next(firstElement), &error);
+
     deleteList(newList);
-    return firstNumber == 10 && secondNumber == 30;
+    return firstOrdinaryNumber == 1 && thirdOrdinaryNumber == 2 && secondOrdinaryNumber == 0
+        && firstNumberValue == 10 && secondNumberValue == 30;
 }
 
 // Function to check the function that finds the positions of the list items
@@ -82,31 +112,32 @@ bool testFindPosition()
         deleteList(newList);
         return false;
     }
-    ListElement* firstElementPositionPosition = findPosition(10, newList, &error);
+    ListElement* firstElementPosition = findPosition(10, newList, &error);
     if (error == 3 || error == 6)
     {
         deleteList(newList);
         return false;
     }
-    ListElement* secondElementPositionPosition = findPosition(20, newList, &error);
+    ListElement* secondElementPosition = findPosition(20, newList, &error);
     if (error == 3 || error == 6)
     {
         deleteList(newList);
         return false;
     }
-    ListElement* thirdElementPositionPosition = findPosition(30, newList, &error);
+    ListElement* thirdElementPosition = findPosition(30, newList, &error);
     if (error == 3 || error == 6)
     {
         deleteList(newList);
         return false;
     }
-    ListElement* checkThirdPosition = newList->head->next;
-    ListElement* checkSecondPosition = newList->head;
-    ListElement* checkFirstPosition = newList->head;
+    ListElement* firstPosition = first(newList);
+    ListElement* checkThirdPosition = next(firstPosition);
+    ListElement* checkSecondPosition = firstPosition;
+    ListElement* checkFirstPosition = firstPosition;
     deleteList(newList);
-    return  checkThirdPosition == thirdElementPositionPosition
-    && checkSecondPosition == secondElementPositionPosition
-    && checkFirstPosition == firstElementPositionPosition;
+    return checkThirdPosition == thirdElementPosition
+        && checkSecondPosition == secondElementPosition
+        && checkFirstPosition == firstElementPosition;
 }
 
 bool allTest()

@@ -1,6 +1,19 @@
 #include "List.h"
 #include <stdio.h>
 
+// A structure containing a pointer to the head of the list
+typedef struct List
+{
+    struct ListElement* head;
+} List;
+
+// A structure containing a pointer to the next list item and a value variable for the list items
+typedef struct ListElement
+{
+    int value;
+    struct ListElement* next;
+} ListElement;
+
 List* createList()
 {
     return calloc(1, sizeof(List));
@@ -8,25 +21,14 @@ List* createList()
 
 void deleteList(List* list)
 {
-    ListElement* position = list->head;
+    ListElement* element = list->head;
     while (list->head != NULL)
     {
         list->head = list->head->next;
-        free(position);
-        position = list->head;
+        free(element);
+        element = list->head;
     }
     free(list);
-}
-
-void deletePosition(Position* position, int* error)
-{
-    *error = 0;
-    if (position == NULL)
-    {
-        *error = 5;
-        return;
-    }
-    free(position);
 }
 
 void removeElement(ListElement* element, List* list, int* error)
@@ -55,39 +57,32 @@ void removeFirstElement(List* list, int* error)
     free(temporary);
 }
 
-Position* first(List* list, int* error)
+ListElement* first(List* list)
+{
+    ListElement* element = list->head;
+    return element;
+}
+
+ListElement* next(ListElement* element)
+{
+    element = element->next;
+    return element;
+}
+
+bool last(ListElement* element)
+{
+    return element == NULL;
+}
+
+int get(List* list, ListElement* element, int* error)
 {
     *error = 0;
-    Position* positionFirst = malloc(sizeof(Position));
-    if (positionFirst == NULL)
-    {
-        *error = 3;
-        return NULL;
-    }
-    positionFirst->position = list->head;
-    return positionFirst;
-}
-
-Position* next(Position* position)
-{
-    position->position = position->position->next;
-    return position;
-}
-
-bool last(Position* position)
-{
-    return position->position == NULL;
-}
-
-int get(List* list, Position* position, int* error)
-{
-    *error = 0;
-    if (position == NULL)
+    if (element == NULL)
     {
         *error = 5;
         return 0;
     }
-    return position->position->value;
+    return element->value;
 }
 
 ListElement* findPosition(int value, List* list, int* error)
@@ -97,24 +92,29 @@ ListElement* findPosition(int value, List* list, int* error)
     {
         return list->head;
     }
-    ListElement* firstTemporary = list->head;
-    ListElement* secondTemporary = list->head;
+    ListElement* firstElement = list->head;
+    ListElement* secondElement = list->head;
     int i = 0;
-    while (firstTemporary->value < value && firstTemporary->next != NULL)
-    {
-        if (i >= 1)
-        {
-            secondTemporary = secondTemporary->next;
-        }
-        firstTemporary = firstTemporary->next;
-        i++;
-    }
-    if (firstTemporary->value < value)
+    if (value < list->head->value)
     {
         *error = 6;
         return NULL;
     }
-    return secondTemporary;
+    while (firstElement->value < value && firstElement->next != NULL)
+    {
+        if (i >= 1)
+        {
+            secondElement = secondElement->next;
+        }
+        firstElement = firstElement->next;
+        i++;
+    }
+    if (firstElement->value < value)
+    {
+        *error = 6;
+        return NULL;
+    }
+    return secondElement;
 }
 
 void add(List* list, int value, int* error)
@@ -168,4 +168,24 @@ void print(List* list)
         printf("%d ", element->value);
         element = element->next;
     }
+}
+
+int findOrdinalNumberOfElementByValue(List* list, int value)
+{
+    ListElement* firstElement = list->head;
+    if (value < list->head->value)
+    {
+        return 0;
+    }
+    int counter = 1;
+    while (firstElement != NULL && firstElement->value != value)
+    {
+        firstElement = firstElement->next;
+        counter++;
+    }
+    if (firstElement == NULL)
+    {
+        return 0;
+    }
+    return counter;
 }
