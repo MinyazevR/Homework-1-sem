@@ -42,4 +42,6 @@ void print(List* list);
 // Function for deleting the first element
 void removeFirstElement(List* list, int* error);
 
+// function for finding the number of an element by its value 
+//(returns 0 if the element is not in the list and its ordinal number if it is there)
 int findOrdinalNumberOfElementByValue(List* list, int value);
