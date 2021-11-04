@@ -51,11 +51,11 @@ void deleteStack(Stack** head)
 
 int top(Stack** head, int* error)
 {
-    *error =  0;
-    if (!isEmpty(*head))
+    *error = 0;
+    if (isEmpty(*head))
     {
-        return (*head)->value;
+        *error = 1;
+        return 0;
     }
-    *error = 1;
-    return 0;
+    return (*head)->value;
 }
