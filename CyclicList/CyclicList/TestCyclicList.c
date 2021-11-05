@@ -45,7 +45,7 @@ bool testRemoveElement()
         deleteList(newList);
         return false;
     }
-    const int firstNumber = get(position);
+    const int firstNumber = get(next(position));
     const int secondNumber = get(next(position));
     free(position);
     deleteList(newList);
@@ -54,5 +54,5 @@ bool testRemoveElement()
 
 bool allTest()
 {
-    return testAdd() && testRemoveElement;
+    return testAdd() && testRemoveElement();
 }
