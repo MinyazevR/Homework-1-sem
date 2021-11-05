@@ -1,6 +1,27 @@
 #include "CyclicList.h"
 #include <stdio.h>
 
+// Structure containing pointers to the "first" and "last" list item
+typedef struct List
+{
+    struct ListElement* head;
+    struct ListElement* tail;
+} List;
+
+// Structure containing pointers to the next and previous list item and a value variable for list items
+typedef struct ListElement
+{
+    int value;
+    struct ListElement* next;
+    struct ListElement* previous;
+} ListElement;
+
+// Structure containing a pointer to the position of a list item
+typedef struct Position
+{
+    ListElement* position;
+} Position;
+
 List* createList()
 {
     return calloc(1, sizeof(List));
@@ -44,6 +65,12 @@ Position* previous(Position* position)
     return position;
 }
 
+void invariant(ListElement* element)
+{
+    element->next->previous = element;
+    element->previous->next = element;
+}
+
 void add(List* list, int value, int* error)
 {
     int errorCode = 0;
@@ -59,45 +86,72 @@ void add(List* list, int value, int* error)
         list->head = newElement;
         list->tail = newElement;
         list->tail->next = list->head;
-        list->tail->previous = list->head;
-        list->head->next = list->tail;
+        list->head->previous = list->tail;
         return;
     }
-    newElement->previous = list->tail;
-    list->tail->next = newElement;
     newElement->next = list->head;
+    newElement->previous = list->tail;
+    invariant(newElement);
     list->tail = list->tail->next;
 }
 
-void removeElement(List* list, Position* position, int* error)
+int returnFirstElementValue(List* list)
+{
+    return list->head->value;
+}
+
+void removeElement(List* list, Position** position, int* error)
 {
     if (list->head == NULL || list->tail == NULL)
     {
         *error = 1;
         return;
     }
-    if (position->position == list->head)
+    if ((*position)->position == list->head)
     {
         if (list->tail == list->head)
         {
             list->tail = NULL;
             list->head = NULL;
+            free(list->head);
             return;
         }
-        list->tail->next = list->head->next;
-        list->head->next->previous = list->tail;
+        ListElement* element = list->head;
         list->head = list->head->next;
+        list->head->previous = list->tail;
+        invariant(list->head);
+        (*position)->position = list->head;
+        free(element);
         return;
     }
-    if (position->position == list->tail)
+    if ((*position)->position == list->tail)
     {
-        list->tail->previous->next = list->head;
-        list->head->previous = list->tail->previous;
+        ListElement* element = list->tail;
         list->tail = list->tail->previous;
+        list->tail->next = list->head;
+        invariant(list->tail);
+        (*position)->position = list->head;
+        free(element);
         return;
     }
-    position->position->previous->next = position->position->next;
-    position->position->next->previous = position->position->previous;
-    position->position->previous = position->position;
-    position->position = position->position->next;
+    ListElement* element = (*position)->position;
+    (*position)->position = (*position)->position->next;
+    (*position)->position->previous = (*position)->position->previous->previous;
+    free(element);
+    invariant((*position)->position);
+}
+
+int get(Position* position)
+{
+    return position->position->value;
+}
+
+ListElement* returnFirstElement(List* list)
+{
+    return list->head;
+}
+
+ListElement* returnLastElement(List* list)
+{
+    return list->tail;
 }

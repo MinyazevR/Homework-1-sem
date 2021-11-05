@@ -33,11 +33,11 @@ int findSurvivorPosition(int numberOfWarriors, int frequencyOfMurders, int* erro
         return 0;
     }
     int counter = 1;
-    while (newList->head != newList->tail)
+    while (returnFirstElement(newList) != returnLastElement(newList))
     {
         if (counter % frequencyOfMurders == 0)
         {
-            removeElement(newList, firstPosition, &errorCode);
+            removeElement(newList, &firstPosition, &errorCode);
             if (errorCode == 1)
             {
                 free(firstPosition);
@@ -50,7 +50,7 @@ int findSurvivorPosition(int numberOfWarriors, int frequencyOfMurders, int* erro
         next(firstPosition);
         counter++;
     }
-    const int answer = newList->head->value;
+    const int answer = returnFirstElementValue(newList);
     deleteList(newList);
     return answer;
 }

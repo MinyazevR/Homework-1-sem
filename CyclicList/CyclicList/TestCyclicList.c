@@ -1,5 +1,6 @@
 #include "CyclicList.h"
 #include "TestCyclicList.h"
+#include <stdio.h>
 
 // Function to check the function that adds an item to the list
 bool testAdd()
@@ -14,9 +15,12 @@ bool testAdd()
         deleteList(newList);
         return false;
     }
-    const int firstNumber = newList->head->value;
-    const int secondNumber = newList->head->next->value;
-    const int thirdNumber = newList->head->next->next->value;
+    Position* position = first(newList, &error);
+    const int firstNumber = get(position);
+    const int secondNumber = get(next(position));
+    const int thirdNumber = get(next(position));
+    printf("%d\n", thirdNumber);
+    free(position);
     deleteList(newList);
     return firstNumber == 1 && secondNumber == 123 && thirdNumber == 34;
 }
@@ -36,14 +40,14 @@ bool testRemoveElement()
     }
     Position* position = first(newList, &error);
     next(position);
-    removeElement(newList, position, &error);
+    removeElement(newList, &position, &error);
     if (error == 1)
     {
         deleteList(newList);
         return false;
     }
-    const int firstNumber = newList->head->value;
-    const int secondNumber = newList->head->next->value;
+    const int firstNumber = get(newList, position);
+    const int secondNumber = get(newList, next(position));
     free(position);
     deleteList(newList);
     return firstNumber == 10 && secondNumber == 30;
@@ -51,5 +55,5 @@ bool testRemoveElement()
 
 bool allTest()
 {
-    return testRemoveElement() && testAdd();
+    return testAdd();
 }
