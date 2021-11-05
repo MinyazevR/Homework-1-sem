@@ -32,10 +32,14 @@ Position* next(Position* position);
 // Function for moving to the previous position
 Position* previous(Position* position);
 
+// Function that returns the value of the first element
 int returnFirstElementValue(List* list);
 
+// Function that returns the value of an element
 int get(Position* position);
 
+// Function that returns the first element
 ListElement* returnFirstElement(List* list);
 
+// Function that returns the last element
 ListElement* returnLastElement(List* list);
