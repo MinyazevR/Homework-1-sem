@@ -9,8 +9,9 @@ int main()
     if (!allTest())
     {
         printf("“ест провален");
-        return 0;
+        return -1;
     }
+    return 0;
     printf("0 Ц выйти\n");
     printf("1 Ц добавить значение в сортированный список\n");
     printf("2 Ц удалить значение из списка\n");
@@ -64,7 +65,7 @@ int main()
                 {
                     case 1:
                     {
-                        removeFirstElement(newList, &error);
+                        removeElement(first(newList),newList, &error);
                         if (error == 2)
                         {
                             printf("—писок пуст, удал€ть нечего\n");

@@ -14,20 +14,20 @@ bool testAdd()
         deleteList(newList);
         return false;
     }
-    ListElement* firstElement = first(newList);
-    const int firstNumberValue = get(newList, firstElement, &error);
+    Position* position = first(newList);
+    const int firstNumberValue = get(newList, position, &error);
     if (error == 5)
     {
         deleteList(newList);
         return false;
     }
-    const int secondNumberValue = get(newList, next(firstElement), &error);
+    const int secondNumberValue = get(newList, next(position), &error);
     if (error == 5)
     {
         deleteList(newList);
         return false;
     }
-    const int thirdNumberValue = get(newList, next(next(firstElement)), &error);
+    const int thirdNumberValue = get(newList, next(position), &error);
     if (error == 5)
     {
         deleteList(newList);
@@ -55,16 +55,15 @@ bool testRemoveHead()
         deleteList(newList);
         return false;
     }
-    const int lastFirstOrdinaryNumber = findOrdinalNumberOfElementByValue(newList, 10);
-    const int newFirstOrdinaryNumber = findOrdinalNumberOfElementByValue(newList, 20);
-    const int firstNumberValue = get(newList, first(newList), &error);
+    Position* position = first(newList);
+    const int firstNumberValue = get(newList, position, &error);
     if (error == 5)
     {
         deleteList(newList);
         return false;
     }
     deleteList(newList);
-    return newFirstOrdinaryNumber == 1 && lastFirstOrdinaryNumber == 0 && firstNumberValue == 20;
+    return firstNumberValue == 20;
 }
 
 // A function for checking a function that deletes any list item except the first one
@@ -86,17 +85,13 @@ bool testRemoveElement()
         deleteList(newList);
         return false;
     }
-    const int firstOrdinaryNumber = findOrdinalNumberOfElementByValue(newList, 10);
-    const int secondOrdinaryNumber = findOrdinalNumberOfElementByValue(newList, 20);
-    const int thirdOrdinaryNumber = findOrdinalNumberOfElementByValue(newList, 30);
 
-    ListElement* firstElement = first(newList);
-    const int firstNumberValue = get(newList, firstElement, &error);
-    const int secondNumberValue = get(newList, next(firstElement), &error);
+    Position* position = first(newList);
+    const int firstNumberValue = get(newList, position, &error);
+    const int secondNumberValue = get(newList, next(position), &error);
 
     deleteList(newList);
-    return firstOrdinaryNumber == 1 && thirdOrdinaryNumber == 2 && secondOrdinaryNumber == 0
-        && firstNumberValue == 10 && secondNumberValue == 30;
+    return firstNumberValue == 10 && secondNumberValue == 30;
 }
 
 // Function to check the function that finds the positions of the list items
@@ -112,28 +107,28 @@ bool testFindPosition()
         deleteList(newList);
         return false;
     }
-    ListElement* firstElementPosition = findPosition(10, newList, &error);
+    Position* firstElementPosition = findPosition(10, newList, &error);
     if (error == 3 || error == 6)
     {
         deleteList(newList);
         return false;
     }
-    ListElement* secondElementPosition = findPosition(20, newList, &error);
+    Position* secondElementPosition = findPosition(20, newList, &error);
     if (error == 3 || error == 6)
     {
         deleteList(newList);
         return false;
     }
-    ListElement* thirdElementPosition = findPosition(30, newList, &error);
+    Position* thirdElementPosition = findPosition(30, newList, &error);
     if (error == 3 || error == 6)
     {
         deleteList(newList);
         return false;
     }
-    ListElement* firstPosition = first(newList);
-    ListElement* checkThirdPosition = next(firstPosition);
-    ListElement* checkSecondPosition = firstPosition;
-    ListElement* checkFirstPosition = firstPosition;
+    Position* firstPosition = first(newList);
+    Position* checkSecondPosition = firstPosition;
+    Position* checkFirstPosition = firstPosition;
+    Position* checkThirdPosition = next(firstPosition);
     deleteList(newList);
     return checkThirdPosition == thirdElementPosition
         && checkSecondPosition == secondElementPosition
@@ -142,5 +137,5 @@ bool testFindPosition()
 
 bool allTest()
 {
-    return testAdd() && testFindPosition() && testRemoveElement() && testRemoveHead();
+    return testAdd() &&  testRemoveHead() && testRemoveElement() && testFindPosition();
 }
