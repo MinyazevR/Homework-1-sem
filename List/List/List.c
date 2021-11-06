@@ -1,5 +1,6 @@
 #include "List.h"
 #include <stdio.h>
+#include <stdbool.h>
 #include <malloc.h>
 
 // A structure containing a pointer to the head of the list
@@ -8,14 +9,15 @@ typedef struct List
     struct ListElement* head;
 } List;
 
-// A structure containing a pointer to the next list item and a value variable for the list items
+// A structure containing a pointerû to the next and previous list item and a value variable for the list items
 typedef struct ListElement
 {
     int value;
     struct ListElement* next;
+    struct ListElement* previous;
 } ListElement;
 
-// A structure containing a pointer to the next list item and a value variable for the list items
+// A structure that stores a pointer to a list item
 typedef struct Position
 {
     struct ListElement* position;
@@ -29,7 +31,7 @@ List* createList()
 void deleteList(List* list)
 {
     ListElement* element = list->head;
-    while (list->head != NULL)
+    while (element != NULL)
     {
         list->head = list->head->next;
         free(element);
@@ -38,37 +40,39 @@ void deleteList(List* list)
     free(list);
 }
 
-void removeElement(Position* position, List* list, int* error)
+void removeElement(Position* position, List* list)
 {
-    *error = 0;
-    if (position->position == NULL || position->position->next == NULL)
-    {
-        *error = 1;
-        return;
-    }
-    ListElement* temporary = position->position->next;
-    position->position->next = position->position->next->next;
-    free(temporary);
-}
-
-void removeFirstElement(List* list, int* error)
-{
-    *error = 0;
-    if (list->head == NULL)
-    {
-        *error = 2;
-        return;
-    }
-    ListElement* temporary = list->head;
-    list->head = list->head->next;
-    free(temporary);
-}
-
-Position* first(List* list)
-{
-    Position* position = malloc(sizeof(Position));
     if (position == NULL)
     {
+        return;
+    }
+    ListElement* temporary = position->position;
+    if (position->position == list->head)
+    {
+        list->head = list->head->next; 
+        free(temporary);
+        free(position);
+        return;
+    }
+    if (position->position->next == NULL)
+    {
+        position->position->previous->next = NULL;
+        free(temporary);
+        free(position);
+        return;
+    }
+    position->position->previous->next = position->position->next;
+    position->position->next->previous = position->position->previous;
+    free(temporary);
+    free(position);
+}
+
+Position* first(List* list, int* error)
+{
+    Position* position  = malloc(sizeof(Position));
+    if (position == NULL)
+    {
+        *error = 3;
         return NULL;
     }
     position->position = list->head;
@@ -78,6 +82,12 @@ Position* first(List* list)
 Position* next(Position* position)
 {
     position->position = position->position->next;
+    return position;
+}
+
+Position* previous(Position* position)
+{
+    position->position = position->position->previous;
     return position;
 }
 
@@ -91,7 +101,7 @@ int get(List* list, Position* position, int* error)
     *error = 0;
     if (position->position == NULL)
     {
-        *error = 5;
+        *error = 6;
         return 0;
     }
     return position->position->value;
@@ -102,80 +112,69 @@ Position* findPosition(int value, List* list, int* error)
     int errorCode = 0;
     if (list->head == NULL)
     {
+        *error = 6;
         return NULL;
     }
-    ListElement* firstElement = list->head;
-    ListElement* secondElement = list->head;
     if (value < list->head->value)
     {
         *error = 6;
         return NULL;
     }
-    int i = 0;
-    while (firstElement->value < value && firstElement->next != NULL)
+    Position* position = first(list, error);
+    if (*error == 3)
     {
-        if (i >= 1)
-        {
-            secondElement = secondElement->next;
-        }
-        firstElement = firstElement->next;
-        i++;
+        return NULL;
     }
-    if (firstElement->value != value)
+    while (position->position->value < value && position->position->next != NULL)
+    {
+        next(position);
+    }
+    if (position->position->value != value)
     {
         *error = 6;
         return NULL;
     }
-    Position* position = malloc(sizeof(Position));
-    if (position == NULL)
-    {
-        return NULL;
-    }
-    position->position = secondElement;
     return position;
 }
 
 void add(List* list, int value, int* error)
 {
-    int errorCode = 0;
-    ListElement* newElement = calloc(1, sizeof(ListElement));
-    if (newElement == NULL)
+    ListElement* element = malloc(sizeof(ListElement));
+    if (element == NULL)
     {
         *error = 3;
         return;
     }
-    newElement->value = value;
+    element->value = value;
     if (list->head == NULL)
     {
-        list->head = newElement;
+        list->head = element;
+        element->next = NULL;
         return;
     }
-    int i = 0;
-    if (value < list->head->value)
+    if (value <= list->head->value)
     {
-        newElement->next = list->head;
-        list->head = newElement;
+        element->next = list->head;
+        list->head->previous = element;
+        list->head = element;
         return;
     }
-    ListElement* firstTemporary = list->head;
-    ListElement* secondTemporary = list->head;
-    while (firstTemporary->value < value && firstTemporary->next != NULL)
+    ListElement* firstElement = list->head;
+    while (firstElement->value < value && firstElement->next != NULL)
     {
-        if (i >= 1)
-        {
-            secondTemporary = secondTemporary->next;
-        }
-        firstTemporary = firstTemporary->next;
-        i++;
+        firstElement = firstElement->next;
     }
-    if (firstTemporary->next == NULL && firstTemporary->value < value)
+    if (firstElement->next == NULL && firstElement->value < value)
     {
-        newElement->next = NULL;
-        firstTemporary->next = newElement;
+        element->previous = firstElement;
+        firstElement->next = element;
+        element->next = NULL;
         return;
     }
-    newElement->next = secondTemporary->next;
-    secondTemporary->next = newElement;
+    element->next = firstElement;
+    element->previous = firstElement->previous;
+    firstElement->previous = element;
+    firstElement->previous->previous->next = element;
 }
 
 void print(List* list)
@@ -186,4 +185,9 @@ void print(List* list)
         printf("%d ", element->value);
         element = element->next;
     }
+}
+
+void freePosition(Position* position)
+{
+    free(position);
 }

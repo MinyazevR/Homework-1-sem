@@ -1,10 +1,9 @@
 #pragma once
-#include <stdbool.h>
-#include <malloc.h>
 
-// Structure that represents cyclic list
+// Structure that represents list
 typedef struct List List;
 
+// Structure for implementing list
 typedef struct Position Position;
 
 // Function for creating a list
@@ -16,27 +15,26 @@ void deleteList(List* list);
 // Function for adding an item to a list
 void add(List* list, int value, int* error);
 
-// Function for the first position
-Position* first(List* list);
+// Function for finding the position of the first item in the list
+Position* first(List* list, int* error);
 
 // Function to remove an item from the list
-void removeElement(Position* position, List* list, int* error);
+void removeElement(Position* position, List* list);
 
-// Function for moving to the next position
+// Function to move to the position of the next list item
 Position* next(Position* position);
 
-// Function for finding the location of an item in the list 
-// Actually returns the location of the item in front of it, in order for the delete function to work correctly
+//The function to find the position of an item in the list
 Position* findPosition(int value, List* list, int* error);
 
-// Function for checking an item for being at the end of the list
-bool last(Position* position);
-
 // Function for finding an element by position
-int get(List* list, Position* element, int* error);
+int get(List* list, Position*  position, int* error);
 
 // Function for printing a list
 void print(List* list);
 
-// Function for deleting the first element
-void removeFirstElement(List* list, int* error);
+//Function to move to the position of the previous list item
+Position* previous(Position* position);
+
+// Function for freeing up memory
+void freePosition(Position* position);
