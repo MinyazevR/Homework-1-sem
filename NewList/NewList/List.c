@@ -2,6 +2,29 @@
 #include <stdio.h>
 #include <string.h>
 
+
+// Structure containing pointers to the beginning and end of the list
+typedef struct List
+{
+    int size;
+    struct ListElement* head;
+    struct ListElement* tail;
+} List;
+
+// A structure containing a pointer to the next list item and a value variable for the list items
+typedef struct ListElement
+{
+    char* firstValue;
+    char* secondValue;
+    struct ListElement* next;
+} ListElement;
+
+// A structure containing a pointer to the position of a list item
+typedef struct Position
+{
+    ListElement* position;
+} Position;
+
 List* createList()
 {
     return calloc(1, sizeof(List));
@@ -9,12 +32,8 @@ List* createList()
 
 void deleteList(List* list)
 {
-    if (list->head == NULL)
-    {
-        return;
-    }
     ListElement* position = list->head;
-    while (list->head != NULL)
+    while (position != NULL)
     {
         list->head = list->head->next;
         free(position);
@@ -23,26 +42,23 @@ void deleteList(List* list)
     free(list);
 }
 
-void deletePosition(Position* position, int* error)
+void deletePosition(Position* position)
 {
-    *error = 0;
-    if (position == NULL)
-    {
-        *error = 5;
-        return;
-    }
     free(position);
 }
 
 void removeFirstElement(List* list, int* error)
 {
-    *error = 0;
-    if (list-> head == NULL)
+    if (list->head == NULL)
     {
-        *error = 2;
         return;
     }
+    ListElement* position = list->head;
     list->head = list->head->next;
+    list->size--;
+    free(position->firstValue);
+    free(position->secondValue);
+    free(position);
 }
 
 Position* first(List* list, int* error)
@@ -79,27 +95,12 @@ Position* next(Position* position)
 
 bool isLast(Position* position)
 {
-    return position->position == NULL;
+    return position->position->next == NULL;
 }
 
 int numberOfElements(List* list, int* error)
 {
-    Position* position = first(list, &*error);
-    if (*error == 3)
-    {
-        return 0;
-    }
-    int counter = 1;
-    if (list->head == NULL)
-    {
-        return 0;
-    }
-    while (position->position->next != NULL)
-    {
-        position->position = position->position->next;
-        counter++;
-    }
-    return counter;
+    return list->size;
 }
 
 int* getHeadFirstValue(List* list)
@@ -112,48 +113,42 @@ int* getHeadSecondValue(List* list)
     return list->head->secondValue;
 }
 
-void add(List* list, Position* position, int* firstValue, int* secondValue, int* error)
+void add(List* list, Position* position, char* firstValue, char* secondValue, int* error)
 {
-    int* fValue = calloc(100, sizeof(int));
-    if (fValue == NULL)
+    char* firstValueCopy = calloc(strlen(firstValue), sizeof(char));
+    if (firstValueCopy == NULL)
     {
         *error = 3;
         return;
     }
-    int counter = 0;
-    while (firstValue[counter])
+    strcpy(firstValueCopy, firstValue);
+    int* secondValueCopy = calloc(strlen(secondValue), sizeof(int));
+    if (secondValueCopy == NULL)
     {
-        fValue[counter] = firstValue[counter];
-        counter++;
-    }
-    counter = 0;
-    int* sValue = calloc(100, sizeof(int));
-    if (sValue == NULL)
-    {
+        free(firstValueCopy);
         *error = 3;
         return;
     }
-    while (secondValue[counter])
-    {
-        sValue[counter] = secondValue[counter];
-        counter++;
-    }
-    int errorCode = 0;
+    strcpy(secondValueCopy, firstValue);
     ListElement* newElement = calloc(1, sizeof(ListElement));
     if (newElement == NULL)
     {
+        free(firstValueCopy);
+        free(secondValueCopy);
         *error = 3;
         return;
     }
-    newElement->firstValue = fValue;
-    newElement->secondValue = sValue;
+    newElement->firstValue = firstValueCopy;
+    newElement->secondValue = secondValueCopy;
     if (list->head == NULL)
     {
+        list->size = 1;
         list->head = newElement;
         list->tail = newElement;
         list->tail = list->head;
         return;
     }
+    list->size++;
     position->position->next = newElement;
     list->tail = list->tail->next;
 }

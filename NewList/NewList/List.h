@@ -3,25 +3,9 @@
 #include <malloc.h>
 
 // Structure containing pointers to the beginning and end of the list
-typedef struct List
-{
-    struct ListElement* head;
-    struct ListElement* tail;
-} List;
+typedef struct List List;
 
-// A structure containing a pointer to the next list item and a value variable for the list items
-typedef struct ListElement
-{
-    int* firstValue; 
-    int* secondValue;
-    struct ListElement* next;
-} ListElement;
-
-// A structure containing a pointer to the position of a list item
-typedef struct Position
-{
-    ListElement* position;
-} Position;
+typedef struct Position Position;
 
 // Function for creating a list
 List* createList();
@@ -30,10 +14,10 @@ List* createList();
 void deleteList(List* list);
 
 // Function for deleting a position
-void deletePosition(Position* position, int* error);
+void deletePosition(Position* position);
 
 // Function for adding an item to a list
-void add(List* list, Position* position, int* firstValue, int* secondValue , int* error);
+void add(List* list, Position* position, char* firstValue, char* secondValue , int* error);
 
 // Function for the first position
 Position* first(List* list, int* error);
