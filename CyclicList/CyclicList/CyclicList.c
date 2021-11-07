@@ -38,6 +38,7 @@ void deleteList(List* list)
         free(position);
         position = list->head;
     }
+    list->size = 0;
     free(position);
     free(list);
 }
@@ -75,23 +76,23 @@ void attach(ListElement* element)
 
 void add(List* list, int value, int* error)
 {
-    int errorCode = 0;
     ListElement* newElement = calloc(1, sizeof(ListElement));   
     if (newElement == NULL)
     {
         *error = 3;
         return;
     }
-    list->size++;
     newElement->value = value;
     if (list->head == NULL)
     {
+        list->size = 1;
         list->head = newElement;
         list->tail = newElement;
         list->tail->next = list->head;
         list->head->previous = list->tail;
         return;
     }
+    list->size++;
     newElement->next = list->head;
     newElement->previous = list->tail;
     attach(newElement);
@@ -119,7 +120,7 @@ void removeElement(List* list, Position* position, int* error)
             free(position);
             list->tail = NULL;
             list->head = NULL;
-            list->size--;
+            list->size = 0;
             return;
         }
         ListElement* element = list->head;
