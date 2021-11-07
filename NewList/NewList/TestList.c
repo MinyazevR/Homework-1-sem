@@ -7,8 +7,8 @@ bool testAdd()
 {
     int error = 0;
     List* newList = createList();
-    add(newList, last(newList, &error), "test", "¹ 1", &error);
-    add(newList, last(newList, &error), "list", "add", &error);
+    add(newList, "test", "¹ 1", &error);
+    add(newList, "list", "add", &error);
     if (error == 3)
     {
         deleteList(newList);
@@ -32,8 +32,8 @@ bool testRemoveHead()
 {
     int error = 0;
     List* newList = createList();
-    add(newList, last(newList, &error), "Hello", "World", &error);
-    add(newList, last(newList, &error), "Merge", "Sort", &error);
+    add(newList, "Hello", "World", &error);
+    add(newList, "Merge", "Sort", &error);
     if (error == 3)
     {
         deleteList(newList);
@@ -57,25 +57,25 @@ bool testNumberOfElements()
 {
     List* newList = createList();
     int error = 0;
-    add(newList, last(newList, &error), "Hello", "World", &error);
+    add(newList, "Hello", "World", &error);
     if (error == 3)
     {
         deleteList(newList);
         return false;
     }
-    add(newList, last(newList, &error), "Merge", "Sort", &error);
+    add(newList, "Merge", "Sort", &error);
     if (error == 3)
     {
         deleteList(newList);
         return false;
     }
-    add(newList, last(newList, &error), "test", "¹ 1", &error);
+    add(newList, "test", "¹ 1", &error);
     if (error == 3)
     {
         deleteList(newList);
         return false;
     }
-    add(newList, last(newList, &error), "list", "add", &error);
+    add(newList, "list", "add", &error);
     if (error == 3)
     {
        deleteList(newList);
@@ -91,13 +91,13 @@ bool testGetHeadFirstAndSecondValue()
 {
     List* newList = createList();
     int error = 0;
-    add(newList, last(newList, &error), "Hello", "World", &error);
+    add(newList, "Hello", "World", &error);
     if (error == 3)
     {
         deleteList(newList);
         return false;
     }
-    add(newList, last(newList, &error), "Merge", "Sort", &error);
+    add(newList, "Merge", "Sort", &error);
     if (error == 3)
     {
         deleteList(newList);

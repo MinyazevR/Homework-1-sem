@@ -4,7 +4,6 @@
 #include <malloc.h>
 #include <stdlib.h>
 
-
 // Structure containing pointers to the beginning and end of the list
 typedef struct List
 {
@@ -145,7 +144,7 @@ char* getSecondValue(Position* position)
     return position->position->secondValue;
 }
 
-void add(List* list, Position* position, char* firstValue, char* secondValue, int* error)
+void add(List* list, char* firstValue, char* secondValue, int* error)
 {
     char* firstValueCopy = calloc(100, sizeof(char));
     if (firstValueCopy == NULL)
@@ -170,16 +169,15 @@ void add(List* list, Position* position, char* firstValue, char* secondValue, in
     }
     newElement->firstValue = firstValueCopy;
     newElement->secondValue = secondValueCopy;
-    if (position->position == NULL)
+    if (list->head == NULL)
     {
         list->size = 1;
         list->head = newElement;
         list->tail = newElement;
-        position->position = newElement;
         return;
     }
     list->size++;
-    position->position->next = newElement;
+    list->tail->next = newElement;
     list->tail = list->tail->next;
 }
 
@@ -196,10 +194,31 @@ bool isOneElement(List* list)
 void print(List* list)
 {
     int error = 0;
-    for (Position* position = first(list, &error); !isLastElement(position); position = next(position))
+    ListElement* element = list->head;
+    while (element != NULL)
     {
-        printf("%s - ", position->position->firstValue);
-        printf("%s", position->position->secondValue);
-        printf("\n");
+        printf("%s ", element->firstValue);
+        printf("%s\n", element->secondValue);
+        element = element->next;
     }
+}
+
+bool compareList(List* firstList, List* secondList)
+{
+    ListElement* firstElement = firstList->head;
+    ListElement* secondElement = secondList->head;
+    if (numberOfElements(firstList) != numberOfElements(secondList))
+    {
+        return false;
+    }
+    while (firstElement != NULL)
+    {
+        if (strcmp(firstElement->firstValue, firstElement->secondValue) != 0 || strcmp(firstElement->firstValue, firstElement->secondValue) != 0)
+        {
+            return true;
+        }
+        firstElement = firstElement->next;
+        secondElement = secondElement->next;
+    }
+    return true;
 }

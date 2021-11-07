@@ -4,7 +4,7 @@
 // Structure that represents list
 typedef struct List List;
 
-// Structure that represents list
+// This is a structure describing the position of an item in the list.
 typedef struct Position Position;
 
 // Function for creating a list
@@ -17,12 +17,12 @@ void deleteList(List* list);
 void deletePosition(Position* position);
 
 // Function for adding an item to a list
-void add(List* list, Position* position, char* firstValue, char* secondValue , int* error);
+void add(List* list, char* firstValue, char* secondValue , int* error);
 
-// function to find a pointer to the first element
+// function to find a position to the first element
 Position* first(List* list, int* error);
 
-// Function for finding a pointer to the next element
+// Function for finding a position to the next element
 Position* next(Position* position);
 
 // Function for checking an item for being at the end of the list
@@ -49,7 +49,7 @@ char* getHeadFirstValue(List* list);
 // Function that returns a value for the first element
 char* getHeadSecondValue(List* list);
 
-// Function for finding a pointer to the last element
+// Function for finding a position to the last element
 Position* last(List* list, int* error);
 
 // Returns the value of any element
@@ -57,3 +57,6 @@ char* getFirstValue(Position* position);
 
 // Returns the value of any element
 char* getSecondValue(Position* position);
+
+// Function for comparing lists
+bool compareList(List* firstList, List* secondList);

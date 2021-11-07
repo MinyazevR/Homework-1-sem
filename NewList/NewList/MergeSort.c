@@ -20,7 +20,7 @@ List* merge(List* firstList, List* secondList, int number, int* error)
     {
         if (compareTheHeads(firstList, secondList, number))
         {
-            add(sortedList, last(sortedList, error), getHeadFirstValue(firstList), getHeadSecondValue(firstList), error);
+            add(sortedList, getHeadFirstValue(firstList), getHeadSecondValue(firstList), error);
             if (*error == 3)
             {
                 deleteList(firstList);
@@ -37,7 +37,7 @@ List* merge(List* firstList, List* secondList, int number, int* error)
         }
         else
         {
-            add(sortedList, last(sortedList, error), getHeadFirstValue(secondList), getHeadSecondValue(secondList), error);
+            add(sortedList, getHeadFirstValue(secondList), getHeadSecondValue(secondList), error);
             removeFirstElement(secondList, error);
             if (*error == 2)
             {
@@ -49,7 +49,7 @@ List* merge(List* firstList, List* secondList, int number, int* error)
     }
     while (!isEmpty(firstList))
     {
-        add(sortedList, last(sortedList, error), getHeadFirstValue(firstList), getHeadSecondValue(firstList), error);
+        add(sortedList, getHeadFirstValue(firstList), getHeadSecondValue(firstList), error);
         if (*error == 3)
         {
             deleteList(firstList);
@@ -66,7 +66,7 @@ List* merge(List* firstList, List* secondList, int number, int* error)
     }
     while (!isEmpty(secondList))
     {
-        add(sortedList, last(sortedList, error), getHeadFirstValue(secondList), getHeadSecondValue(secondList), error);
+        add(sortedList, getHeadFirstValue(secondList), getHeadSecondValue(secondList), error);
         if (*error == 3)
         {
             deleteList(firstList);
@@ -102,7 +102,7 @@ List* mergeSort(List* list, int number, int* error)
     List* rightHalfOfTheList = createList();
     for (int i = 1; i <= leftBorderOfList; i++)
     {
-        add(leftHalfOfTheList, last(leftHalfOfTheList, error), getHeadFirstValue(list), getHeadSecondValue(list), error);
+        add(leftHalfOfTheList, getHeadFirstValue(list), getHeadSecondValue(list), error);
         if (*error == 3)
         {
             deleteList(list);
@@ -117,7 +117,7 @@ List* mergeSort(List* list, int number, int* error)
     }
     for (int i = leftBorderOfList + 1; i <= rightBorderOfList; i++)
     {
-        add(rightHalfOfTheList, last(rightHalfOfTheList, error), getHeadFirstValue(list), getHeadSecondValue(list), error);
+        add(rightHalfOfTheList, getHeadFirstValue(list), getHeadSecondValue(list), error);
         if (*error == 3)
         {
             deleteList(list);
