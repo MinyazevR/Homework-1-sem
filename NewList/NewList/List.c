@@ -1,6 +1,8 @@
 #include "List.h"
 #include <stdio.h>
 #include <string.h>
+#include <malloc.h>
+#include <stdlib.h>
 
 
 // Structure containing pointers to the beginning and end of the list
@@ -19,7 +21,7 @@ typedef struct ListElement
     struct ListElement* next;
 } ListElement;
 
-// A structure containing a pointer to the position of a list item
+// contains a pointer to a ListElement
 typedef struct Position
 {
     ListElement* position;
@@ -32,13 +34,22 @@ List* createList()
 
 void deleteList(List* list)
 {
+    if (list->head == NULL)
+    {
+        list->size = 0;
+        free(list);
+        return;
+    }
     ListElement* position = list->head;
     while (position != NULL)
     {
         list->head = list->head->next;
+        free(position->secondValue);
+        free(position->firstValue);
         free(position);
         position = list->head;
     }
+    list->size = 0;
     free(list);
 }
 
@@ -49,15 +60,17 @@ void deletePosition(Position* position)
 
 void removeFirstElement(List* list, int* error)
 {
+    *error = 0;
     if (list->head == NULL)
     {
+        *error = 2;
         return;
     }
     ListElement* position = list->head;
     list->head = list->head->next;
     list->size--;
-    free(position->firstValue);
     free(position->secondValue);
+    free(position->firstValue);
     free(position);
 }
 
@@ -77,14 +90,14 @@ Position* first(List* list, int* error)
 Position* last(List* list, int* error)
 {
     *error = 0;
-    Position* positionFirst = malloc(sizeof(Position));
-    if (positionFirst == NULL)
+    Position* positionLast = malloc(sizeof(Position));
+    if (positionLast == NULL)
     {
         *error = 3;
         return NULL;
     }
-    positionFirst->position = list->tail;
-    return positionFirst;
+    positionLast->position = list->tail;
+    return positionLast;
 }
 
 Position* next(Position* position)
@@ -93,43 +106,69 @@ Position* next(Position* position)
     return position;
 }
 
-bool isLast(Position* position)
+bool isLastElement(Position* position)
 {
     return position->position->next == NULL;
 }
 
-int numberOfElements(List* list, int* error)
+int numberOfElements(List* list)
 {
     return list->size;
 }
 
-int* getHeadFirstValue(List* list)
+char* getHeadFirstValue(List* list)
 {
+    if (list->head == NULL)
+    {
+        return NULL;
+    }
     return list->head->firstValue;
 }
 
-int* getHeadSecondValue(List* list)
+char* getHeadSecondValue(List* list)
 {
+    if (list->head == NULL)
+    {
+        return NULL;
+    }
     return list->head->secondValue;
+}
+
+char* getFirstValue(Position* position)
+{
+    if (position->position == NULL)
+    {
+        return NULL;
+    }
+    return position->position->firstValue;
+}
+
+char* getSecondValue(Position* position)
+{
+    if (position->position == NULL)
+    {
+        return NULL;
+    }
+    return position->position->secondValue;
 }
 
 void add(List* list, Position* position, char* firstValue, char* secondValue, int* error)
 {
-    char* firstValueCopy = calloc(strlen(firstValue), sizeof(char));
+    char* firstValueCopy = calloc(100, sizeof(char));
     if (firstValueCopy == NULL)
     {
         *error = 3;
         return;
     }
     strcpy(firstValueCopy, firstValue);
-    int* secondValueCopy = calloc(strlen(secondValue), sizeof(int));
+    char* secondValueCopy = calloc(100, sizeof(char));
     if (secondValueCopy == NULL)
     {
         free(firstValueCopy);
         *error = 3;
         return;
     }
-    strcpy(secondValueCopy, firstValue);
+    strcpy(secondValueCopy, secondValue);
     ListElement* newElement = calloc(1, sizeof(ListElement));
     if (newElement == NULL)
     {
@@ -163,13 +202,13 @@ bool isOneElement(List* list)
     return list->head->next == NULL;
 }
 
-void print(List * list)
+void print(List* list)
 {
     int error = 0;
-    for (Position* position = first(list, &error); !isLast(position); position = next(position))
+    for (Position* position = first(list, &error); !isLastElement(position); position = next(position))
     {
-        printf("%s - ", (char*)(position->position->firstValue));
-        printf("%s", (char*)(position->position->secondValue));
+        printf("%s - ", position->position->firstValue);
+        printf("%s", position->position->secondValue);
         printf("\n");
     }
 }

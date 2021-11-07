@@ -1,10 +1,10 @@
 #pragma once
 #include <stdbool.h>
-#include <malloc.h>
 
-// Structure containing pointers to the beginning and end of the list
+// Structure that represents list
 typedef struct List List;
 
+// Structure that represents list
 typedef struct Position Position;
 
 // Function for creating a list
@@ -19,14 +19,15 @@ void deletePosition(Position* position);
 // Function for adding an item to a list
 void add(List* list, Position* position, char* firstValue, char* secondValue , int* error);
 
-// Function for the first position
+// function to find a pointer to the first element
+
 Position* first(List* list, int* error);
 
 // Function for moving to the next position
 Position* next(Position* position);
 
 // Function for checking an item for being at the end of the list
-bool isLast(Position* position);
+bool isLastElement(Position* position);
 
 // Function for printing a list
 void print(List* list);
@@ -35,7 +36,7 @@ void print(List* list);
 void removeFirstElement(List* list, int* error);
 
 // Function for finding the number of items in the list
-int numberOfElements(List* list, int* error);
+int numberOfElements(List* list);
 
 // Function for checking the emptiness of the list
 bool isEmpty(List* list);
@@ -44,10 +45,14 @@ bool isEmpty(List* list);
 bool isOneElement(List* list);
 
 // Function that returns a value for the first element
-int* getHeadFirstValue(List* list);
+char* getHeadFirstValue(List* list);
 
 // Function that returns a value for the first element
-int* getHeadSecondValue(List* list);
+char* getHeadSecondValue(List* list);
 
 // Function for finding the position of the last element
 Position* last(List* list, int* error);
+
+char* getFirstValue(Position* position);
+
+char* getSecondValue(Position* position);

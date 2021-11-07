@@ -7,20 +7,24 @@ bool testAdd()
 {
     int error = 0;
     List* newList = createList();
-    add(newList, last(newList, &error), (int*)"test", (int*)"¹ 1", & error);
-    add(newList, last(newList, &error), (int*)"list", (int*)"add", & error);
+    add(newList, last(newList, &error), "test", "¹ 1", &error);
+    add(newList, last(newList, &error), "list", "add", &error);
     if (error == 3)
     {
         deleteList(newList);
         return false;
     }
-    const int* firstStringFirstValue = newList->head->firstValue;
-    const int* firstStringSecondValue = newList->head->secondValue;
-    const int* secondStringFirstValue = newList->head->next->firstValue;
-    const int* secondStringSecondValue = newList->head->next->secondValue;
+    const char* firstStringFirstValue = getHeadFirstValue(newList);
+    const char* firstStringSecondValue = getHeadSecondValue(newList);
+    Position* position = first(newList, &error);
+    next(position);
+    const char* secondStringFirstValue = getFirstValue(position);
+    const char* secondStringSecondValue = getSecondValue(position);
+    bool result = strcmp(firstStringFirstValue, "test") == 0 && strcmp(firstStringSecondValue, "¹ 1") == 0
+        && strcmp(secondStringFirstValue, "list") == 0 && strcmp(secondStringSecondValue, "add") == 0;
+    deletePosition(position);
     deleteList(newList);
-    return strcmp((char*)firstStringFirstValue, "test") == 0 && strcmp((char*)firstStringSecondValue, "¹ 1") == 0
-    && strcmp((char*)secondStringFirstValue, "list") == 0 && strcmp((char*)secondStringSecondValue, "add") == 0;
+    return result;
 }
 
 // Function to check the function that deletes the first item in the list
@@ -28,8 +32,8 @@ bool testRemoveHead()
 {
     int error = 0;
     List* newList = createList();
-    add(newList, last(newList, &error), (int*)"Hello", (int*)"World", &error);
-    add(newList, last(newList, &error), (int*)"Merge", (int*)"Sort", &error);
+    add(newList, last(newList, &error), "Hello", "World", &error);
+    add(newList, last(newList, &error), "Merge", "Sort", &error);
     if (error == 3)
     {
         deleteList(newList);
@@ -41,10 +45,11 @@ bool testRemoveHead()
         deleteList(newList);
         return false;
     }
-    const int* headOfListFirstValue = newList->head->firstValue;
-    const int* headOfListSecondValue = newList->head->secondValue;
+    const char* headOfListFirstValue = getHeadFirstValue(newList);
+    const char* headOfListSecondValue = getHeadSecondValue(newList);
+    bool result = strcmp(headOfListFirstValue, "Merge") == 0 && strcmp(headOfListSecondValue, "Sort") == 0;
     deleteList(newList);
-    return strcmp((char*)headOfListFirstValue, "Merge") == 0 && strcmp((char*)headOfListSecondValue, "Sort") == 0;
+    return result;
 }
 
 // Function for checking the function counting the number of elements
@@ -52,25 +57,25 @@ bool testNumberOfElements()
 {
     List* newList = createList();
     int error = 0;
-    add(newList, last(newList, &error), (int*)"Hello", (int*)"World", &error);
+    add(newList, last(newList, &error), "Hello", "World", &error);
     if (error == 3)
     {
         deleteList(newList);
         return false;
     }
-    add(newList, last(newList, &error), (int*)"Merge", (int*)"Sort", &error);
+    add(newList, last(newList, &error), "Merge", "Sort", &error);
     if (error == 3)
     {
         deleteList(newList);
         return false;
     }
-    add(newList, last(newList, &error), (int*)"test", (int*)"¹ 1", &error);
+    add(newList, last(newList, &error), "test", "¹ 1", &error);
     if (error == 3)
     {
         deleteList(newList);
         return false;
     }
-    add(newList, last(newList, &error), (int*)"list", (int*)"add", &error);
+    add(newList, last(newList, &error), "list", "add", &error);
     if (error == 3)
     {
        deleteList(newList);
@@ -91,25 +96,26 @@ bool testGetHeadFirstAndSecondValue()
 {
     List* newList = createList();
     int error = 0;
-    add(newList, last(newList, &error), (int*)"Hello", (int*)"World", &error);
+    add(newList, last(newList, &error), "Hello", "World", &error);
     if (error == 3)
     {
         deleteList(newList);
         return false;
     }
-    add(newList, last(newList, &error), (int*)"Merge", (int*)"Sort", &error);
+    add(newList, last(newList, &error), "Merge", "Sort", &error);
     if (error == 3)
     {
         deleteList(newList);
         return false;
     }
-    const int* firstHeadValue = getHeadFirstValue(newList);
-    const int* secondHeadValue = getHeadSecondValue(newList);
+    const char* firstHeadValue = getHeadFirstValue(newList);
+    const char* secondHeadValue = getHeadSecondValue(newList);
+    bool result = strcmp(firstHeadValue, "Hello") == 0 && strcmp(secondHeadValue, "World") == 0;
     deleteList(newList);
-    return strcmp((char*)firstHeadValue, "Hello") == 0 && strcmp((char*)secondHeadValue, "World") == 0;
+    return result;
 }
 
 bool allTest()
 {
-    return testAdd() && testNumberOfElements() && testRemoveHead() && testGetHeadFirstAndSecondValue();
+    return testAdd() && testGetHeadFirstAndSecondValue() && testNumberOfElements() && testRemoveHead();
 }

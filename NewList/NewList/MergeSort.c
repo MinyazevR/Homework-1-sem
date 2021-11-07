@@ -5,11 +5,11 @@ bool compareTheHeads(List* firstList, List* secondlist, int number)
 {
     if (number == 1)
     {
-        return strcmp((char*)getHeadFirstValue(firstList), (char*)getHeadFirstValue(secondlist)) <= 0;
+        return strcmp(getHeadFirstValue(firstList), getHeadFirstValue(secondlist)) <= 0;
     }
     else
     {
-        return strcmp((char*)getHeadSecondValue(firstList), (char*)getHeadSecondValue(secondlist)) <= 0;
+        return strcmp(getHeadSecondValue(firstList), getHeadSecondValue(secondlist)) <= 0;
     }
 }
 
@@ -20,12 +20,12 @@ List* merge(List* firstList, List* secondList, int number, int* error)
     {
         if (compareTheHeads(firstList, secondList, number))
         {
-            add(sortedList, last(sortedList, &*error), getHeadFirstValue(firstList), getHeadSecondValue(firstList), &*error);
+            add(sortedList, last(sortedList, error), getHeadFirstValue(firstList), getHeadSecondValue(firstList), error);
             if (*error == 3)
             {
                 return NULL;
             }
-            removeFirstElement(firstList, &*error);
+            removeFirstElement(firstList, error);
             if (*error == 2)
             {
                 return NULL;
@@ -33,8 +33,8 @@ List* merge(List* firstList, List* secondList, int number, int* error)
         }
         else
         {
-            add(sortedList, last(sortedList, &*error), getHeadFirstValue(secondList), getHeadSecondValue(secondList), &*error);
-            removeFirstElement(secondList, &*error);
+            add(sortedList, last(sortedList, error), getHeadFirstValue(secondList), getHeadSecondValue(secondList), error);
+            removeFirstElement(secondList, error);
             if (*error == 2)
             {
                 return NULL;
@@ -43,12 +43,12 @@ List* merge(List* firstList, List* secondList, int number, int* error)
     }
     while (!isEmpty(firstList))
     {
-        add(sortedList, last(sortedList, &*error), getHeadFirstValue(firstList), getHeadSecondValue(firstList), &*error);
+        add(sortedList, last(sortedList, error), getHeadFirstValue(firstList), getHeadSecondValue(firstList), error);
         if (*error == 3)
         {
             return NULL;
         }
-        removeFirstElement(firstList, &*error);
+        removeFirstElement(firstList, error);
         if (*error == 2)
         {
             return NULL;
@@ -56,12 +56,12 @@ List* merge(List* firstList, List* secondList, int number, int* error)
     }
     while (!isEmpty(secondList))
     {
-        add(sortedList, last(sortedList, &*error), getHeadFirstValue(secondList), getHeadSecondValue(secondList), &*error);
+        add(sortedList, last(sortedList, error), getHeadFirstValue(secondList), getHeadSecondValue(secondList), error);
         if (*error == 3)
         {
             return NULL;
         }
-        removeFirstElement(secondList, &*error);
+        removeFirstElement(secondList, error);
         if (*error == 2)
         {
             return NULL;
@@ -82,26 +82,18 @@ List* mergeSort(List* list, int number, int* error)
     {
         return list;
     }
-    const int leftBorderOfList = numberOfElements(list, &*error) / 2;
-    if (*error == 3)
-    {
-        return NULL;
-    }
-    const int rightBorderOfList = numberOfElements(list, &*error);
-    if (*error == 3)
-    {
-        return NULL;
-    }
+    const int leftBorderOfList = numberOfElements(list) / 2;
+    const int rightBorderOfList = numberOfElements(list);
     List* leftHalfOfTheList = createList();
     List* rightHalfOfTheList = createList();
     for (int i = 1; i <= leftBorderOfList; i++)
     {
-        add(leftHalfOfTheList, last(leftHalfOfTheList, &*error), getHeadFirstValue(list), getHeadSecondValue(list), &*error);
+        add(leftHalfOfTheList, last(leftHalfOfTheList, error), getHeadFirstValue(list), getHeadSecondValue(list), error);
         if (*error == 3)
         {
             return NULL;
         }
-        removeFirstElement(list, &*error);
+        removeFirstElement(list, error);
         if (*error == 2)
         {
             return NULL;
@@ -109,21 +101,21 @@ List* mergeSort(List* list, int number, int* error)
     }
     for (int i = leftBorderOfList + 1; i <= rightBorderOfList; i++)
     {
-        add(rightHalfOfTheList, last(rightHalfOfTheList, &*error), getHeadFirstValue(list), getHeadSecondValue(list), &*error);
+        add(rightHalfOfTheList, last(rightHalfOfTheList, error), getHeadFirstValue(list), getHeadSecondValue(list), error);
         if (*error == 3)
         {
             return NULL;
         }
-        removeFirstElement(list, &*error);
+        removeFirstElement(list, error);
         if (*error == 2)
         {
             return NULL;
         }
     }
     deleteList(list);
-    List* firstList = mergeSort(leftHalfOfTheList, number, &*error);
-    List* secondList = mergeSort(rightHalfOfTheList, number, &*error);
-    List* answer = merge(firstList, secondList, number, &*error);
+    List* firstList = mergeSort(leftHalfOfTheList, number, error);
+    List* secondList = mergeSort(rightHalfOfTheList, number, error);
+    List* answer = merge(firstList, secondList, number, error);
     deleteList(firstList);
     deleteList(secondList);
     return answer;

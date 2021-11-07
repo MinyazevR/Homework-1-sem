@@ -3,7 +3,6 @@
 #include "TestList.h"
 #include "TestMergeSort.h"
 #include <stdio.h>
-#include <string.h>
 #include <locale.h>
 
 void readPhonebook(List* list, const char* fileName, int* error)
@@ -26,9 +25,10 @@ void readPhonebook(List* list, const char* fileName, int* error)
                 break;
             }
         }
-        add(list, last(list, &*error), (int*)arrayForName, (int*)arrayForNumber, &*error);
+        add(list, last(list, error), arrayForName, arrayForNumber, error);
         if (*error == 3)
         {
+            fclose(file);
             return;
         }
     }
