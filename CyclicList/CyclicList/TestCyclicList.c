@@ -1,6 +1,6 @@
 #include "CyclicList.h"
 #include "TestCyclicList.h"
-#include <stdio.h>
+#include <stdlib.h>
 
 // Function to check the function that adds an item to the list
 bool testAdd()
@@ -39,7 +39,7 @@ bool testRemoveElement()
     }
     Position* position = first(newList, &error);
     position = next(position);
-    removeElement(newList, &position, &error);
+    removeElement(newList, position, &error);
     if (error == 1)
     {
         deleteList(newList);

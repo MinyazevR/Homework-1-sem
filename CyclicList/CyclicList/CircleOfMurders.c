@@ -1,5 +1,6 @@
 #include "CircleOfMurders.h"
 #include "CyclicList.h"
+#include <stdlib.h>
 
 int findSurvivorPosition(int numberOfWarriors, int frequencyOfMurders, int* error)
 {
@@ -33,11 +34,11 @@ int findSurvivorPosition(int numberOfWarriors, int frequencyOfMurders, int* erro
         return 0;
     }
     int counter = 1;
-    while (returnFirstElement(newList) != returnLastElement(newList))
+    while (numberOfElements(newList) != 1)
     {
         if (counter % frequencyOfMurders == 0)
         {
-            removeElement(newList, &firstPosition, &errorCode);
+            removeElement(newList, firstPosition, &errorCode);
             if (errorCode == 1)
             {
                 free(firstPosition);
@@ -45,12 +46,15 @@ int findSurvivorPosition(int numberOfWarriors, int frequencyOfMurders, int* erro
                 *error = 1;
                 return 0;
             }
-            previous(firstPosition);
         }
-        next(firstPosition);
+        else
+        {
+            next(firstPosition);
+        }
         counter++;
     }
     const int answer = returnFirstElementValue(newList);
+    free(firstPosition);
     deleteList(newList);
     return answer;
 }
