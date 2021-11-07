@@ -15,16 +15,16 @@ void deleteList(List* list);
 // Function for adding an item to a list
 void add(List* list, int value, int* error);
 
-// Function for finding the position of the first element
+// Function for finding a pointer to the first element
 Position* first(List* list, int* error);
 
 // Function to remove an item from the list
 void removeElement(List* list, Position* position, int* error);
 
-// Function for moving to the position of the next element
+// Function for finding a pointer to the next element
 Position* next(Position* position);
 
-// function for moving to the position of the previous element
+// Function for finding a pointer to the previous element
 Position* previous(Position* position);
 
 // Function that returns the value of the first element
