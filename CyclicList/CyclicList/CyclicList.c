@@ -18,7 +18,7 @@ typedef struct ListElement
     struct ListElement* previous;
 } ListElement;
 
-// Structure containing a pointer to the position of a list item
+// A structure that stores a pointer to a list item
 typedef struct Position
 {
     ListElement* position;
