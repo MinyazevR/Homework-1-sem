@@ -36,3 +36,6 @@ int get(Position* position);
 // Function for finding the number of items in the list
 int numberOfElements(List* list);
 
+// Function for freeing up memory
+void freePosition(Position* position);
+

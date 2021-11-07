@@ -15,22 +15,19 @@ int findSurvivorPosition(int numberOfWarriors, int frequencyOfMurders, int* erro
         return 0;
     }
     List* newList = createList();
-    int errorCode = 0;
     for (int i = 1; i <= numberOfWarriors; i++)
     {
-        add(newList, i, &errorCode);
-        if (errorCode == 3)
+        add(newList, i, error);
+        if (*error == 3)
         {
             deleteList(newList);
-            *error = 3;
             return 0;
         }
     }
-    Position* firstPosition = first(newList, &errorCode);
-    if (errorCode == 3)
+    Position* firstPosition = first(newList, error);
+    if (*error == 3)
     {
         deleteList(newList);
-        *error = 3;
         return 0;
     }
     int counter = 1;
@@ -38,12 +35,11 @@ int findSurvivorPosition(int numberOfWarriors, int frequencyOfMurders, int* erro
     {
         if (counter % frequencyOfMurders == 0)
         {
-            removeElement(newList, firstPosition, &errorCode);
-            if (errorCode == 1)
+            removeElement(newList, firstPosition, error);
+            if (*error == 1)
             {
-                free(firstPosition);
+                freePosition(firstPosition);
                 deleteList(newList);
-                *error = 1;
                 return 0;
             }
         }
@@ -54,7 +50,7 @@ int findSurvivorPosition(int numberOfWarriors, int frequencyOfMurders, int* erro
         counter++;
     }
     const int answer = returnFirstElementValue(newList);
-    free(firstPosition);
+    freePosition(firstPosition);
     deleteList(newList);
     return answer;
 }

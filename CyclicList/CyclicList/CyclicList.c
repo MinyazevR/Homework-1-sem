@@ -159,3 +159,8 @@ int numberOfElements(List* list)
 {
     return list->size;
 }
+
+void freePosition(Position* position)
+{
+    free(position);
+}
