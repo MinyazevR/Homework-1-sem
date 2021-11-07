@@ -1,6 +1,5 @@
 #include "TestList.h"
 #include "List.h"
-#include <stdio.h>
 
 // Function to check the function that adds an item to the list
 bool testAdd()
