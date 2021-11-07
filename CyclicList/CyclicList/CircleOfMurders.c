@@ -1,6 +1,5 @@
 #include "CircleOfMurders.h"
 #include "CyclicList.h"
-#include <stdlib.h>
 
 int findSurvivorPosition(int numberOfWarriors, int frequencyOfMurders, int* error)
 {

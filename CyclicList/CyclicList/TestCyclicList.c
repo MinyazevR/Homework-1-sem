@@ -1,6 +1,5 @@
 #include "CyclicList.h"
 #include "TestCyclicList.h"
-#include <stdlib.h>
 
 // Function to check the function that adds an item to the list
 bool testAdd()
