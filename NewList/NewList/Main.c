@@ -25,12 +25,14 @@ void readPhonebook(List* list, const char* fileName, int* error)
                 break;
             }
         }
-        add(list, last(list, error), arrayForName, arrayForNumber, error);
+        Position* position = last(list, error);
+        add(list, position, arrayForName, arrayForNumber, error);
         if (*error == 3)
         {
             fclose(file);
             return;
         }
+        free(position);
     }
     fclose(file);
 }

@@ -13,7 +13,7 @@ typedef struct List
     struct ListElement* tail;
 } List;
 
-// A structure containing a pointer to the next list item and a value variable for the list items
+// Structure containing a pointer to the next list item and a value variable for the list items
 typedef struct ListElement
 {
     char* firstValue;
@@ -21,7 +21,7 @@ typedef struct ListElement
     struct ListElement* next;
 } ListElement;
 
-// contains a pointer to a ListElement
+// Structure containing a pointer to a ListElement
 typedef struct Position
 {
     ListElement* position;
@@ -34,12 +34,6 @@ List* createList()
 
 void deleteList(List* list)
 {
-    if (list->head == NULL)
-    {
-        list->size = 0;
-        free(list);
-        return;
-    }
     ListElement* position = list->head;
     while (position != NULL)
     {
@@ -89,7 +83,6 @@ Position* first(List* list, int* error)
 
 Position* last(List* list, int* error)
 {
-    *error = 0;
     Position* positionLast = malloc(sizeof(Position));
     if (positionLast == NULL)
     {
@@ -172,19 +165,17 @@ void add(List* list, Position* position, char* firstValue, char* secondValue, in
     ListElement* newElement = calloc(1, sizeof(ListElement));
     if (newElement == NULL)
     {
-        free(firstValueCopy);
-        free(secondValueCopy);
         *error = 3;
         return;
     }
     newElement->firstValue = firstValueCopy;
     newElement->secondValue = secondValueCopy;
-    if (list->head == NULL)
+    if (position->position == NULL)
     {
         list->size = 1;
         list->head = newElement;
         list->tail = newElement;
-        list->tail = list->head;
+        position->position = newElement;
         return;
     }
     list->size++;

@@ -13,17 +13,16 @@ List* createList();
 // Function for deleting a list
 void deleteList(List* list);
 
-// Function for deleting a position
+// Function for freeing up memory
 void deletePosition(Position* position);
 
 // Function for adding an item to a list
 void add(List* list, Position* position, char* firstValue, char* secondValue , int* error);
 
 // function to find a pointer to the first element
-
 Position* first(List* list, int* error);
 
-// Function for moving to the next position
+// Function for finding a pointer to the next element
 Position* next(Position* position);
 
 // Function for checking an item for being at the end of the list
@@ -50,9 +49,11 @@ char* getHeadFirstValue(List* list);
 // Function that returns a value for the first element
 char* getHeadSecondValue(List* list);
 
-// Function for finding the position of the last element
+// Function for finding a pointer to the last element
 Position* last(List* list, int* error);
 
+// Returns the value of any element
 char* getFirstValue(Position* position);
 
+// Returns the value of any element
 char* getSecondValue(Position* position);

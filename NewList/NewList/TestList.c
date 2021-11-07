@@ -81,12 +81,7 @@ bool testNumberOfElements()
        deleteList(newList);
         return false;
     }
-    const int number = numberOfElements(newList, &error);
-    if (error == 3)
-    {
-        deleteList(newList);
-        return false;
-    }
+    const int number = numberOfElements(newList);
     deleteList(newList);
     return number == 4;
 }

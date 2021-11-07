@@ -31,7 +31,6 @@ bool testMergeSort()
         deleteList(newFirstList);
         return false;
     }
-
     List* newSecondList = createList();
     add(newSecondList, last(newSecondList, &error), "Pavel", "890345", &error);
     if (error == 3)

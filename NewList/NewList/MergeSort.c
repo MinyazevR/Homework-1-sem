@@ -23,11 +23,15 @@ List* merge(List* firstList, List* secondList, int number, int* error)
             add(sortedList, last(sortedList, error), getHeadFirstValue(firstList), getHeadSecondValue(firstList), error);
             if (*error == 3)
             {
+                deleteList(firstList);
+                deleteList(secondList);
                 return NULL;
             }
             removeFirstElement(firstList, error);
             if (*error == 2)
             {
+                deleteList(firstList);
+                deleteList(secondList);
                 return NULL;
             }
         }
@@ -37,6 +41,8 @@ List* merge(List* firstList, List* secondList, int number, int* error)
             removeFirstElement(secondList, error);
             if (*error == 2)
             {
+                deleteList(firstList);
+                deleteList(secondList);
                 return NULL;
             }
         }
@@ -46,11 +52,15 @@ List* merge(List* firstList, List* secondList, int number, int* error)
         add(sortedList, last(sortedList, error), getHeadFirstValue(firstList), getHeadSecondValue(firstList), error);
         if (*error == 3)
         {
+            deleteList(firstList);
+            deleteList(secondList);
             return NULL;
         }
         removeFirstElement(firstList, error);
         if (*error == 2)
         {
+            deleteList(firstList);
+            deleteList(secondList);
             return NULL;
         }
     }
@@ -59,11 +69,15 @@ List* merge(List* firstList, List* secondList, int number, int* error)
         add(sortedList, last(sortedList, error), getHeadFirstValue(secondList), getHeadSecondValue(secondList), error);
         if (*error == 3)
         {
+            deleteList(firstList);
+            deleteList(secondList);
             return NULL;
         }
         removeFirstElement(secondList, error);
         if (*error == 2)
         {
+            deleteList(firstList);
+            deleteList(secondList);
             return NULL;
         }
     }
@@ -91,11 +105,13 @@ List* mergeSort(List* list, int number, int* error)
         add(leftHalfOfTheList, last(leftHalfOfTheList, error), getHeadFirstValue(list), getHeadSecondValue(list), error);
         if (*error == 3)
         {
+            deleteList(list);
             return NULL;
         }
         removeFirstElement(list, error);
         if (*error == 2)
         {
+            deleteList(list);
             return NULL;
         }
     }
@@ -104,11 +120,13 @@ List* mergeSort(List* list, int number, int* error)
         add(rightHalfOfTheList, last(rightHalfOfTheList, error), getHeadFirstValue(list), getHeadSecondValue(list), error);
         if (*error == 3)
         {
+            deleteList(list);
             return NULL;
         }
         removeFirstElement(list, error);
         if (*error == 2)
         {
+            deleteList(list);
             return NULL;
         }
     }
