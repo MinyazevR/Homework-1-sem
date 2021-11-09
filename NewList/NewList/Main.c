@@ -4,6 +4,7 @@
 #include "TestMergeSort.h"
 #include <stdio.h>
 #include <locale.h>
+#include <string.h>
 
 void readPhonebook(List* list, const char* fileName, int* error)
 {
@@ -37,7 +38,6 @@ void readPhonebook(List* list, const char* fileName, int* error)
 
 int main()
 {
-    setlocale(LC_ALL, "rus");
     if (!allTest() || !testMergeSort())
     {
         printf("Тест провален");
@@ -56,7 +56,6 @@ int main()
         return -1;
     }
     List* answer = mergeSort(newList, number, &error);
-    deleteList(newList);
     if (error == 1)
     {
         deleteList(answer);

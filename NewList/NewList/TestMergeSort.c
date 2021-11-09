@@ -36,31 +36,32 @@ bool testMergeSort()
     if (error == 3)
     {
         deleteList(newFirstList);
+        deleteList(newSecondList);
         return false;
     }
     add(newSecondList, "Artem", "956469", &error);
     if (error == 3)
     {
         deleteList(newFirstList);
+        deleteList(newSecondList);
         return false;
     }
     add(newSecondList, "Pavel", "890345", &error);
     if (error == 3)
     {
         deleteList(newFirstList);
+        deleteList(newSecondList);
         return false;
     }
     add(newSecondList, "Ruslan", "2342424", &error);
     if (error == 3)
     {
         deleteList(newFirstList);
+        deleteList(newSecondList);
         return false;
     }
     List* firstList = mergeSort(newFirstList, 1, &error);
-    print(firstList);
-    print(newSecondList);
     bool result = compareList(firstList, newSecondList);
-    deleteList(newFirstList);
     deleteList(newSecondList);
     deleteList(firstList);
     return result;

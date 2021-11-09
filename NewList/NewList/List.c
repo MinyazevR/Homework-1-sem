@@ -42,7 +42,6 @@ void deleteList(List* list)
         free(position);
         position = list->head;
     }
-    list->size = 0;
     free(list);
 }
 
@@ -59,12 +58,23 @@ void removeFirstElement(List* list, int* error)
         *error = 2;
         return;
     }
-    ListElement* position = list->head;
+    if (list->head == list->tail)
+    {
+        list->size = 0;
+        free(list->head->secondValue);
+        free(list->head->firstValue);
+        free(list->head);
+        list->head = NULL;
+        list->tail = NULL;
+        return;
+    }
+    ListElement* element = list->head;
     list->head = list->head->next;
     list->size--;
-    free(position->secondValue);
-    free(position->firstValue);
-    free(position);
+    free(element->secondValue);
+    free(element->firstValue);
+    free(element);
+
 }
 
 Position* first(List* list, int* error)
