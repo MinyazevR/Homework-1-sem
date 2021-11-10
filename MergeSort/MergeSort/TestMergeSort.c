@@ -1,6 +1,5 @@
 #include "TestMergeSort.h"
 #include "MergeSort.h"
-#include "../../NewList/NewList/List.h"
 
 bool testMergeSort()
 {

@@ -32,6 +32,7 @@ void readPhonebook(List* list, const char* fileName, int* error)
     }
     fclose(file);
 }
+
 int main()
 {
     setlocale(LC_ALL, "rus");

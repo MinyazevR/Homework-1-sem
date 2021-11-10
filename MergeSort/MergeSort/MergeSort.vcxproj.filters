@@ -24,6 +24,9 @@
     <ClCompile Include="TestMergeSort.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\NewList\NewList\List.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MergeSort.h">
