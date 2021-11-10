@@ -225,7 +225,7 @@ bool compareList(List* firstList, List* secondList)
     {
         if (strcmp(firstElement->firstValue, firstElement->secondValue) != 0 || strcmp(firstElement->firstValue, firstElement->secondValue) != 0)
         {
-            return true;
+            return false;
         }
         firstElement = firstElement->next;
         secondElement = secondElement->next;
