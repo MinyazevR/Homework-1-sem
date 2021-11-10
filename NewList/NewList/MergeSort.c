@@ -1,5 +1,6 @@
 #include "MergeSort.h"
 #include <string.h>
+#include "stdlib.h"
 
 bool compareTheHeads(List* firstList, List* secondlist, int number)
 {
@@ -87,6 +88,8 @@ List* merge(List* firstList, List* secondList, int number, int* error)
             return NULL;
         }
     }
+    free(firstList);
+    free(secondList);
     return sortedList;
 }
 
