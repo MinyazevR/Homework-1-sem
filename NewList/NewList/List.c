@@ -223,7 +223,7 @@ bool compareList(List* firstList, List* secondList)
     }
     while (firstElement != NULL)
     {
-        if (strcmp(firstElement->firstValue, firstElement->secondValue) != 0 || strcmp(firstElement->firstValue, firstElement->secondValue) != 0)
+        if (strcmp(firstElement->firstValue, secondElement->firstValue) != 0 || strcmp(firstElement->secondValue, secondElement->secondValue) != 0)
         {
             return false;
         }
