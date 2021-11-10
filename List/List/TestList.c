@@ -175,24 +175,50 @@ bool testFindPosition()
         deleteList(newList);
         return false;
     }
-    int firstElementValue = get(newList, findPosition(10, newList, &error), &error);
+    Position* firstElementPosition = findPosition(10, newList, &error);
+    if (error == 3 ||error == 6)
+    {
+        deleteList(newList);
+        return false;
+    }
+    int firstElementValue = get(newList, firstElementPosition, &error);
+    if (error == 6)
+    {
+        freePosition(firstElementPosition);
+        deleteList(newList);
+        return false;
+    }
+    freePosition(firstElementPosition);
+
+    Position* secondElementPosition = findPosition(20, newList, &error);
     if (error == 3 || error == 6)
     {
         deleteList(newList);
         return false;
     }
-    int secondElementValue = get(newList, findPosition(20, newList, &error), &error);
+    int secondElementValue = get(newList, secondElementPosition, &error);
+    if (error == 6)
+    {
+        freePosition(secondElementPosition);
+        deleteList(newList);
+        return false;
+    }
+    freePosition(secondElementPosition);
+
+    Position* thirdElementPosition = findPosition(30, newList, &error);
     if (error == 3 || error == 6)
     {
         deleteList(newList);
         return false;
     }
-    int thirdElementValue = get(newList, findPosition(30, newList, &error), &error);
-    if (error == 3 || error == 6)
+    int thirdElementValue = get(newList, thirdElementPosition, &error);
+    if (error == 6)
     {
+        freePosition(thirdElementPosition);
         deleteList(newList);
         return false;
     }
+    freePosition(thirdElementPosition);
     deleteList(newList);
     return firstElementValue == 10
         && secondElementValue == 20

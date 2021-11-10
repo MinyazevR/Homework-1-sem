@@ -18,10 +18,10 @@
     <ClCompile Include="List.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Main.c">
+    <ClCompile Include="TestList.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="TestList.c">
+    <ClCompile Include="Main.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

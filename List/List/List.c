@@ -47,24 +47,23 @@ void removeElement(Position* position, List* list)
     {
         return;
     }
-    ListElement* temporary = position->position;
     if (position->position == list->head)
     {
         list->head = list->head->next; 
-        free(temporary);
+        free(position->position);
         free(position);
         return;
     }
     if (position->position->next == NULL)
     {
         position->position->previous->next = NULL;
-        free(temporary);
+        free(position->position);
         free(position);
         return;
     }
     position->position->previous->next = position->position->next;
     position->position->next->previous = position->position->previous;
-    free(temporary);
+    free(position->position);
     free(position);
 }
 
@@ -108,9 +107,9 @@ int get(List* list, Position* position, int* error)
     return position->position->value;
 }
 
-Position* findPosition(int value, List* list, int* error)
+Position* find(int value, List* list, int* error)
 {
-    int errorCode = 0;
+    *error = 0;
     if (list->head == NULL)
     {
         *error = 6;
@@ -118,7 +117,7 @@ Position* findPosition(int value, List* list, int* error)
     }
     if (value < list->head->value)
     {
-        *error = 6;
+        *error = 5;
         return NULL;
     }
     Position* position = first(list, error);
@@ -126,16 +125,36 @@ Position* findPosition(int value, List* list, int* error)
     {
         return NULL;
     }
-    while (position->position->value < value && position->position->next != NULL)
+    while (position->position->value <= value && position->position->next != NULL)
     {
+        if (position->position->value == value)
+        {
+            *error = 8;
+        }
         next(position);
     }
-    if (position->position->value != value)
+    if (position->position->value == value)
     {
-        *error = 6;
-        return NULL;
+        *error = 8;
     }
+    if (position->position == list->head || position->position->next == NULL && position->position->value <= value)
+    {
+        return position;
+    }
+    previous(position);
     return position;
+}
+
+Position* findPosition(int value, List* list, int* error)
+{
+    *error = 0;
+    Position* position = find(value, list, error);
+    if (*error == 8)
+    {
+        return position;
+    }
+    *error = 6;
+    return NULL;
 }
 
 void add(List* list, int value, int* error)
@@ -147,35 +166,35 @@ void add(List* list, int value, int* error)
         return;
     }
     element->value = value;
-    if (list->head == NULL)
+    Position* position = find(value, list, error);
+    if (*error == 6)
     {
         list->head = element;
         element->next = NULL;
+        free(position);
         return;
     }
-    if (value <= list->head->value)
+    if (*error == 5)
     {
         element->next = list->head;
         list->head->previous = element;
         list->head = element;
+        free(position);
         return;
     }
-    ListElement* firstElement = list->head;
-    while (firstElement->value < value && firstElement->next != NULL)
+    if (position->position->value <= value && position->position->next == NULL)
     {
-        firstElement = firstElement->next;
-    }
-    if (firstElement->next == NULL && firstElement->value < value)
-    {
-        element->previous = firstElement;
-        firstElement->next = element;
+        position->position->next = element;
+        element->previous = position->position;
         element->next = NULL;
+        free(position);
         return;
     }
-    element->next = firstElement;
-    element->previous = firstElement->previous;
-    firstElement->previous = element;
-    firstElement->previous->previous->next = element;
+    element->next = position->position->next;
+    element->previous = position->position;
+    element->next->previous = element;
+    position->position->next = element;
+    free(position);
 }
 
 void print(List* list)

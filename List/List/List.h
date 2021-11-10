@@ -3,7 +3,7 @@
 // Structure that represents list
 typedef struct List List;
 
-// Structure for implementing list
+// Structure describing the position of an item in the list
 typedef struct Position Position;
 
 // Function for creating a list
