@@ -141,15 +141,11 @@
   <ItemGroup>
     <ClCompile Include="List.c" />
     <ClCompile Include="Main.c" />
-    <ClCompile Include="MergeSort.c" />
     <ClCompile Include="TestList.c" />
-    <ClCompile Include="TestMergeSort.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="List.h" />
-    <ClInclude Include="MergeSort.h" />
     <ClInclude Include="TestList.h" />
-    <ClInclude Include="TestMergeSort.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
