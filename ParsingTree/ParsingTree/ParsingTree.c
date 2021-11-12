@@ -234,7 +234,7 @@ void printTree(Node* root)
     }
     printTree(root->leftSon);
     printTree(root->rightSon);
-    printf("%c", (root->value));
+    printf("%c ", (root->value));
 }
 
 Node* rightSon(Node* root)
