@@ -24,7 +24,14 @@ bool testFindAnswer()
     const int thirdAnswer = returnAnswer(thirdTree);
     deleteTree(&thirdTree);
 
-    return firstAnswer == 21 && secondAnswer == 17 && thirdAnswer == 4 ;
+    Node* fourthTree = createTree();
+    fourthTree = buildTree("+-556");
+    fourthTree = returnHead(fourthTree);
+    findAnswer(fourthTree);
+    const int fourthAnswer = returnAnswer(fourthTree);
+    deleteTree(&fourthTree);
+
+    return firstAnswer == 21 && secondAnswer == 17 && thirdAnswer == 4 && fourthAnswer == 6 ;
 }
 
 bool testBuildTree()

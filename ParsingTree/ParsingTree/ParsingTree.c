@@ -10,6 +10,7 @@ typedef struct Node
     struct Node* parent;
     char value;
     int number;
+    char help;
 } Node;
 
 Node* createTree()
@@ -78,15 +79,7 @@ Node* buildTree(char* array)
         {
             newRoot->value = array[counter];
             tree = newRoot;
-            if (array[counter] <= '9' && array[counter] >= '0')
-            {
-                newRoot->number = array[counter] - '0';
-                if (array[counter + 1] != '\0')
-                {
-
-                }
-                continue;
-            }
+            newRoot->help = '!';
             newRoot->number = 0;
             counter++;
             continue;
@@ -97,6 +90,7 @@ Node* buildTree(char* array)
             {
                 tree->leftSon = newRoot;
                 newRoot->parent = tree;
+                newRoot->help = '!';
                 newRoot->value = array[counter];
                 newRoot->number = 0;
                 tree = newRoot;
@@ -107,6 +101,7 @@ Node* buildTree(char* array)
             {
                 tree->rightSon = newRoot;
                 newRoot->parent = tree;
+                newRoot->help = '!';
                 newRoot->value = array[counter];
                 newRoot->number = 0;
                 tree = newRoot;
@@ -120,6 +115,7 @@ Node* buildTree(char* array)
                 {
                     tree->leftSon = newRoot;
                     newRoot->parent = tree;
+                    newRoot->help = '!';
                     newRoot->value = array[counter];
                     newRoot->number = 0;
                     counter++;
@@ -130,6 +126,7 @@ Node* buildTree(char* array)
                 {
                     tree->rightSon = newRoot;
                     newRoot->parent = tree;
+                    newRoot->help = '!';
                     newRoot->value = array[counter];
                     newRoot->number = 0;
                     counter++;
@@ -146,6 +143,7 @@ Node* buildTree(char* array)
                 tree->leftSon = newRoot;
                 newRoot->parent = tree;
                 newRoot->value = array[counter];
+                newRoot->help = '$';
                 newRoot->number = array[counter] - '0';
                 counter++;
                 continue;
@@ -155,6 +153,7 @@ Node* buildTree(char* array)
                 tree->rightSon = newRoot;
                 newRoot->parent = tree;
                 newRoot->value = array[counter];
+                newRoot->help = '$';
                 newRoot->number = array[counter] - '0';
                 counter++;
                 continue;
@@ -167,6 +166,7 @@ Node* buildTree(char* array)
                     tree->leftSon = newRoot;
                     newRoot->parent = tree;
                     newRoot->value = array[counter];
+                    newRoot->help = '$';
                     newRoot->number = array[counter] - '0';
                     counter++;
                     break;
@@ -176,6 +176,7 @@ Node* buildTree(char* array)
                     tree->rightSon = newRoot;
                     newRoot->parent = tree;
                     newRoot->value = array[counter];
+                    newRoot->help = '$';
                     newRoot->number = array[counter] - '0';
                     counter++;
                     break;
@@ -186,18 +187,33 @@ Node* buildTree(char* array)
     return tree;
 }
 
+void restoreField(Node* root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    restoreField(root->leftSon);
+    restoreField(root->rightSon);
+    if (compare(root->value))
+    {
+        root->help = '!';
+    }
+    else
+    {
+        root->help = '$';
+    }
+}
+
 void findAnswer(Node* root)
 {
     if (root == NULL)
     {
         return;
     }
-    if (root->parent == NULL && root->number != 0)
+    if (root->leftSon != NULL && root->rightSon != NULL && root->rightSon->help == '$' && root->leftSon->help == '$' && root->help != '$')
     {
-        return;
-    }
-    if (root->leftSon != NULL && root->rightSon != NULL && root->leftSon->number != 0 && root->rightSon->number != 0 && compare(root->value))
-    {
+        root->help = '$';
         if (root->value == '+')
         {
             root->number = root->leftSon->number + root->rightSon->number;
@@ -214,13 +230,21 @@ void findAnswer(Node* root)
         {
             root->number = root->leftSon->number / root->rightSon->number;
         }
-        findAnswer(root->parent);
+        if (root->parent != NULL)
+        {
+            findAnswer(root->parent);
+        }
+        else
+        {
+            restoreField(root);
+            return;
+        }
     }
-    if (root->leftSon != NULL && root->leftSon->number == 0)
+    else if (root->leftSon != NULL && compare(root->leftSon->value) && root->leftSon->help != '$')
     {
         findAnswer(root->leftSon);
     }
-    if (root->rightSon != NULL && root->rightSon->number == 0)
+    else if (root->rightSon != NULL && compare(root->rightSon->value) && root->rightSon->help != '$')
     {
         findAnswer(root->rightSon);
     }
