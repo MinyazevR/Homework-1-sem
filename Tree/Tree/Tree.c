@@ -307,6 +307,7 @@ Node* deleteNode(Node* root, int key)
         }
         Node* k = root->parent;
         i->key = root->key;
+        i->value = root->value;
         root->parent->rightSon = NULL;
         root->parent = NULL;
         free(root->value);
