@@ -164,20 +164,20 @@ char* getSecondValue(Position* position)
     return position->position->secondValue;
 }
 
-void add(List* list, char* firstValue, char* secondValue, Error* error)
+void add(List* list, const char* firstValue, const char* secondValue, Error* error)
 {
     if (*error != NOT_ERROR)
     {
         return;
     }
-    char* firstValueCopy = calloc(100, sizeof(char));
+    char* firstValueCopy = calloc(strlen(firstValue) + 1, sizeof(char));
     if (firstValueCopy == NULL)
     {
         *error = INSUFFICIENT_MEMORY;
         return;
     }
     strcpy(firstValueCopy, firstValue);
-    char* secondValueCopy = calloc(100, sizeof(char));
+    char* secondValueCopy = calloc(strlen(secondValue) + 1, sizeof(char));
     if (secondValueCopy == NULL)
     {
         free(firstValueCopy);
@@ -188,6 +188,8 @@ void add(List* list, char* firstValue, char* secondValue, Error* error)
     ListElement* newElement = calloc(1, sizeof(ListElement));
     if (newElement == NULL)
     {
+        free(firstValueCopy);
+        free(secondValueCopy);
         *error = INSUFFICIENT_MEMORY;
         return;
     }

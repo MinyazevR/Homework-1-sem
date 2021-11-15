@@ -25,7 +25,7 @@ void deleteList(List* list);
 void deletePosition(Position* position);
 
 // Function for adding an item to a list
-void add(List* list, char* firstValue, char* secondValue , Error* error);
+void add(List* list, const char* firstValue, const char* secondValue , Error* error);
 
 // function to find a position to the first element
 Position* first(List* list, Error* error);
