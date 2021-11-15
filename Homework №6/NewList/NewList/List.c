@@ -248,3 +248,16 @@ bool compareList(List* firstList, List* secondList)
     }
     return true;
 }
+
+const char* decodingError(Error error)
+{
+    if (error == EMPTY_LIST)
+    {
+        return "Error in the program";
+    }
+    if (error == INSUFFICIENT_MEMORY)
+    {
+        return "Memory not allocated";
+    }
+    return NULL;
+}

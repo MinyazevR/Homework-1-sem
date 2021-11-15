@@ -68,3 +68,6 @@ char* getSecondValue(Position* position);
 
 // Function for comparing lists
 bool compareList(List* firstList, List* secondList);
+
+// Function for error decoding
+const char* decodingError(Error error);
