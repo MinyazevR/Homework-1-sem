@@ -26,6 +26,9 @@ void add(List* list, int value, Error* error);
 // Function for finding a pointer to the first element
 Position* first(List* list, Error* error);
 
+// Function for finding a pointer to the last element
+Position* last(List* list, Error* error);
+
 // Function to remove an item from the list
 void removeElement(Position* position, List* list);
 

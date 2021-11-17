@@ -85,6 +85,26 @@ Position* first(List* list, Error* error)
     return position;
 }
 
+Position* last(List* list, Error* error)
+{
+    if (*error != NOT_ERROR)
+    {
+        return NULL;
+    }
+    Position* position = malloc(sizeof(Position));
+    if (position == NULL)
+    {
+        *error = INSUFFICIENT_MEMORY;
+        return NULL;
+    }
+    position->position = list->head;
+    while (position->position->next != NULL)
+    {
+        position = next(position);
+    }
+    return position;
+}
+
 Position* next(Position* position)
 {
     position->position = position->position->next;
@@ -97,7 +117,7 @@ Position* previous(Position* position)
     return position;
 }
 
-bool last(Position* position)
+bool isLast(Position* position)
 {
     return position->position->next == NULL;
 }
