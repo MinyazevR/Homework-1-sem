@@ -8,6 +8,7 @@
 typedef struct List
 {
     struct ListElement* head;
+    int size;
 } List;
 
 // A structure containing a pointerû to the next and previous list item and a value variable for the list items
@@ -47,6 +48,7 @@ void removeElement(Position* position, List* list)
     {
         return;
     }
+    list->size--;
     if (position->position == list->head)
     {
         list->head = list->head->next; 
@@ -190,9 +192,11 @@ void add(List* list, int value, Error* error)
         list->head = element;
         element->next = NULL;
         *error = NOT_ERROR;
+        list->size = 1;
         free(position);
         return;
     }
+    list->size++;
     if (*error == ELEMENT_IS_MISSING)
     {
         element->next = list->head;
