@@ -67,12 +67,16 @@ void removeElement(Position* position, List* list)
     free(position);
 }
 
-Position* first(List* list, int* error)
+Position* first(List* list, Error* error)
 {
+    if (*error != NOT_ERROR)
+    {
+        return NULL;
+    }
     Position* position  = malloc(sizeof(Position));
     if (position == NULL)
     {
-        *error = 3;
+        *error = INSUFFICIENT_MEMORY;
         return NULL;
     }
     position->position = list->head;
@@ -96,32 +100,38 @@ bool last(Position* position)
     return position->position->next == NULL;
 }
 
-int get(List* list, Position* position, int* error)
+int get(List* list, Position* position, Error* error)
 {
-    *error = 0;
+    if (*error != NOT_ERROR)
+    {
+        return 0;
+    }
     if (position->position == NULL)
     {
-        *error = 6;
+        *error = ELEMENT_IS_MISSING;
         return 0;
     }
     return position->position->value;
 }
 
-Position* find(int value, List* list, int* error)
+Position* find(int value, List* list, Error* error)
 {
-    *error = 0;
+    if (*error != NOT_ERROR)
+    {
+        return NULL;
+    }
     if (list->head == NULL)
     {
-        *error = 6;
+        *error = EMPTY_LIST;
         return NULL;
     }
     if (value < list->head->value)
     {
-        *error = 5;
+        *error = ELEMENT_IS_MISSING;
         return NULL;
     }
     Position* position = first(list, error);
-    if (*error == 3)
+    if (*error == INSUFFICIENT_MEMORY)
     {
         return NULL;
     }
@@ -129,13 +139,13 @@ Position* find(int value, List* list, int* error)
     {
         if (position->position->value == value)
         {
-            *error = 8;
+            *error = POSITION_FOUND;
         }
         next(position);
     }
     if (position->position->value == value)
     {
-        *error = 8;
+        *error = POSITION_FOUND;
     }
     if (position->position == list->head || position->position->next == NULL && position->position->value <= value)
     {
@@ -145,40 +155,50 @@ Position* find(int value, List* list, int* error)
     return position;
 }
 
-Position* findPosition(int value, List* list, int* error)
+Position* findPosition(int value, List* list, Error* error)
 {
-    *error = 0;
-    Position* position = find(value, list, error);
-    if (*error == 8)
+    if (*error != NOT_ERROR)
     {
+        return NULL;
+    }
+    Position* position = find(value, list, error);
+    if (*error == POSITION_FOUND)
+    {
+        *error = NOT_ERROR;
         return position;
     }
-    *error = 6;
+    *error = ELEMENT_IS_MISSING;
     return NULL;
 }
 
-void add(List* list, int value, int* error)
+void add(List* list, int value, Error* error)
 {
+    if (*error != NOT_ERROR)
+    {
+        return;
+    }
     ListElement* element = malloc(sizeof(ListElement));
     if (element == NULL)
     {
-        *error = 3;
+        *error = INSUFFICIENT_MEMORY;
         return;
     }
     element->value = value;
     Position* position = find(value, list, error);
-    if (*error == 6)
+    if (*error == EMPTY_LIST)
     {
         list->head = element;
         element->next = NULL;
+        *error = NOT_ERROR;
         free(position);
         return;
     }
-    if (*error == 5)
+    if (*error == ELEMENT_IS_MISSING)
     {
         element->next = list->head;
         list->head->previous = element;
         list->head = element;
+        *error = NOT_ERROR;
         free(position);
         return;
     }
