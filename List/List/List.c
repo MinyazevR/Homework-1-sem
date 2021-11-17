@@ -231,6 +231,11 @@ void print(List* list)
     }
 }
 
+int returnSize(List* list)
+{
+    return list->size;
+}
+
 void freePosition(Position* position)
 {
     free(position);

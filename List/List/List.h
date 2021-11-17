@@ -46,3 +46,6 @@ Position* previous(Position* position);
 
 // Function for freeing up memory
 void freePosition(Position* position);
+
+// Function to return the size of the list
+int returnSize(List* list);
