@@ -185,15 +185,15 @@ Node* addNode(Node* root, int key, const char* value, Error* error)
         return root;
     }
     strcpy(copyValue, value);
-    Node* newRoot = (Node*)calloc(1, sizeof(Node));
-    if (newRoot == NULL)
-    {
-        *error = INSUFFICIENT_MEMORY;
-        free(copyValue);
-        return root;
-    }
     if (root == NULL)
     {
+        Node* newRoot = (Node*)calloc(1, sizeof(Node));
+        if (newRoot == NULL)
+        {
+            *error = INSUFFICIENT_MEMORY;
+            free(copyValue);
+            return root;
+        }
         newRoot->key = key;
         newRoot->value = copyValue;
         return newRoot;
@@ -205,6 +205,13 @@ Node* addNode(Node* root, int key, const char* value, Error* error)
         {
             if (currentRoot->rightSon == NULL)
             {
+                Node* newRoot = (Node*)calloc(1, sizeof(Node));
+                if (newRoot == NULL)
+                {
+                    *error = INSUFFICIENT_MEMORY;
+                    free(copyValue);
+                    return root;
+                }
                 newRoot->key = key;
                 newRoot->value = copyValue;
                 attach(currentRoot, newRoot, right);
@@ -216,14 +223,20 @@ Node* addNode(Node* root, int key, const char* value, Error* error)
         {
             free(currentRoot->value);
             free(currentRoot);
-            newRoot->value = copyValue;
-            newRoot->key = key;
-            return splay(newRoot);
+            currentRoot->value = copyValue;
+            return splay(currentRoot);
         }
         else
         {
             if (currentRoot->leftSon == NULL)
             {
+                Node* newRoot = (Node*)calloc(1, sizeof(Node));
+                if (newRoot == NULL)
+                {
+                    *error = INSUFFICIENT_MEMORY;
+                    free(copyValue);
+                    return root;
+                }
                 newRoot->key = key;
                 newRoot->value = copyValue;
                 attach(currentRoot, newRoot, left);
@@ -232,7 +245,6 @@ Node* addNode(Node* root, int key, const char* value, Error* error)
             currentRoot = currentRoot->leftSon;
         }
     }
-    free(newRoot);
     free(copyValue);
     return root;
 }
