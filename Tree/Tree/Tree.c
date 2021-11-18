@@ -218,7 +218,7 @@ Node* addNode(Node* root, int key, const char* value, Error* error)
             free(currentRoot);
             newRoot->value = copyValue;
             newRoot->key = key;
-            return splay(currentRoot);
+            return splay(newRoot);
         }
         else
         {
