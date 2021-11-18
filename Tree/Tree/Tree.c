@@ -172,22 +172,28 @@ Node* splay(Node* x)
 }
 
 
-Node* addNode(Node* root, int key, char* value)
+Node* addNode(Node* root, int key, const char* value, Error* error)
 {
-    char* copyValue = calloc(100, sizeof(char));
+    if (*error != NOT_ERROR)
+    {
+        return root;
+    }
+    char* copyValue = calloc(strlen(value) + 1, sizeof(char));
     if (copyValue == NULL)
     {
-        return NULL;
+        *error = INSUFFICIENT_MEMORY;
+        return root;
     }
     strcpy(copyValue, value);
+    Node* newRoot = (Node*)calloc(1, sizeof(Node));
+    if (newRoot == NULL)
+    {
+        *error = INSUFFICIENT_MEMORY;
+        free(copyValue);
+        return root;
+    }
     if (root == NULL)
     {
-        Node* newRoot = (Node*)calloc(1, sizeof(Node));
-        if (newRoot == NULL)
-        {
-            free(copyValue);
-            return NULL;
-        }
         newRoot->key = key;
         newRoot->value = copyValue;
         return newRoot;
@@ -199,11 +205,6 @@ Node* addNode(Node* root, int key, char* value)
         {
             if (i->rightSon == NULL)
             {
-                Node* newRoot = (Node*)calloc(1, sizeof(Node));
-                if (newRoot == NULL)
-                {
-                    return NULL;
-                }
                 newRoot->key = key;
                 newRoot->value = copyValue;
                 i->rightSon = newRoot;
@@ -223,11 +224,6 @@ Node* addNode(Node* root, int key, char* value)
         {
             if (i->leftSon == NULL)
             {
-                Node* newRoot = (Node*)calloc(1, sizeof(Node));
-                if (newRoot == NULL)
-                {
-                    return NULL;
-                }
                 newRoot->key = key;
                 newRoot->value = copyValue;
                 i->leftSon = newRoot;
@@ -237,6 +233,7 @@ Node* addNode(Node* root, int key, char* value)
             i = i->leftSon;
         }
     }
+    free(newRoot);
     free(copyValue);
     return root;
 }
@@ -266,131 +263,101 @@ void search(Node** root, int key)
 bool inTree(Node* root, int key)
 {
     search(&root, key);
-    if (root == NULL)
-    {
-        return false;
-    }
-    return true;
+    return root != NULL;
 }
 
-Node* deleteNode(Node* root, int key)
+Node* deleteNode(Node* root, int key, Error* error)
 {
+    if (*error != NOT_ERROR)
+    {
+        return root;
+    }
     search(&root, key);
     if (root == NULL)
     {
-        return NULL;
-    }
-    if (root->rightSon != NULL && root->leftSon != NULL)
-    {
-        Node* i = root;
-        Node* son = root->leftSon;
-        root = root->leftSon;
-        while (root->rightSon != NULL)
-        {
-            root = root->rightSon;
-        }
-        if (root == i->leftSon)
-        {
-            if (i->parent == NULL)
-            {
-                i->rightSon->parent = root;
-                root->rightSon = i->rightSon;
-                root->parent = NULL;
-                free(i->value);
-                free(i);
-                return root;
-            }
-            i->parent->leftSon = i->leftSon;
-            i->leftSon->parent = i->parent;
-            free(i);
-            return splay(root->parent);
-        }
-        Node* k = root->parent;
-        i->key = root->key;
-        i->value = root->value;
-        root->parent->rightSon = NULL;
-        root->parent = NULL;
-        free(root->value);
-        free(root);
-        return splay(k);
+        *error = ROOT_IS_MISSING;
+        return root;
     }
     if (root->rightSon == NULL && root->leftSon == NULL)
     {
-        if (root->parent == NULL)
+        Node* parent = root->parent;
+        if (parent != NULL)
         {
-            free(root->value);
-            free(root);
-            return NULL;
-        }
-        else
-        {
-            Node* parent = root->parent;
             if (root->parent->rightSon == root)
             {
                 root->parent->rightSon = NULL;
-                root->parent = NULL;
             }
-            else if (root->parent->leftSon == root)
+            else
             {
                 root->parent->leftSon = NULL;
-                root->parent = NULL;
+            }
+        }
+        free(root->value);
+        free(root);
+        return (parent == NULL) ? NULL : splay(parent);
+    }
+    if (root->rightSon != NULL && root->leftSon != NULL)
+    {
+        Node* currentRoot = root;
+        currentRoot = currentRoot->leftSon;
+        while (currentRoot->rightSon != NULL)
+        {
+            currentRoot = currentRoot->rightSon;
+        }
+        if (currentRoot == root->leftSon)
+        {
+            Node* parent = root->parent;
+            parent == NULL ? attach(currentRoot, root->rightSon, right)
+                : attach(root->parent, root->leftSon, left);
+            if (parent == NULL)
+            {
+                currentRoot->parent = NULL;
             }
             free(root->value);
             free(root);
-            return splay(parent);
+            return parent == NULL ? currentRoot : splay(currentRoot->parent);
         }
-    }
-    if (root->rightSon == NULL && root->leftSon != NULL)
-    {
-        if (root->parent == NULL)
+        Node* currentRootParent = currentRoot->parent;
+        root->key = currentRoot->key;
+        char* newValue = calloc(strlen(root->value) + 1, sizeof(char));
+        if (newValue == NULL)
         {
-            Node* j = root->leftSon;
-            root->leftSon->parent = NULL;
-            root->leftSon = NULL;
-            free(root->value);
-            free(root);
-            return j;
-        }
-        Node* parent = root->parent;
-        root->leftSon->parent = root->parent;
-        if (root->parent->leftSon == root)
-        {
-            root->parent->leftSon = root->leftSon;
-        }
-        else if (root->parent->rightSon == root)
-        {
-            root->parent->rightSon = root->leftSon;
+            *error = INSUFFICIENT_MEMORY;
+            return root;
         }
         free(root->value);
-        free(root);
-        return splay(parent);
+        strcpy(newValue, currentRoot->value);
+        root->value = newValue;
+        currentRootParent->rightSon = NULL;
+        free(currentRoot->value);
+        free(currentRoot);
+        return splay(currentRootParent);
     }
-    if (root->rightSon != NULL && root->leftSon == NULL)
+    if (root->parent == NULL)
     {
-        if (root->parent == NULL)
+        root = root->rightSon == NULL ? root->leftSon : root->rightSon;
+        if (root->parent != NULL)
         {
-            Node* i = root->rightSon;
-            root->rightSon->parent = NULL;
-            root->rightSon = NULL;
-            free(root->value);
-            free(root);  
-            return i;
+            free(root->parent->value);
         }
-        Node* parent = root->parent;
-        root->rightSon->parent = root->parent;
-        if (root->parent->leftSon == root)
-        {
-            root->parent->leftSon = root->rightSon;
-        }
-        else if (root->parent->rightSon == root)
-        {
-            root->parent->rightSon = root->rightSon;
-        }
-        free(root->value);
-        free(root);
-        return splay(parent);
+        free(root->parent);
+        root->parent = NULL;
+        return root;
     }
-    return NULL;
+    Node* parent = root->parent;
+    if (root->rightSon == NULL)
+    {
+         parent->leftSon == root ? attach(parent,root->leftSon,left)
+             : attach(parent,root->leftSon, right);
+    }
+    else
+    {
+        parent->leftSon == root ? attach(parent, root->rightSon, left)
+            : attach(parent, root->rightSon, right);
+    }
+    free(root->value);
+    free(root);
+    return splay(parent);
 }
 
 bool isFather(Node* tree, int parentKey, int childKey)
