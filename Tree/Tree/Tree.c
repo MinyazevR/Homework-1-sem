@@ -222,7 +222,6 @@ Node* addNode(Node* root, int key, const char* value, Error* error)
         else if (key == currentRoot->key)
         {
             free(currentRoot->value);
-            free(currentRoot);
             currentRoot->value = copyValue;
             return splay(currentRoot);
         }
