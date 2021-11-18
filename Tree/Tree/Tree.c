@@ -198,39 +198,38 @@ Node* addNode(Node* root, int key, const char* value, Error* error)
         newRoot->value = copyValue;
         return newRoot;
     }
-    Node* i = root;
-    while (i != NULL)
+    Node* currentRoot = root;
+    while (currentRoot != NULL)
     {
-        if (key > i->key)
+        if (key > currentRoot->key)
         {
-            if (i->rightSon == NULL)
+            if (currentRoot->rightSon == NULL)
             {
                 newRoot->key = key;
                 newRoot->value = copyValue;
-                i->rightSon = newRoot;
-                newRoot->parent = i;
+                attach(currentRoot, newRoot, right);
                 return splay(newRoot);
             }
-            i = i->rightSon;
+            currentRoot = currentRoot->rightSon;
         }
-        else if (key == i->key)
+        else if (key == currentRoot->key)
         {
-            free(i->value);
-            i->value = copyValue;
-            i->key = key;
-            return splay(i);
+            free(currentRoot->value);
+            free(currentRoot);
+            newRoot->value = copyValue;
+            newRoot->key = key;
+            return splay(currentRoot);
         }
         else
         {
-            if (i->leftSon == NULL)
+            if (currentRoot->leftSon == NULL)
             {
                 newRoot->key = key;
                 newRoot->value = copyValue;
-                i->leftSon = newRoot;
-                newRoot->parent = i;
+                attach(currentRoot, newRoot, left);
                 return splay(newRoot);
             }
-            i = i->leftSon;
+            currentRoot = currentRoot->leftSon;
         }
     }
     free(newRoot);
