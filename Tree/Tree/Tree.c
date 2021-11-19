@@ -304,10 +304,7 @@ void deleteNode(Node** root, int key, Error* error)
         }
         free((*root)->value);
         free(*root);
-        if (parent != NULL)
-        {
-            (*root) = splay(parent);
-        }
+        (*root) = (parent != NULL) ? splay(parent) : NULL;
         return;
     }
     if ((*root)->rightSon != NULL && (*root)->leftSon != NULL)
