@@ -105,7 +105,7 @@ Node* addNode(const char* array, int* counter, Node* node)
     {
         return NULL;
     }
-    if (array[*counter] == '(' || array[*counter] == ')'
+    while (array[*counter] == '(' || array[*counter] == ')'
         || array[*counter] == ' ')
     {
         (*counter)++;
