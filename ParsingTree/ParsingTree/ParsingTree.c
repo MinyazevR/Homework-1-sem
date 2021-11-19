@@ -3,15 +3,27 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+typedef enum VisitedNode
+{
+    nodeVisited,
+    nodeNotVisited
+} VisitedNode;
+
 typedef struct Node
 {
     struct Node* leftSon;
     struct Node* rightSon;
     struct Node* parent;
-    char value;
-    int number;
-    char help;
+    char symbol;
+    int expressionValues;
+    VisitedNode isVisitedNode;
 } Node;
+
+typedef enum Direction
+{
+    left,
+    right
+} Direction;
 
 Node* createTree()
 {
@@ -48,143 +60,90 @@ Node* returnHead(Node* root)
     return root;
 }
 
-int returnAnswer(Node* root)
-{
-    return root->number;
-}
-
-bool compare(char symbol)
+bool isOperator(char symbol)
 {
     return symbol == '+' || symbol == '-'
         || symbol == '*' || symbol == '/';
 }
 
-Node* buildTree(char* array)
+void attach(Node* parent, Node* child, Direction direction)
 {
-    int counter = 0;
-    Node* tree = createTree();
-    while (array[counter] != '\0')
+    if (parent == NULL)
     {
-        if (array[counter] == '(' || array[counter] == ')' || array[counter] == ' ')
+        return;
+    }
+    if (direction == left)
+    {
+        parent->leftSon = child;
+    }
+    else
+    {
+        parent->rightSon = child;
+    }
+    if (child != NULL)
+    {
+        child->parent = parent;
+    }
+}
+
+Node* createNode(char symbol)
+{
+    Node* newRoot = (Node*)calloc(1, sizeof(Node));
+    if (newRoot == NULL)
+    {
+        return NULL;
+    }
+    newRoot->symbol = symbol;
+    newRoot->isVisitedNode = isOperator(symbol) ? nodeNotVisited : nodeVisited;
+    newRoot->expressionValues = isOperator(symbol) ? 0 : symbol - '0';
+    return newRoot;
+}
+
+Node* addNode(const char* array, int* counter, Node* node)
+{
+    if (*counter > 0 && node == NULL)
+    {
+        return NULL;
+    }
+    if (array[*counter] == '(' || array[*counter] == ')'
+        || array[*counter] == ' ')
+    {
+        (*counter)++;
+    }
+    if (isOperator(array[*counter]))
+    {
+        Node* temporary = createNode(array[*counter]);
+        if (temporary == NULL)
         {
-            counter++;
-            continue;
-        }
-        Node* newRoot = (Node*)calloc(1, sizeof(Node));
-        if (newRoot == NULL)
-        {
+            node = returnHead(node);
+            deleteTree(&node);
             return NULL;
         }
-        if (tree == NULL)
-        {
-            newRoot->value = array[counter];
-            tree = newRoot;
-            newRoot->help = '!';
-            newRoot->number = 0;
-            counter++;
-            continue;
-        }
-        if (compare(array[counter]))
-        {
-            if (tree->leftSon == NULL && compare(tree->value))
-            {
-                tree->leftSon = newRoot;
-                newRoot->parent = tree;
-                newRoot->help = '!';
-                newRoot->value = array[counter];
-                newRoot->number = 0;
-                tree = newRoot;
-                counter++;
-                continue;
-            }
-            else if (tree->rightSon == NULL && compare(tree->value))
-            {
-                tree->rightSon = newRoot;
-                newRoot->parent = tree;
-                newRoot->help = '!';
-                newRoot->value = array[counter];
-                newRoot->number = 0;
-                tree = newRoot;
-                counter++;
-                continue;
-            }
-            while (tree->parent != NULL)
-            {
-                tree = tree->parent;
-                if (tree->leftSon == NULL && compare(tree->value))
-                {
-                    tree->leftSon = newRoot;
-                    newRoot->parent = tree;
-                    newRoot->help = '!';
-                    newRoot->value = array[counter];
-                    newRoot->number = 0;
-                    counter++;
-                    tree = newRoot;
-                    break;
-                }
-                else if (tree->rightSon == NULL && compare(tree->value))
-                {
-                    tree->rightSon = newRoot;
-                    newRoot->parent = tree;
-                    newRoot->help = '!';
-                    newRoot->value = array[counter];
-                    newRoot->number = 0;
-                    counter++;
-                    tree = newRoot;
-                    break;
-                }
-            }
-            continue;
-        }
-        if (array[counter] <= '9' && array[counter] >= '0')
-        {
-            if (compare(tree->value) && tree->leftSon == NULL)
-            {
-                tree->leftSon = newRoot;
-                newRoot->parent = tree;
-                newRoot->value = array[counter];
-                newRoot->help = '$';
-                newRoot->number = array[counter] - '0';
-                counter++;
-                continue;
-            }
-            else if (tree->rightSon == NULL && compare(tree->value))
-            {
-                tree->rightSon = newRoot;
-                newRoot->parent = tree;
-                newRoot->value = array[counter];
-                newRoot->help = '$';
-                newRoot->number = array[counter] - '0';
-                counter++;
-                continue;
-            }
-            while (tree->parent != NULL)
-            {
-                tree = tree->parent;
-                if (tree->leftSon == NULL && compare(tree->value))
-                {
-                    tree->leftSon = newRoot;
-                    newRoot->parent = tree;
-                    newRoot->value = array[counter];
-                    newRoot->help = '$';
-                    newRoot->number = array[counter] - '0';
-                    counter++;
-                    break;
-                }
-                else if (tree->rightSon == NULL && compare(tree->value))
-                {
-                    tree->rightSon = newRoot;
-                    newRoot->parent = tree;
-                    newRoot->value = array[counter];
-                    newRoot->help = '$';
-                    newRoot->number = array[counter] - '0';
-                    counter++;
-                    break;
-                }
-            }
-        }
+        Node* operator = temporary;
+        (*counter)++;
+        attach(operator, addNode(array, counter, operator), left);
+        attach(operator, addNode(array, counter, operator), right);
+        return operator;
     }
-    return tree;
+    else
+    {
+        Node* operand = createNode(array[*counter]);
+        if (operand == NULL)
+        {
+            node = returnHead(node);
+            deleteTree(&node);
+            return NULL;
+        }
+        (*counter)++;
+        return operand;
+    }
+}
+
+Node* buildTree(const char* array)
+{
+    int counter = 0;
+    Node* node = NULL;
+    return addNode(array, &counter, node);
 }
 
 void restoreField(Node* root)
@@ -195,59 +154,65 @@ void restoreField(Node* root)
     }
     restoreField(root->leftSon);
     restoreField(root->rightSon);
-    if (compare(root->value))
+    if (isOperator(root->symbol))
     {
-        root->help = '!';
+        root->isVisitedNode = nodeNotVisited;
     }
     else
     {
-        root->help = '$';
+        root->isVisitedNode = nodeVisited;
     }
 }
 
-void findAnswer(Node* root)
+int findAnswer(Node* root, int* error)
 {
+    if (*error != 0)
+    {
+        return 0;
+    }
     if (root == NULL)
     {
-        return;
+        *error = 1;
+        return 0;
     }
-    if (root->leftSon != NULL && root->rightSon != NULL && root->rightSon->help == '$' && root->leftSon->help == '$' && root->help != '$')
+    if (root->leftSon != NULL && root->rightSon != NULL && root->rightSon->isVisitedNode == nodeVisited && root->leftSon->isVisitedNode == nodeVisited && root->isVisitedNode == nodeNotVisited)
     {
-        root->help = '$';
-        if (root->value == '+')
+        root->isVisitedNode = nodeVisited;
+        if (root->symbol == '+')
         {
-            root->number = root->leftSon->number + root->rightSon->number;
+            root->expressionValues = root->leftSon->expressionValues + root->rightSon->expressionValues;
         }
-        if (root->value == '-')
+        if (root->symbol == '-')
         {
-            root->number = root->leftSon->number - root->rightSon->number;
+            root->expressionValues = root->leftSon->expressionValues - root->rightSon->expressionValues;
         }
-        if (root->value == '*')
+        if (root->symbol == '*')
         {
-            root->number = root->leftSon->number * root->rightSon->number;
+            root->expressionValues = root->leftSon->expressionValues * root->rightSon->expressionValues;
         }
-        if (root->value == '/')
+        if (root->symbol == '/')
         {
-            root->number = root->leftSon->number / root->rightSon->number;
+            root->expressionValues = root->leftSon->expressionValues / root->rightSon->expressionValues;
         }
         if (root->parent != NULL)
         {
-            findAnswer(root->parent);
+            return findAnswer(root->parent, error);
         }
         else
         {
             restoreField(root);
-            return;
+            return root->expressionValues;
         }
     }
-    else if (root->leftSon != NULL && compare(root->leftSon->value) && root->leftSon->help != '$')
+    else if (root->leftSon != NULL && isOperator(root->leftSon->symbol) && root->leftSon->isVisitedNode == nodeNotVisited)
     {
-        findAnswer(root->leftSon);
+        return findAnswer(root->leftSon, error);
     }
-    else if (root->rightSon != NULL && compare(root->rightSon->value) && root->rightSon->help != '$')
+    else if (root->rightSon != NULL && isOperator(root->rightSon->symbol) && root->rightSon->isVisitedNode == nodeNotVisited)
     {
-        findAnswer(root->rightSon);
+        return findAnswer(root->rightSon, error);
     }
+    return findAnswer(root, error);
 }
 
 void printTree(Node* root)
@@ -258,25 +223,5 @@ void printTree(Node* root)
     }
     printTree(root->leftSon);
     printTree(root->rightSon);
-    printf("%c ", (root->value));
-}
-
-Node* rightSon(Node* root)
-{
-    return root->rightSon;
-}
-
-Node* leftSon(Node* root)
-{
-    return root->leftSon;
-}
-
-Node* parent(Node* root)
-{
-    return root->parent;
-}
-
-char getValue(Node* root)
-{
-    return root->value;
+    printf("%c ", root->symbol);
 }
