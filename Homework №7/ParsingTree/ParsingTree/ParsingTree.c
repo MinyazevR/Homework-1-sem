@@ -168,6 +168,10 @@ int findAnswer(Node* root, int* error)
         *error = 1;
         return 0;
     }
+    if (root->parent == NULL && root->rightSon == NULL && root->leftSon == NULL)
+    {
+        return root->expressionValues;
+    }
     if (root->leftSon != NULL && root->rightSon != NULL && root->rightSon->isVisitedNode == nodeVisited && root->leftSon->isVisitedNode == nodeVisited && root->isVisitedNode == nodeNotVisited)
     {
         root->isVisitedNode = nodeVisited;
