@@ -24,7 +24,7 @@ Node* addNode(Node* root, int key, const char* value, Error* error);
 bool inTree(Node* root, int key);
 
 // Function for deleting a node
-Node* deleteNode(Node* root, int key, Error* error);
+void deleteNode(Node** root, int key, Error* error);
 
 // Function for checking the node for paternity
 bool isFather(Node* tree, int parentKey, int childKey);

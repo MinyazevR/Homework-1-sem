@@ -37,11 +37,11 @@ bool testDeleteNode()
     tree = addNode(tree, -8, "^-^", &error);
     tree = addNode(tree, 12, "Test", &error);
     tree = addNode(tree, 2, "git commit", &error);
-    tree = deleteNode(tree, 12, &error);
+    deleteNode(&tree, 12, &error);
     bool firstCheck = inTree(tree, 12);
-    tree = deleteNode(tree, 1, &error);
+    deleteNode(&tree, 1, &error);
     bool secondCheck = inTree(tree, 1);
-    tree = deleteNode(tree, -8, &error);
+    deleteNode(&tree, -8, &error);
     bool thirdCheck = inTree(tree, -8);
     deleteTree(&tree);
     return !firstCheck && !secondCheck && !thirdCheck && error == NOT_ERROR;
@@ -64,10 +64,10 @@ bool testInTree()
     bool fifthCheck = inTree(tree,-123);
 
     bool sixthCheck = inTree(tree, 2021);
-    tree = deleteNode(tree, 2, &error);
+    deleteNode(&tree, 2, &error);
     bool seventhCheck = inTree(tree, 2);
     bool eighthCheck = inTree(tree, 0);
-    tree = deleteNode(tree, -123, &error);
+    deleteNode(&tree, -123, &error);
     bool ninthCheck = inTree(tree, -123);
     bool tenthCheck = inTree(tree, -47);
     deleteTree(&tree);
