@@ -1,7 +1,8 @@
 ﻿#include "../../ParsingTree/ParsingTree/ParsingTree.h"
 #include <stdio.h>
+#include <malloc.h>
 
-Node* readExpression(const char* fileName, int* error)
+char* readExpression(const char* fileName, int* error)
 {
     FILE* file = fopen(fileName, "r");
     if (file == NULL)
@@ -9,26 +10,34 @@ Node* readExpression(const char* fileName, int* error)
         *error = 1;
         return NULL;
     }
-    char expression[100] = { '\0' };
-    return buildTree(fgets(expression, 100, file));
+    char* expression = calloc(100, sizeof(char));
+    while (!feof(file))
+    {
+        fgets(expression, 99, file);
+    }
+    if (expression == NULL)
+    {
+        *error = 2;
+    }
     fclose(file);
+    return expression;
 }
 
 int main()
 {
     int error = 0;
-    Node* tree = readExpression("Expression.txt", &error);
+    const char* expression = readExpression("Expression.txt", &error);
     if (error == 1)
     {
-        deleteTree(&tree);
         printf("Could not open the file");
         return -1;
     }
-    if (tree == NULL)
+    if (error == 2)
     {
         printf("Could not read expression from file");
         return -1;
     }
+    Node* tree = buildTree(expression);
     const int answer = findAnswer(tree, &error);
     if (error == 1)
     {
