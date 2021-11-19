@@ -6,28 +6,28 @@ bool testFindAnswer()
     Node* firstTree = createTree();
     firstTree = buildTree("- * + 4 3 5 * 2 7");
     firstTree = returnHead(firstTree);
-    findAnswer(firstTree);
-    const int firstAnswer = returnAnswer(firstTree);
+    int error = 0;
+    const int firstAnswer = findAnswer(firstTree, &error);
     deleteTree(&firstTree);
 
     Node* secondTree = createTree();
-    secondTree = buildTree("/ (+ * + 5 6 7 8) (+ - + 5 6 9 3)");
+    secondTree = buildTree("/+*+5678+-+5693");
     secondTree = returnHead(secondTree);
-    findAnswer(secondTree);
+    findAnswer(secondTree, &error);
     const int secondAnswer = returnAnswer(secondTree);
     deleteTree(&secondTree);
 
     Node* thirdTree = createTree();
-    thirdTree = buildTree("(* (+ 1 1) 2)");
+    thirdTree = buildTree("*+112");
     thirdTree = returnHead(thirdTree);
-    findAnswer(thirdTree);
+    findAnswer(thirdTree, &error);
     const int thirdAnswer = returnAnswer(thirdTree);
     deleteTree(&thirdTree);
 
     Node* fourthTree = createTree();
     fourthTree = buildTree("+-556");
     fourthTree = returnHead(fourthTree);
-    findAnswer(fourthTree);
+    findAnswer(fourthTree, &error);
     const int fourthAnswer = returnAnswer(fourthTree);
     deleteTree(&fourthTree);
 
@@ -37,7 +37,7 @@ bool testFindAnswer()
 bool testBuildTree()
 {
     Node* firstTree = createTree();
-    firstTree = buildTree("(* (+ 1 4) 2)");
+    firstTree = buildTree("*+142");
     const char firstSymbol = getValue(firstTree);
     const char secondSymbol = getValue(rightSon(firstTree));
     const char thirdSymbol = getValue(leftSon(firstTree));

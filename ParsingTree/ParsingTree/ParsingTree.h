@@ -16,7 +16,7 @@ Node* returnHead(Node* root);
 Node* buildTree(char* array);
 
 // Function for calculating the value of an expression
-void findAnswer(Node* root);
+int findAnswer(Node* root, int* error);
 
 // Function for tree output
 void printTree(Node* root);
