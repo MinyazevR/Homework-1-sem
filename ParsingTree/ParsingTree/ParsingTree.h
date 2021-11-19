@@ -7,7 +7,7 @@ typedef struct Node Node;
 void deleteTree(Node** root);
 
 // Function for building a tree
-Node* buildTree(char* array);
+Node* buildTree(const char* array);
 
 // Function for calculating the value of an expression
 int findAnswer(Node* root, int* error);
