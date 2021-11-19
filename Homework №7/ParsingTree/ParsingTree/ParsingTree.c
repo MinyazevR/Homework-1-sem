@@ -154,14 +154,7 @@ void restoreField(Node* root)
     }
     restoreField(root->leftSon);
     restoreField(root->rightSon);
-    if (isOperator(root->symbol))
-    {
-        root->isVisitedNode = nodeNotVisited;
-    }
-    else
-    {
-        root->isVisitedNode = nodeVisited;
-    }
+    root->isVisitedNode = isOperator(root->symbol) ? nodeNotVisited : nodeVisited;
 }
 
 int findAnswer(Node* root, int* error)
