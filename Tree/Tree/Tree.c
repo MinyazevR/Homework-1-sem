@@ -318,11 +318,14 @@ void deleteNode(Node** root, int key, Error* error)
         if (currentRoot == (*root)->leftSon)
         {
             Node* parent = (*root)->parent;
-            parent == NULL ? attach(currentRoot, (*root)->rightSon, right)
-                : attach((*root)->parent, (*root)->leftSon, left);
+            attach(currentRoot, (*root)->rightSon, right);
             if (parent == NULL)
             {
                 currentRoot->parent = NULL;
+            }
+            else
+            {
+                attach((*root)->parent, (*root)->leftSon, left);
             }
             free((*root)->value);
             free(*root);
