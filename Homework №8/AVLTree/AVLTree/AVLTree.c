@@ -368,6 +368,7 @@ void deleteNode(Node** root, int key, int* error)
     Node* searchResult = search(*root, key);
     if (searchResult == NULL)
     {
+        *error = 2;
         return;
     }
     *root = searchResult;
