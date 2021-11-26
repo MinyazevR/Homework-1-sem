@@ -2,7 +2,7 @@
 
 int main()
 {
-    if (!testFindAnswer() || !testBuildTree())
+    if (!testFindAnswer())
     {
         return -1;
     }
