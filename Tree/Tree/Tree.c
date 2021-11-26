@@ -164,7 +164,7 @@ Node* splay(Node* x)
     {
         zigZig(x);
     }
-    else 
+    else
     {
         zigZag(x);
     }
@@ -172,12 +172,17 @@ Node* splay(Node* x)
 }
 
 
-Node* addNode(Node* root, int key, char* value)
+Node* addNode(Node* root, int key, const char* value, Error* error)
 {
-    char* copyValue = calloc(100, sizeof(char));
+    if (*error != NOT_ERROR)
+    {
+        return root;
+    }
+    char* copyValue = calloc(strlen(value) + 1, sizeof(char));
     if (copyValue == NULL)
     {
-        return NULL;
+        *error = INSUFFICIENT_MEMORY;
+        return root;
     }
     strcpy(copyValue, value);
     if (root == NULL)
@@ -185,14 +190,9 @@ Node* addNode(Node* root, int key, char* value)
         Node* newRoot = (Node*)calloc(1, sizeof(Node));
         if (newRoot == NULL)
         {
-<<<<<<< HEAD
             *error = INSUFFICIENT_MEMORY;
             free(copyValue);
             return root;
-=======
-            free(copyValue);
-            return NULL;
->>>>>>> parent of e8f39c0 (added work with errors, changed the functions of adding and removing nodes)
         }
         newRoot->key = key;
         newRoot->value = copyValue;
@@ -208,13 +208,9 @@ Node* addNode(Node* root, int key, char* value)
                 Node* newRoot = (Node*)calloc(1, sizeof(Node));
                 if (newRoot == NULL)
                 {
-<<<<<<< HEAD
                     *error = INSUFFICIENT_MEMORY;
                     free(copyValue);
                     return root;
-=======
-                    return NULL;
->>>>>>> parent of e8f39c0 (added work with errors, changed the functions of adding and removing nodes)
                 }
                 newRoot->key = key;
                 newRoot->value = copyValue;
@@ -236,13 +232,9 @@ Node* addNode(Node* root, int key, char* value)
                 Node* newRoot = (Node*)calloc(1, sizeof(Node));
                 if (newRoot == NULL)
                 {
-<<<<<<< HEAD
                     *error = INSUFFICIENT_MEMORY;
                     free(copyValue);
                     return root;
-=======
-                    return NULL;
->>>>>>> parent of e8f39c0 (added work with errors, changed the functions of adding and removing nodes)
                 }
                 newRoot->key = key;
                 newRoot->value = copyValue;
@@ -279,7 +271,6 @@ Node* search(Node* root, int key)
 
 bool inTree(Node* root, int key)
 {
-<<<<<<< HEAD
     Node* searchResult = search(root, key);
     return searchResult != NULL;
 }
@@ -309,49 +300,8 @@ void deleteNode(Node** root, int key, Error* error)
             else
             {
                 (*root)->parent->leftSon = NULL;
-=======
-    search(&root, key);
-    if (root == NULL)
-    {
-        return false;
-    }
-    return true;
-}
-
-Node* deleteNode(Node* root, int key)
-{
-    search(&root, key);
-    if (root == NULL)
-    {
-        return NULL;
-    }
-    if (root->rightSon != NULL && root->leftSon != NULL)
-    {
-        Node* i = root;
-        Node* son = root->leftSon;
-        root = root->leftSon;
-        while (root->rightSon != NULL)
-        {
-            root = root->rightSon;
-        }
-        if (root == i->leftSon)
-        {
-            if (i->parent == NULL)
-            {
-                i->rightSon->parent = root;
-                root->rightSon = i->rightSon;
-                root->parent = NULL;
-                free(i->value);
-                free(i);
-                return root;
->>>>>>> parent of e8f39c0 (added work with errors, changed the functions of adding and removing nodes)
             }
-            i->parent->leftSon = i->leftSon;
-            i->leftSon->parent = i->parent;
-            free(i);
-            return splay(root->parent);
         }
-<<<<<<< HEAD
         free((*root)->value);
         free(*root);
         (*root) = (parent != NULL) ? splay(parent) : NULL;
@@ -362,47 +312,17 @@ Node* deleteNode(Node* root, int key)
         Node* currentRoot = *root;
         currentRoot = currentRoot->leftSon;
         while (currentRoot->rightSon != NULL)
-=======
-        Node* k = root->parent;
-        i->key = root->key;
-        i->value = root->value;
-        root->parent->rightSon = NULL;
-        root->parent = NULL;
-        free(root->value);
-        free(root);
-        return splay(k);
-    }
-    if (root->rightSon == NULL && root->leftSon == NULL)
-    {
-        if (root->parent == NULL)
->>>>>>> parent of e8f39c0 (added work with errors, changed the functions of adding and removing nodes)
         {
-            free(root->value);
-            free(root);
-            return NULL;
+            currentRoot = currentRoot->rightSon;
         }
-<<<<<<< HEAD
         if (currentRoot == (*root)->leftSon)
         {
             Node* parent = (*root)->parent;
             attach(currentRoot, (*root)->rightSon, right);
             if (parent == NULL)
-=======
-        else
-        {
-            Node* parent = root->parent;
-            if (root->parent->rightSon == root)
->>>>>>> parent of e8f39c0 (added work with errors, changed the functions of adding and removing nodes)
             {
-                root->parent->rightSon = NULL;
-                root->parent = NULL;
+                currentRoot->parent = NULL;
             }
-            else if (root->parent->leftSon == root)
-            {
-                root->parent->leftSon = NULL;
-                root->parent = NULL;
-            }
-<<<<<<< HEAD
             else
             {
                 parent->rightSon == (*root) ? attach((*root)->parent, (*root)->leftSon, right) : attach((*root)->parent, (*root)->leftSon, left);
@@ -443,8 +363,8 @@ Node* deleteNode(Node* root, int key)
     Node* parent = (*root)->parent;
     if ((*root)->rightSon == NULL)
     {
-         parent->leftSon == *root ? attach(parent,(*root)->leftSon,left)
-             : attach(parent,(*root)->leftSon, right);
+        parent->leftSon == *root ? attach(parent, (*root)->leftSon, left)
+            : attach(parent, (*root)->leftSon, right);
     }
     else
     {
@@ -455,64 +375,6 @@ Node* deleteNode(Node* root, int key)
     free(*root);
     *root = splay(parent);
     return;
-=======
-            free(root->value);
-            free(root);
-            return splay(parent);
-        }
-    }
-    if (root->rightSon == NULL && root->leftSon != NULL)
-    {
-        if (root->parent == NULL)
-        {
-            Node* j = root->leftSon;
-            root->leftSon->parent = NULL;
-            root->leftSon = NULL;
-            free(root->value);
-            free(root);
-            return j;
-        }
-        Node* parent = root->parent;
-        root->leftSon->parent = root->parent;
-        if (root->parent->leftSon == root)
-        {
-            root->parent->leftSon = root->leftSon;
-        }
-        else if (root->parent->rightSon == root)
-        {
-            root->parent->rightSon = root->leftSon;
-        }
-        free(root->value);
-        free(root);
-        return splay(parent);
-    }
-    if (root->rightSon != NULL && root->leftSon == NULL)
-    {
-        if (root->parent == NULL)
-        {
-            Node* i = root->rightSon;
-            root->rightSon->parent = NULL;
-            root->rightSon = NULL;
-            free(root->value);
-            free(root);  
-            return i;
-        }
-        Node* parent = root->parent;
-        root->rightSon->parent = root->parent;
-        if (root->parent->leftSon == root)
-        {
-            root->parent->leftSon = root->rightSon;
-        }
-        else if (root->parent->rightSon == root)
-        {
-            root->parent->rightSon = root->rightSon;
-        }
-        free(root->value);
-        free(root);
-        return splay(parent);
-    }
-    return NULL;
->>>>>>> parent of e8f39c0 (added work with errors, changed the functions of adding and removing nodes)
 }
 
 bool invariant(Node* tree, int parentKey, int childKey)
