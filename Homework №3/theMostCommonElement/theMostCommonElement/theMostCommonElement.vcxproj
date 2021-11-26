@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{1b08b554-064d-4a2d-a418-3c73ff3d4652}</ProjectGuid>
-    <RootNamespace>Tree</RootNamespace>
+    <ProjectGuid>{ef7d2016-e0ac-4058-b9d6-c845c565d6bb}</ProjectGuid>
+    <RootNamespace>theMostCommonElement</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -86,7 +86,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -139,13 +139,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Main.c" />
-    <ClCompile Include="TestTree.c" />
-    <ClCompile Include="Tree.c" />
+    <ClCompile Include="main.c" />
+    <ClCompile Include="qsort.c" />
+    <ClCompile Include="tests.c" />
+    <ClCompile Include="theMostCommonElement.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TestTree.h" />
-    <ClInclude Include="Tree.h" />
+    <ClInclude Include="qsort.h" />
+    <ClInclude Include="test.h" />
+    <ClInclude Include="theMostCommonElement.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
