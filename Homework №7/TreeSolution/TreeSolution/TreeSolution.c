@@ -11,6 +11,12 @@ char* readExpression(const char* fileName, int* error)
         return NULL;
     }
     char* expression = calloc(100, sizeof(char));
+    if (expression == NULL)
+    {
+        *error = 3;
+        fclose(file);
+        return NULL;
+    }
     while (!feof(file))
     {
         fgets(expression, 99, file);
@@ -35,6 +41,11 @@ int main()
     if (error == 2)
     {
         printf("Could not read expression from file");
+        return -1;
+    }
+    if (error == 3)
+    {
+        printf("Memory not allocated");
         return -1;
     }
     Node* tree = buildTree(expression);
