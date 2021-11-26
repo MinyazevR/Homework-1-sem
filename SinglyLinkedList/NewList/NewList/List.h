@@ -13,7 +13,7 @@ typedef enum Error
     NOT_ERROR,
     EMPTY_LIST,
     INSUFFICIENT_MEMORY
-}Error;
+} Error;
 
 // Function for creating a list
 List* createList();
