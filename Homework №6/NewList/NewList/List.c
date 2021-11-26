@@ -219,7 +219,6 @@ bool isOneElement(List* list)
 
 void print(List* list)
 {
-    int error = 0;
     ListElement* element = list->head;
     while (element != NULL)
     {
