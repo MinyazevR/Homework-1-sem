@@ -7,6 +7,14 @@ typedef struct List List;
 // This is a structure describing the position of an item in the list.
 typedef struct Position Position;
 
+// Enum type for working with errors
+typedef enum Error
+{
+    NOT_ERROR,
+    EMPTY_LIST,
+    INSUFFICIENT_MEMORY
+}Error;
+
 // Function for creating a list
 List* createList();
 
@@ -17,10 +25,10 @@ void deleteList(List* list);
 void deletePosition(Position* position);
 
 // Function for adding an item to a list
-void add(List* list, char* firstValue, char* secondValue , int* error);
+void add(List* list, const char* firstValue, const char* secondValue, Error* error);
 
 // function to find a position to the first element
-Position* first(List* list, int* error);
+Position* first(List* list, Error* error);
 
 // Function for finding a position to the next element
 Position* next(Position* position);
@@ -32,7 +40,7 @@ bool isLastElement(Position* position);
 void print(List* list);
 
 // Function for deleting the first element
-void removeFirstElement(List* list, int* error);
+void removeFirstElement(List* list, Error* error);
 
 // Function for finding the number of items in the list
 int numberOfElements(List* list);
@@ -50,7 +58,7 @@ char* getHeadFirstValue(List* list);
 char* getHeadSecondValue(List* list);
 
 // Function for finding a position to the last element
-Position* last(List* list, int* error);
+Position* last(List* list, Error* error);
 
 // Returns the value of any element
 char* getFirstValue(Position* position);
@@ -60,3 +68,6 @@ char* getSecondValue(Position* position);
 
 // Function for comparing lists
 bool compareList(List* firstList, List* secondList);
+
+// Function for error decoding
+const char* decodingError(Error error);

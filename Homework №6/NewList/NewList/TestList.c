@@ -1,15 +1,15 @@
-#include "TestList.h"
+ï»¿#include "TestList.h"
 #include "List.h"
 #include <string.h>
 
 // Function to check the function that adds an item to the list
 bool testAdd()
 {
-    int error = 0;
+    Error error = NOT_ERROR;
     List* newList = createList();
-    add(newList, "test", "¹ 1", &error);
+    add(newList, "test", "1", &error);
     add(newList, "list", "add", &error);
-    if (error == 3)
+    if (error == INSUFFICIENT_MEMORY)
     {
         deleteList(newList);
         return false;
@@ -17,10 +17,15 @@ bool testAdd()
     const char* firstStringFirstValue = getHeadFirstValue(newList);
     const char* firstStringSecondValue = getHeadSecondValue(newList);
     Position* position = first(newList, &error);
+    if (error == EMPTY_LIST)
+    {
+        deleteList(newList);
+        return false;
+    }
     next(position);
     const char* secondStringFirstValue = getFirstValue(position);
     const char* secondStringSecondValue = getSecondValue(position);
-    bool result = strcmp(firstStringFirstValue, "test") == 0 && strcmp(firstStringSecondValue, "¹ 1") == 0
+    bool result = strcmp(firstStringFirstValue, "test") == 0 && strcmp(firstStringSecondValue, "1") == 0
         && strcmp(secondStringFirstValue, "list") == 0 && strcmp(secondStringSecondValue, "add") == 0;
     deletePosition(position);
     deleteList(newList);
@@ -30,17 +35,12 @@ bool testAdd()
 // Function to check the function that deletes the first item in the list
 bool testRemoveHead()
 {
-    int error = 0;
+    Error error = NOT_ERROR;
     List* newList = createList();
     add(newList, "Hello", "World", &error);
     add(newList, "Merge", "Sort", &error);
-    if (error == 3)
-    {
-        deleteList(newList);
-        return false;
-    }
     removeFirstElement(newList, &error);
-    if (error == 2)
+    if (error == EMPTY_LIST || error == INSUFFICIENT_MEMORY)
     {
         deleteList(newList);
         return false;
@@ -56,29 +56,14 @@ bool testRemoveHead()
 bool testNumberOfElements()
 {
     List* newList = createList();
-    int error = 0;
+    Error error = NOT_ERROR;
     add(newList, "Hello", "World", &error);
-    if (error == 3)
-    {
-        deleteList(newList);
-        return false;
-    }
     add(newList, "Merge", "Sort", &error);
-    if (error == 3)
-    {
-        deleteList(newList);
-        return false;
-    }
-    add(newList, "test", "¹ 1", &error);
-    if (error == 3)
-    {
-        deleteList(newList);
-        return false;
-    }
+    add(newList, "test", "1", &error);
     add(newList, "list", "add", &error);
-    if (error == 3)
+    if (error == INSUFFICIENT_MEMORY)
     {
-       deleteList(newList);
+        deleteList(newList);
         return false;
     }
     const int number = numberOfElements(newList);
@@ -90,15 +75,10 @@ bool testNumberOfElements()
 bool testGetHeadFirstAndSecondValue()
 {
     List* newList = createList();
-    int error = 0;
+    Error error = NOT_ERROR;
     add(newList, "Hello", "World", &error);
-    if (error == 3)
-    {
-        deleteList(newList);
-        return false;
-    }
     add(newList, "Merge", "Sort", &error);
-    if (error == 3)
+    if (error == INSUFFICIENT_MEMORY)
     {
         deleteList(newList);
         return false;

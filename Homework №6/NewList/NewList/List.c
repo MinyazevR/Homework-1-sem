@@ -50,12 +50,15 @@ void deletePosition(Position* position)
     free(position);
 }
 
-void removeFirstElement(List* list, int* error)
+void removeFirstElement(List* list, Error* error)
 {
-    *error = 0;
+    if (*error != NOT_ERROR)
+    {
+        return;
+    }
     if (list->head == NULL)
     {
-        *error = 2;
+        *error = EMPTY_LIST;
         return;
     }
     if (list->head == list->tail)
@@ -77,25 +80,32 @@ void removeFirstElement(List* list, int* error)
 
 }
 
-Position* first(List* list, int* error)
+Position* first(List* list, Error* error)
 {
-    *error = 0;
+    if (*error != NOT_ERROR)
+    {
+        return NULL;
+    }
     Position* positionFirst = malloc(sizeof(Position));
     if (positionFirst == NULL)
     {
-        *error = 3;
+        *error = EMPTY_LIST;
         return NULL;
     }
     positionFirst->position = list->head;
     return positionFirst;
 }
 
-Position* last(List* list, int* error)
+Position* last(List* list, Error* error)
 {
+    if (*error != NOT_ERROR)
+    {
+        return NULL;
+    }
     Position* positionLast = malloc(sizeof(Position));
     if (positionLast == NULL)
     {
-        *error = 3;
+        *error = EMPTY_LIST;
         return NULL;
     }
     positionLast->position = list->tail;
@@ -154,16 +164,20 @@ char* getSecondValue(Position* position)
     return position->position->secondValue;
 }
 
-void add(List* list, char* firstValue, char* secondValue, int* error)
+void add(List* list, const char* firstValue, const char* secondValue, Error* error)
 {
-    char* firstValueCopy = calloc(100, sizeof(char));
+    if (*error != NOT_ERROR)
+    {
+        return;
+    }
+    char* firstValueCopy = calloc(strlen(firstValue) + 1, sizeof(char));
     if (firstValueCopy == NULL)
     {
-        *error = 3;
+        *error = INSUFFICIENT_MEMORY;
         return;
     }
     strcpy(firstValueCopy, firstValue);
-    char* secondValueCopy = calloc(100, sizeof(char));
+    char* secondValueCopy = calloc(strlen(secondValue) + 1, sizeof(char));
     if (secondValueCopy == NULL)
     {
         free(firstValueCopy);
@@ -174,7 +188,9 @@ void add(List* list, char* firstValue, char* secondValue, int* error)
     ListElement* newElement = calloc(1, sizeof(ListElement));
     if (newElement == NULL)
     {
-        *error = 3;
+        free(firstValueCopy);
+        free(secondValueCopy);
+        *error = INSUFFICIENT_MEMORY;
         return;
     }
     newElement->firstValue = firstValueCopy;
@@ -231,4 +247,17 @@ bool compareList(List* firstList, List* secondList)
         secondElement = secondElement->next;
     }
     return true;
+}
+
+const char* decodingError(Error error)
+{
+    if (error == EMPTY_LIST)
+    {
+        return "Error in the program";
+    }
+    if (error == INSUFFICIENT_MEMORY)
+    {
+        return "Memory not allocated";
+    }
+    return NULL;
 }
