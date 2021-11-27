@@ -18,7 +18,6 @@ int readFile(HashTable* table, const char* fileName)
             addElement(array, table, &error);
             if (error == INSUFFICIENT_MEMORY)
             {
-                deleteHashTable(table);
                 return -2;
             }
         }
