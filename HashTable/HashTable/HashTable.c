@@ -168,3 +168,8 @@ bool inTable(HashTable* table, char* string)
 {
     return inList(table->array[hashFunction(string, table)], string);
 }
+
+int countNumberOfDuplicateItemsForSpecificList(char* value, HashTable* table)
+{
+    return returnNumberOfDuplicateValues(table->array[hashFunction(value, table)], value);
+}
