@@ -164,8 +164,7 @@ void printValue(HashTable* table)
     printf("average list length = %f\n", (float)(totalSizeOfAllLists) / (float)(numberOfÑompletedBuckets));
 }
 
-void findElement(HashTable* table, char* string)
+bool inTable(HashTable* table, char* string)
 {
-    int hash = hashFunction(string, table);
-
+    return inList(table->array[hashFunction(string, table)], string);
 }

@@ -10,3 +10,5 @@ void deleteHashTable(HashTable* table);
 void addElement(const char* string, HashTable* table, Error* error);
 
 void printValue(HashTable* table);
+
+bool inTable(HashTable* table, char* string);
