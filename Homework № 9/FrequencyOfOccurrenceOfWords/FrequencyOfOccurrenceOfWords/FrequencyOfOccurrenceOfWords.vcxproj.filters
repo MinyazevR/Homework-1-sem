@@ -15,27 +15,33 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="HashTable.c">
+    <ClCompile Include="ReadFile.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\HashTable\HashTable\HashTable.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="..\..\SinglyLinkedListForHashTable\SinglyLinkedListForHashTable\SinglyLinkedListForHashTable.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Main.c">
+    <ClCompile Include="FrequencyOfOccurrenceOfWords.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="TestHashTable.c">
+    <ClCompile Include="TestReadFileUsingHashTable.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\HashTable\HashTable\HashTable.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\SinglyLinkedListForHashTable\SinglyLinkedListForHashTable\SinglyLinkedListForHashTable.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="HashTable.h">
+    <ClInclude Include="ReadFile.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="TestHashTable.h">
+    <ClInclude Include="TestReadFileUsingHashTable.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
