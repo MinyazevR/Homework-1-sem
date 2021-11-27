@@ -73,19 +73,21 @@ HashTable* resize(HashTable* table, Error* error)
         *error = INSUFFICIENT_MEMORY;
         return table;
     }
-    newTable->array = calloc(table->numberOfSegment * 2, sizeof(List*));
+    newTable->numberOfSegment = table->numberOfSegment * 2;
+    newTable->array = calloc(newTable->numberOfSegment, sizeof(List*));
     if (newTable->array == NULL)
     {
         free(newTable);
         *error = INSUFFICIENT_MEMORY;
         return table;
     }
-    newTable->numberOfSegment = table->numberOfSegment * 2;
-    for (int i = 0; i < table->numberOfSegment * 2; i++)
+    for (int i = 0; i < newTable->numberOfSegment; i++)
     {
         newTable->array[i] = createList(error);
         if (*error != NOT_ERROR)
         {
+            *error = INSUFFICIENT_MEMORY;
+            deleteHashTable(newTable);
             break;
         }
     }
@@ -96,12 +98,8 @@ HashTable* resize(HashTable* table, Error* error)
             char* newString = calloc(strlen(getHeadValue(table->array[i])) + 1, sizeof(char));
             if (newString == NULL)
             {
-                for (int i = 0; i < table->numberOfSegment * 2; i++)
-                {
-                   free(newTable->array[i]);
-                }
-                free(newTable->array);
-                free(newTable);
+                *error = INSUFFICIENT_MEMORY;
+                deleteHashTable(newTable);
                 return table;
             }
             strcpy(newString, getHeadValue(table->array[i]));
@@ -126,6 +124,10 @@ void addElement(const char* string, HashTable* table, Error* error)
     if (factor > 1.5)
     {
         table = resize(table, error);
+        if (*error != NOT_ERROR)
+        {
+            return;
+        }
     }
     add(table->array[hashFunction(string, table)], string, error);
     if (*error == INSUFFICIENT_MEMORY)
