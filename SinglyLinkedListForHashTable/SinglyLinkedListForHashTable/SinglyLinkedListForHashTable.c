@@ -254,3 +254,17 @@ bool inList(List* list, const char* value)
     }
     return false;
 }
+
+int returnNumberOfDuplicateValues(List* list, const char* value)
+{
+    ListElement* element = list->head;
+    while (element != NULL)
+    {
+        if (strcmp(value, element->value) == 0)
+        {
+            return element->numberOfDuplicateValues;
+        }
+        element = element->next;
+    }
+    return 0;
+}
