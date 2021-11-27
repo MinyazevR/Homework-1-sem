@@ -57,6 +57,3 @@ char* getValue(Position* position);
 
 // Function for error decoding
 const char* decodingError(Error error);
-
-// Function to check whether an item is in the list
-bool inList(List* list, const char* value);
