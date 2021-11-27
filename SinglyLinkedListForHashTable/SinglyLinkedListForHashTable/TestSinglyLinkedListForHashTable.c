@@ -36,7 +36,6 @@ bool testRemoveHead()
     add(newList, "Hello", &error);
     add(newList, "World", &error);
     add(newList, "Hello", &error);
-    print(newList);
     removeFirstElement(newList, &error);
     if (error == EMPTY_LIST || error == INSUFFICIENT_MEMORY)
     {
