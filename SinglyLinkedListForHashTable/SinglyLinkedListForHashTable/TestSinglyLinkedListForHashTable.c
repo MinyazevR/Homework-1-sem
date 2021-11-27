@@ -6,7 +6,7 @@
 bool testAdd()
 {
     Error error = NOT_ERROR;
-    List* newList = createList();
+    List* newList = createList(&error);
     add(newList, "test", &error);
     add(newList, "list", &error);
     if (error == INSUFFICIENT_MEMORY)
@@ -32,10 +32,9 @@ bool testAdd()
 bool testRemoveHead()
 {
     Error error = NOT_ERROR;
-    List* newList = createList();
+    List* newList = createList(&error);
     add(newList, "Hello", &error);
     add(newList, "World", &error);
-    add(newList, "Hello", &error);
     removeFirstElement(newList, &error);
     if (error == EMPTY_LIST || error == INSUFFICIENT_MEMORY)
     {
@@ -51,12 +50,12 @@ bool testRemoveHead()
 // Function for checking the function counting the number of elements
 bool testNumberOfElements()
 {
-    List* newList = createList();
     Error error = NOT_ERROR;
+    List* newList = createList(&error);
     add(newList, "Hello", &error);
     add(newList, "Merge", &error);
-    add(newList, "test",  &error);
-    add(newList, "list",  &error);
+    add(newList, "test", &error);
+    add(newList, "list", &error);
     if (error == INSUFFICIENT_MEMORY)
     {
         deleteList(newList);
@@ -70,8 +69,8 @@ bool testNumberOfElements()
 // Function that checks the function that returns the value of the first element
 bool testGetValue()
 {
-    List* newList = createList();
     Error error = NOT_ERROR;
+    List* newList = createList(&error);
     add(newList, "Hello", &error);
     add(newList, "World", &error);
     if (error == INSUFFICIENT_MEMORY)

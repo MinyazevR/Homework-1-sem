@@ -26,9 +26,14 @@ typedef struct Position
     ListElement* position;
 } Position;
 
-List* createList()
+List* createList(Error* error)
 {
-    return calloc(1, sizeof(List));
+    List* list = calloc(1, sizeof(List));
+    if (list == NULL)
+    {
+        *error = INSUFFICIENT_MEMORY;
+    }
+    return list;
 }
 
 void deleteList(List* list)
@@ -164,17 +169,17 @@ void add(List* list, const char* value, Error* error)
         return;
     }
     ListElement* head = list->head;
-    int counter = 0;
-    for (counter = 1; counter < list->size; counter++)
+    while (head != NULL)
     {
         if (strcmp(value, head->value) == 0)
         {
             head->numberOfDuplicateValues++;
+            *error = ELEMENT_REPEATS;
             return;
         }
         head = head->next;
     }
-    if (counter == list->size)
+    if (head == NULL)
     {
         char* valueCopy = calloc(strlen(value) + 1, sizeof(char));
         if (valueCopy == NULL)
@@ -234,4 +239,18 @@ const char* decodingError(Error error)
         return "Memory not allocated";
     }
     return NULL;
+}
+
+bool inList(List* list, const char* value)
+{
+    ListElement* element = list->head;
+    while (element != NULL)
+    {
+        if (strcmp(value, element->value) == 0)
+        {
+            return true;
+        }
+        element = element->next;
+    }
+    return false;
 }
