@@ -12,11 +12,12 @@ typedef enum Error
 {
     NOT_ERROR,
     EMPTY_LIST,
-    INSUFFICIENT_MEMORY
+    INSUFFICIENT_MEMORY,
+    ELEMENT_REPEATS
 } Error;
 
 // Function for creating a list
-List* createList();
+List* createList(Error* error);
 
 // Function for deleting a list
 void deleteList(List* list);
@@ -56,3 +57,6 @@ char* getValue(Position* position);
 
 // Function for error decoding
 const char* decodingError(Error error);
+
+// Function for determining the location of an item in the list
+bool inList(List* list, const char* value);
