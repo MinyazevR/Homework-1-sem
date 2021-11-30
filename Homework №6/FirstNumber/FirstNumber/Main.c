@@ -2,8 +2,12 @@
 #include <stdio.h>
 #include <locale.h>
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc != 0)
+    {
+        return 0;
+    }
     setlocale(LC_ALL, "rus");
     printf("0 Ц выйти\n");
     printf("1 Ц добавить значение в сортированный список\n");

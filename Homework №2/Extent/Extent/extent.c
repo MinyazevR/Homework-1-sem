@@ -94,11 +94,15 @@ bool testCorrectExponentiation()
     && ineffectiveExponentiation(12, 4) == 20736 && ineffectiveExponentiation(2, -4) == 0.0625;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
     if (!testCorrectExponentiation())
     {
         printf("The test failed\n");
+        return -1;
+    }
+    if (argc != 0)
+    {
         return 0;
     }
     printf("Enter the degree base\n");

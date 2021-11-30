@@ -4,12 +4,16 @@
 #include "qsort.h"
 #include "test.h"
 
-int main()
+int main(int argc, char* argv[])
 {
     if (!testCorrectQSort() || !testSearchMostCommonElement())
     {
         printf("test failed");
         return -1;
+    }
+    if (argc != 0)
+    {
+        return 0;
     }
     int numberOfElements = 0;
     printf("enter the number of elements in the array\n");

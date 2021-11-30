@@ -167,11 +167,15 @@ bool correctCountSort()
         && sorting—heck(arrayOfZeroElement, 0);
 }
 
-int main()
+int main(int argc, char* argv[])
 {
     if (!correctBubbleSort() || !correctCountSort())
     {
         printf("Verification failed");
+        return -1;
+    }
+    if (argc != 0)
+    {
         return 0;
     }
     int numberOfElements = 0;

@@ -2,8 +2,12 @@
 #include <string.h>
 #include <locale.h>
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc != 0)
+    {
+        return 0;
+    }
     setlocale(LC_ALL, "Rus");
     int matchingSymbolsCount = 0;
     int occurrencesCount = 0;

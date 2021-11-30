@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <locale.h>
 
-int main()
+int main(int argc, char* argv[])
 {
     setlocale(LC_ALL, "rus");
     if (!testFunctionsWorkingWithFile())
@@ -11,7 +11,10 @@ int main()
         printf("Тест провален");
         return -1;
     }
-    setlocale(LC_ALL, "rus");
+    if (argc != 0)
+    {
+        return 0;
+    }
     printf("0 - выйти\n");
     printf("1 - добавить запись(имя и телефон)\n");
     printf("2 - распечатать все имеющиеся записи\n");

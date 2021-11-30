@@ -6,7 +6,6 @@ int sequenceFibonacciIteration(int numberOfSequence)
     // checking for the correctness of the entered number
     if (numberOfSequence < 0)
     {
-        printf("Input error.");
         return -1;
     }
 
@@ -37,8 +36,7 @@ int sequenceFibonacciRecursion(int numberOfSequence)
     // checking for the correctness of the entered number
     if (numberOfSequence < 0)
     {
-        printf("Input error.");
-        exit(0);
+        return -1;
     }
 
     if (numberOfSequence == 1)
@@ -64,11 +62,15 @@ bool testCorrectFibonacci()
     && sequenceFibonacciRecursion(20) == 6765;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
     if (!testCorrectFibonacci())
     {
         printf("Verification failed");
+        return -1;
+    }
+    if (argc != 0)
+    {
         return 0;
     }
     printf("Enter the number of the member of the Fibonacci sequence that you want to display on the screen\n");

@@ -3,13 +3,17 @@
 #include "binaryNumberSystem.h"
 #include "tests.h"
 
-int main()
+int main(int argc, char* argv[])
 {
     setlocale(LC_ALL, "rus");
     if (!testWritingDigitsToArray() || !testAdditionOfDigitsOfTwoNumbers() || !testConvertNumberFromBinaryToDecimal())
     {
         printf("Tecт провален");
         return -1;
+    }
+    if (argc != 0)
+    {
+        return 0;
     }
     int firstNumber = 0;
     printf("введите первое число\n");

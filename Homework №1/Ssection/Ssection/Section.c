@@ -20,8 +20,12 @@ void printNumbersArray(int numberOfElements, int* arrayOfNumbers)
     }
 }
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc != 0)
+    {
+        return 0;
+    }
     int numberOfElements = 0;
     printf("Enter the number of elements in the array\n");
     scanf_s("%d", &numberOfElements);

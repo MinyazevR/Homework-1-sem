@@ -1,8 +1,12 @@
 #include <stdio.h>
 #include <math.h>
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc != 0)
+    {
+        return 0;
+    }
     int number = 0;
     printf("Enter a positive integer\n");
     scanf_s("%d", &number);

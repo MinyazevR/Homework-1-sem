@@ -35,13 +35,17 @@ int readPhonebook(List* list, const char* fileName)
     return 0;
 }
 
-int main()
+int main(int argc, char* argv[])
 {
     setlocale(LC_ALL, "rus");
     if (!testMergeSort())
     {
         printf("Тест провален");
         return -1;
+    }
+    if (argc != 0)
+    {
+        return 0;
     }
     List* newList = createList();
     const int readPhonebookresult = readPhonebook(newList, "Phonebook.txt");

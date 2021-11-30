@@ -1,7 +1,11 @@
 #include <stdio.h>
 
-int main()
+int main(int argc, char* argv[])
 {   
+    if (argc != 0)
+    {
+        return 0;
+    }
     int numberSumsDigits[28] = { 0 };
     int totalAmountTickets = 0;
 

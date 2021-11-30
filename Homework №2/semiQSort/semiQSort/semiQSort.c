@@ -83,11 +83,15 @@ bool correctSemiQSort()
         && sorting—heck(arrayOfZeroElement, 0, semiQSort(arrayOfZeroElement, 0));
 }
 
-int main()
+int main(int argc, char* argv[])
 {
     if (!correctSemiQSort())
     {
         printf("Verification failed");
+        return -1;
+    }
+    if (argc != 0)
+    {
         return 0;
     }
     printf("Enter the number of elements in the array\n");
