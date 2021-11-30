@@ -7,7 +7,7 @@ int main(int argc, char* argv[])
         return 0;
     }
     char stringBrackets[100] = {'\0'};
-    gets_s(stringBrackets);
+    gets_s(stringBrackets, 100);
     int counterBrakets = 0;
     int counterCycle = 0;
 
