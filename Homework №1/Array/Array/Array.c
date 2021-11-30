@@ -1,7 +1,11 @@
 #include <stdio.h>
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc != 0)
+    {
+        return 0;
+    }
     int arrayOfNumbers[100] = {0};
     int numberZeroValues = 0;
     for (int i = 0; i < 100; i++)
