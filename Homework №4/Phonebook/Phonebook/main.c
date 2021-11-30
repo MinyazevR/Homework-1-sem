@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "phoneBook.h"
 #include "tests.h"
 #include <stdio.h>
