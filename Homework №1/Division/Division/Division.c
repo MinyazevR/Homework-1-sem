@@ -6,8 +6,12 @@ void printQuotientDivision(int counter)
     printf("quotient of division = %d", counter);
 }
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc != 0)
+    {
+        return 0;
+    }
     int a = 0;
     int b = 0;
     printf("enter dividend \n");
