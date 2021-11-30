@@ -10,7 +10,7 @@ int main()
     }
     Error error = NOT_ERROR;
     HashTable* table = createTable(&error);
-    int result = readFile(table, "Text.txt");
+    int result = readFile(&table, "Text.txt");
     if (result == -1)
     {
         deleteHashTable(table);

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "ReadFile.h"
 
-int readFile(HashTable* table, const char* fileName)
+int readFile(HashTable** table, const char* fileName)
 {
     FILE* file = fopen(fileName, "r");
     if (file == NULL)
