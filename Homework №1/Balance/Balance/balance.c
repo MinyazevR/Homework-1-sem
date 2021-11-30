@@ -1,9 +1,13 @@
 #include <stdio.h>
 
-int main()
+int main(int argc, char* argv[])
 {
+    if (argc != 0)
+    {
+        return 0;
+    }
     char stringBrackets[100] = {'\0'};
-    gets(stringBrackets);
+    gets_s(stringBrackets);
     int counterBrakets = 0;
     int counterCycle = 0;
 
