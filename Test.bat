@@ -1,7 +1,7 @@
 @echo off
-for /d %%b in (.\*) do (cd %%b
-for /d %%b in (.\*) do (cd %%b
-msbuild -m
+for /d %%b in (*) do (cd %%b
+for /d %%b in (*) do (cd %%b
+msbuild
 cd../)
 cd../)
 for /r %~dp0 %%k in (*.exe) do (echo %%k & %%k 2
