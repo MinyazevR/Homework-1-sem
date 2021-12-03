@@ -9,7 +9,6 @@ bool testFindAnswer()
     deleteTree(&firstTree);
 
     Node* secondTree = buildTree("(/ (+ (* (+ 5 6) 7) 8) (+ (- (+ 5 6) 9) 3))");
-    printTree(secondTree);
     const int secondAnswer = findAnswer(secondTree, &error);
     deleteTree(&secondTree);
 
