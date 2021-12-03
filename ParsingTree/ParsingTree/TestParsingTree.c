@@ -8,15 +8,16 @@ bool testFindAnswer()
     const int firstAnswer = findAnswer(firstTree, &error);
     deleteTree(&firstTree);
 
-    Node* secondTree = buildTree("/ + * + 5 6 7 8 + - + 5 6 9 3");
+    Node* secondTree = buildTree("(/ (+ (* (+ 5 6) 7) 8) (+ (- (+ 5 6) 9) 3))");
+    printTree(secondTree);
     const int secondAnswer = findAnswer(secondTree, &error);
     deleteTree(&secondTree);
 
-    Node* thirdTree = buildTree("* + 1 1 2");
+    Node* thirdTree = buildTree("(* (+ 1 1) 2)");
     const int thirdAnswer = findAnswer(thirdTree, &error);
     deleteTree(&thirdTree);
 
-    Node* fourthTree = buildTree("+ - 5 5 6");
+    Node* fourthTree = buildTree("(+ (- 5 5) 6)");
     const int fourthAnswer = findAnswer(fourthTree, &error);
     deleteTree(&fourthTree);
 
