@@ -10,6 +10,7 @@ char* readExpression(const char* fileName, int* error)
         *error = 1;
         return NULL;
     }
+    // The size of the expression in the file is limited to 99 characters
     char* expression = calloc(100, sizeof(char));
     if (expression == NULL)
     {
@@ -17,16 +18,14 @@ char* readExpression(const char* fileName, int* error)
         fclose(file);
         return NULL;
     }
-    while (!feof(file))
+    const char* result = fgets(expression, 100, file);
+    if (result == NULL)
     {
-        fgets(expression, 99, file);
-    }
-    if (expression == NULL)
-    {
+        free(expression);
         *error = 2;
     }
     fclose(file);
-    return expression;
+    return result;
 }
 
 int main()
@@ -49,6 +48,7 @@ int main()
         return -1;
     }
     Node* tree = buildTree(expression);
+    free(expression);
     const int answer = findAnswer(tree, &error);
     if (error == 1)
     {
