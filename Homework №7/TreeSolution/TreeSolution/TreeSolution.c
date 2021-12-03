@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <malloc.h>
 
-char* readExpression(const char* fileName, int* error)
+const char* readExpression(const char* fileName, int* error)
 {
     FILE* file = fopen(fileName, "r");
     if (file == NULL)
