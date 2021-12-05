@@ -57,3 +57,9 @@ char* getValue(Position* position);
 
 // Function for error decoding
 const char* decodingError(Error error);
+
+// Function for determining the location of an item in the list
+bool inList(List* list, const char* value);
+
+// Function for counting the number of duplicate elements
+int returnNumberOfDuplicateValues(List* list, const char* value);
