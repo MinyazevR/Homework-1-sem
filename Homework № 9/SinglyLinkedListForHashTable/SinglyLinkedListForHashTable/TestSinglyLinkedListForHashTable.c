@@ -8,22 +8,10 @@ bool testAdd()
     Error error = NOT_ERROR;
     List* newList = createList(&error);
     add(newList, "test", &error);
-    add(newList, "list", &error);
-    if (error == INSUFFICIENT_MEMORY)
-    {
-        deleteList(newList);
-        return false;
-    }
     const char* firstValue = getHeadValue(newList);
-    Position* position = first(newList, &error);
-    if (error == EMPTY_LIST)
-    {
-        deleteList(newList);
-        return false;
-    }
-    const char* secondValue = getValue(next(position));
+    add(newList, "list", &error);
+    const char* secondValue = getHeadValue(newList);
     bool result = strcmp(firstValue, "test") == 0 && strcmp(secondValue, "list") == 0;
-    deletePosition(position);
     deleteList(newList);
     return result;
 }
@@ -42,7 +30,7 @@ bool testRemoveHead()
         return false;
     }
     const char* value = getHeadValue(newList);
-    bool result = strcmp(value, "World") == 0;
+    bool result = strcmp(value, "Hello") == 0;
     deleteList(newList);
     return result;
 }
@@ -86,7 +74,7 @@ bool testGetValue()
     }
     const char* firstValue = getHeadValue(newList);
     const char* secondValue = getValue(next(position));
-    bool result = strcmp(firstValue, "Hello") == 0 && strcmp(secondValue, "World") == 0;
+    bool result = strcmp(firstValue, "World") == 0 && strcmp(secondValue, "Hello") == 0;
     deleteList(newList);
     deletePosition(position);
     return result;
@@ -94,5 +82,5 @@ bool testGetValue()
 
 bool allTest()
 {
-    return testAdd() && testGetValue() && testNumberOfElements() && testRemoveHead();
+    return testAdd() && testRemoveHead() && testNumberOfElements() && testGetValue();
 }

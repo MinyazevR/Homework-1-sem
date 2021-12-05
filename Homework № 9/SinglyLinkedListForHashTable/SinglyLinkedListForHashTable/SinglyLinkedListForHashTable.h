@@ -1,4 +1,3 @@
-#pragma once
 #include <stdbool.h>
 
 // Structure that represents list

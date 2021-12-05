@@ -9,7 +9,6 @@ typedef struct List
 {
     int size;
     struct ListElement* head;
-    struct ListElement* tail;
 } List;
 
 // Structure containing a pointer to the next list item and a value variable for the list items
@@ -54,6 +53,11 @@ void deletePosition(Position* position)
     free(position);
 }
 
+bool isOneElement(List* list)
+{
+    return list->head->next == NULL;
+}
+
 void removeFirstElement(List* list, Error* error)
 {
     if (*error != NOT_ERROR)
@@ -65,16 +69,20 @@ void removeFirstElement(List* list, Error* error)
         *error = EMPTY_LIST;
         return;
     }
-    if (list->head == list->tail)
+    if (isOneElement(list))
     {
         list->size = 0;
         free(list->head->value);
         free(list->head);
         list->head = NULL;
-        list->tail = NULL;
         return;
     }
     ListElement* element = list->head;
+    if (element->numberOfDuplicateValues > 1)
+    {
+        element->numberOfDuplicateValues--;
+        return;
+    }
     list->head = list->head->next;
     list->size--;
     free(element->value);
@@ -96,22 +104,6 @@ Position* first(List* list, Error* error)
     }
     positionFirst->position = list->head;
     return positionFirst;
-}
-
-Position* last(List* list, Error* error)
-{
-    if (*error != NOT_ERROR)
-    {
-        return NULL;
-    }
-    Position* positionLast = malloc(sizeof(Position));
-    if (positionLast == NULL)
-    {
-        *error = EMPTY_LIST;
-        return NULL;
-    }
-    positionLast->position = list->tail;
-    return positionLast;
 }
 
 Position* next(Position* position)
@@ -164,22 +156,21 @@ void add(List* list, const char* value, Error* error)
         newElement->value = valueCopy;
         list->size = 1;
         list->head = newElement;
-        list->tail = newElement;
         list->head->numberOfDuplicateValues = 1;
         return;
     }
-    ListElement* head = list->head;
-    while (head != NULL)
+    ListElement* element = list->head;
+    while (element != NULL)
     {
-        if (strcmp(value, head->value) == 0)
+        if (strcmp(value, element->value) == 0)
         {
-            head->numberOfDuplicateValues++;
+            element->numberOfDuplicateValues++;
             *error = ELEMENT_REPEATS;
             return;
         }
-        head = head->next;
+        element = element->next;
     }
-    if (head == NULL)
+    if (element == NULL)
     {
         char* valueCopy = calloc(strlen(value) + 1, sizeof(char));
         if (valueCopy == NULL)
@@ -196,9 +187,9 @@ void add(List* list, const char* value, Error* error)
             return;
         }
         newElement->value = valueCopy;
+        newElement->next = list->head;
+        list->head = newElement;
         list->size++;
-        list->tail->next = newElement;
-        list->tail = list->tail->next;
         newElement->numberOfDuplicateValues = 1;
     }
 }
@@ -211,11 +202,6 @@ char* getValue(Position* position)
 bool isEmpty(List* list)
 {
     return list->head == NULL;
-}
-
-bool isOneElement(List* list)
-{
-    return list->head->next == NULL;
 }
 
 void print(List* list)
