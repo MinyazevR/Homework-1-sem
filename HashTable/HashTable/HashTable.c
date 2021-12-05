@@ -122,14 +122,14 @@ void addElement(const char* string, HashTable** table, Error* error)
 void printValue(HashTable* table)
 {
     int maximumListLength = numberOfElements(table->array[0]);
-    int numberOf—ompletedBuckets = 0;
+    int numberOfCompletedBuckets = 0;
     int totalSizeOfAllLists = 0;
     for (int i = 0; i < table->numberOfSegment; i++)
     {
         print(table->array[i]);
         if (!isEmpty(table->array[i]))
         {
-            numberOf—ompletedBuckets++;
+            numberOfCompletedBuckets++;
         }
         int listLength = numberOfElements(table->array[i]);
         totalSizeOfAllLists += listLength;
@@ -140,7 +140,7 @@ void printValue(HashTable* table)
     }
     printf("maximum list lenght = %d\n", maximumListLength);
     printf("hash table fill factor = %f\n", (float)(table->numberOfElements) / (float)(table->numberOfSegment));
-    printf("average list length = %f\n", (float)(totalSizeOfAllLists) / (float)(numberOf—ompletedBuckets));
+    printf("average list length = %f\n", (float)(totalSizeOfAllLists) / (float)(numberOfCompletedBuckets));
 }
 
 bool inTable(HashTable* table, char* string)
