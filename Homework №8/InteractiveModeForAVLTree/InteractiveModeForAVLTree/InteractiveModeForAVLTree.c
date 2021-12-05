@@ -33,15 +33,15 @@ int main()
         }
         case 1:
         {
-            printf("Введите ключ\n");
-            int key = 0;
-            const int firstScanfResult = scanf_s("%d", &key);
+            printf("Введите ключ (не более 100 символов)\n");
+            char key[100] = {'\0'};
+            const int firstScanfResult = scanf_s("%s", key, (unsigned)sizeof(key));
             if (firstScanfResult == 0)
             {
                 printf("не удалось ввести ключ\n");
                 break;
             }
-            printf("введите значение (не более 100 симвовлов\n");
+            printf("введите значение (не более 100 символов)\n");
             char string[100] = { '\0' };
             const int secondScanfResult = scanf_s("%s", string, (unsigned)sizeof(string));
             if (secondScanfResult == 0)
@@ -61,9 +61,9 @@ int main()
         }
         case 2:
         {
-            printf("Введите ключ\n");
-            int key = 0;
-            const int firstScanfResult = scanf_s("%d", &key);
+            printf("Введите ключ (не более 100 символов)\n");
+            char key[100] = { '\0' };
+            const int firstScanfResult = scanf_s("%s", key, (unsigned)sizeof(key));
             if (firstScanfResult == 0)
             {
                 printf("не удалось ввести ключ\n");
@@ -74,9 +74,9 @@ int main()
         }
         case 3:
         {
-            printf("Введите ключ\n");
-            int key = 0;
-            const int firstScanfResult = scanf_s("%d", &key);
+            printf("Введите ключ (не более 100 символов)\n");
+            char key[100] = { '\0' };
+            const int firstScanfResult = scanf_s("%s", key, (unsigned)sizeof(key));
             if (firstScanfResult == 0)
             {
                 printf("не удалось ввести ключ\n");
@@ -93,9 +93,9 @@ int main()
         }
         case 4:
         {
-            printf("Введите ключ\n");
-            int key = 0;
-            const int firstScanfResult = scanf_s("%d", &key);
+            printf("Введите ключ (не более 100 символов)\n");
+            char key[100] = { '\0' };
+            const int firstScanfResult = scanf_s("%s", key, (unsigned)sizeof(key));
             if (firstScanfResult == 0)
             {
                 printf("не удалось ввести ключ\n");

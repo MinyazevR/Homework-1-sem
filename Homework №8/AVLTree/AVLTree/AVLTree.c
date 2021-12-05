@@ -380,7 +380,10 @@ void deleteNode(Node** root, char* key, int* error)
                 parent->leftHeight = 0;
             }
         }
-        checkHeight(parent);
+        if (parent != NULL)
+        {
+            checkHeight(parent);
+        }
         Node* newRoot = checkBalance(*root);
         free((*root)->key);
         free((*root)->value);
