@@ -5,13 +5,13 @@
 typedef struct HashTable HashTable;
 
 // Function for creating a hash table
-HashTable* createTable(Error* error);
+HashTable* createTable(Error* error, int numberOfBuckets);
 
 // Function for deleting a hash table
 void deleteHashTable(HashTable* table);
 
 // Function for adding an element to a hash table
-void addElement(const char* string, HashTable* table, Error* error);
+void addElement(const char* string, HashTable** table, Error* error);
 
 // Function for printing values
 void printValue(HashTable* table);
