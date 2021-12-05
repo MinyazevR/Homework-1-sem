@@ -379,9 +379,6 @@ void deleteNode(Node** root, char* key, int* error)
                 (*root)->parent->leftSon = NULL;
                 parent->leftHeight = 0;
             }
-        }
-        if (parent != NULL)
-        {
             checkHeight(parent);
         }
         Node* newRoot = checkBalance(*root);
