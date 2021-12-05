@@ -75,6 +75,10 @@ void removeFirstElement(List* list, Error* error)
         return;
     }
     ListElement* element = list->head;
+    if (element->numberOfDuplicateValues > 1)
+    {
+        element->numberOfDuplicateValues--;
+    }
     list->head = list->head->next;
     list->size--;
     free(element->value);
@@ -168,18 +172,18 @@ void add(List* list, const char* value, Error* error)
         list->head->numberOfDuplicateValues = 1;
         return;
     }
-    ListElement* head = list->head;
-    while (head != NULL)
+    ListElement* element = list->head;
+    while (element != NULL)
     {
-        if (strcmp(value, head->value) == 0)
+        if (strcmp(value, element->value) == 0)
         {
-            head->numberOfDuplicateValues++;
+            element->numberOfDuplicateValues++;
             *error = ELEMENT_REPEATS;
             return;
         }
-        head = head->next;
+        element = element->next;
     }
-    if (head == NULL)
+    if (element == NULL)
     {
         char* valueCopy = calloc(strlen(value) + 1, sizeof(char));
         if (valueCopy == NULL)
