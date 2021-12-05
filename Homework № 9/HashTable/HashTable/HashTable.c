@@ -10,7 +10,7 @@ typedef struct HashTable
     struct List** array;
 } HashTable;
 
-HashTable* createTable(Error* error)
+HashTable* createTable(Error* error, int numberOfSegment)
 {
     if (*error != NOT_ERROR)
     {
@@ -22,8 +22,8 @@ HashTable* createTable(Error* error)
         *error = INSUFFICIENT_MEMORY;
         return NULL;
     }
-    table->numberOfSegment = 100;
-    table->array = calloc(100, sizeof(List*));
+    table->numberOfSegment = numberOfSegment;
+    table->array = calloc(table->numberOfSegment, sizeof(List*));
     if (table->array == NULL)
     {
         free(table);
@@ -58,7 +58,7 @@ int hashFunction(const char* string, HashTable* table)
     {
         result = (result + string[i]) % table->numberOfSegment;
     }
-    return result;
+    return abs(result);
 }
 
 HashTable* resize(HashTable* table, Error* error)
@@ -67,30 +67,7 @@ HashTable* resize(HashTable* table, Error* error)
     {
         return table;
     }
-    HashTable* newTable = calloc(1, sizeof(HashTable));
-    if (newTable == NULL)
-    {
-        *error = INSUFFICIENT_MEMORY;
-        return table;
-    }
-    newTable->numberOfSegment = table->numberOfSegment * 2;
-    newTable->array = calloc(newTable->numberOfSegment, sizeof(List*));
-    if (newTable->array == NULL)
-    {
-        free(newTable);
-        *error = INSUFFICIENT_MEMORY;
-        return table;
-    }
-    for (int i = 0; i < newTable->numberOfSegment; i++)
-    {
-        newTable->array[i] = createList(error);
-        if (*error != NOT_ERROR)
-        {
-            *error = INSUFFICIENT_MEMORY;
-            deleteHashTable(newTable);
-            break;
-        }
-    }
+    HashTable* newTable = createTable(error, table->numberOfSegment * 2);
     for (int i = 0; i < table->numberOfSegment; i++)
     {
         while (!isEmpty(table->array[i]))
@@ -114,29 +91,29 @@ HashTable* resize(HashTable* table, Error* error)
     return newTable;
 }
 
-void addElement(const char* string, HashTable* table, Error* error)
+void addElement(const char* string, HashTable** table, Error* error)
 {
     if (*error != NOT_ERROR)
     {
         return;
     }
-    float factor = (float)(table->numberOfElements) / (float)(table->numberOfSegment);
-    if (factor > 1.5)
+    float factor = (float)((*table)->numberOfElements) / (float)((*table)->numberOfSegment);
+    if (factor > 1)
     {
-        table = resize(table, error);
+        *table = resize(*table, error);
         if (*error != NOT_ERROR)
         {
             return;
         }
     }
-    add(table->array[hashFunction(string, table)], string, error);
+    add((*table)->array[hashFunction(string, *table)], string, error);
     if (*error == INSUFFICIENT_MEMORY)
     {
         return;
     }
     if (*error != ELEMENT_REPEATS)
     {
-        table->numberOfElements++;
+        (*table)->numberOfElements++;
         return;
     }
     error = NOT_ERROR;
@@ -145,14 +122,14 @@ void addElement(const char* string, HashTable* table, Error* error)
 void printValue(HashTable* table)
 {
     int maximumListLength = numberOfElements(table->array[0]);
-    int numberOf—ompletedBuckets = 0;
+    int numberOf?ompletedBuckets = 0;
     int totalSizeOfAllLists = 0;
     for (int i = 0; i < table->numberOfSegment; i++)
     {
         print(table->array[i]);
         if (!isEmpty(table->array[i]))
         {
-            numberOf—ompletedBuckets++;
+            numberOf?ompletedBuckets++;
         }
         int listLength = numberOfElements(table->array[i]);
         totalSizeOfAllLists += listLength;
@@ -163,7 +140,7 @@ void printValue(HashTable* table)
     }
     printf("maximum list lenght = %d\n", maximumListLength);
     printf("hash table fill factor = %f\n", (float)(table->numberOfElements) / (float)(table->numberOfSegment));
-    printf("average list length = %f\n", (float)(totalSizeOfAllLists) / (float)(numberOf—ompletedBuckets));
+    printf("average list length = %f\n", (float)(totalSizeOfAllLists) / (float)(numberOf?ompletedBuckets));
 }
 
 bool inTable(HashTable* table, char* string)
