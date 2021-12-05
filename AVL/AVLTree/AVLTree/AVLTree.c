@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "AVLTree.h"
 #include <stdlib.h>
 #include <string.h>
@@ -8,11 +9,10 @@ typedef struct Node
     struct Node* leftSon;
     struct Node* rightSon;
     struct Node* parent;
-    int key;
+    char* key;
     char* value;
     int rightHeight;
     int leftHeight;
-    int balance;
 } Node;
 
 typedef enum Direction
@@ -35,6 +35,7 @@ void deleteTreeRecursive(Node* root)
     deleteTreeRecursive(root->leftSon);
     deleteTreeRecursive(root->rightSon);
     free(root->value);
+    free(root->key);
     free(root);
 }
 
@@ -69,14 +70,8 @@ int maxHeight(Node* x)
     return x->leftHeight > x->rightHeight ? x->leftHeight : x->rightHeight;
 }
 
-void updateBalance(Node* root)
-{
-    root->balance = root->rightHeight - root->leftHeight;
-}
-
 void checkHeight(Node* x)
 {
-    x->balance = x->rightHeight - x->leftHeight;
     while (x->parent != NULL)
     {
         if (x->parent->leftSon == x)
@@ -87,8 +82,8 @@ void checkHeight(Node* x)
         {
             x->parent->rightHeight = maxHeight(x) + 1;
         }
-        x->parent->balance = x->parent->rightHeight - x->parent->leftHeight;
-        if (x->parent->balance == 2 || x->parent->balance == -2)
+        if (x->parent->rightHeight - x->parent->leftHeight == 2 
+            || x->parent->rightHeight - x->parent->leftHeight == -2)
         {
             return;
         }
@@ -115,9 +110,7 @@ Node* leftSmallRotation(Node* lastRoot)
     }
     newRoot->parent = rootFather;
     lastRoot->rightHeight = maxHeight(lastRoot->rightSon) + 1;
-    updateBalance(lastRoot);
     newRoot->leftHeight = maxHeight(lastRoot) + 1;
-    updateBalance(newRoot);
     checkHeight(newRoot);
     return newRoot;
 }
@@ -141,9 +134,7 @@ Node* rightSmallRotation(Node* lastRoot)
     }
     newRoot->parent = father;
     lastRoot->leftHeight = maxHeight(lastRoot->leftSon) + 1;
-    updateBalance(lastRoot);
     newRoot->rightHeight = maxHeight(lastRoot) + 1;
-    updateBalance(newRoot);
     checkHeight(newRoot);
     return newRoot;
 }
@@ -172,12 +163,9 @@ Node* largeLeftRotation(Node* lastRoot)
     }
     newRoot->parent = father;
     rightSon->leftHeight = maxHeight(newLeftSonForRightSon) + 1;
-    updateBalance(rightSon);
     lastRoot->rightHeight = maxHeight(newRightSonForLastRoot) + 1;
-    updateBalance(lastRoot);
     newRoot->leftHeight = maxHeight(lastRoot) + 1;
     newRoot->rightHeight = maxHeight(rightSon) + 1;
-    updateBalance(newRoot);
     checkHeight(newRoot);
     return newRoot;
 }
@@ -206,12 +194,9 @@ Node* largeRightRotation(Node* lastRoot)
     }
     newRoot->parent = father;
     leftSon->rightHeight = maxHeight(newRightSonForLeftSon) + 1;
-    updateBalance(leftSon);
     lastRoot->leftHeight = maxHeight(newLeftSonForLastRoot) + 1;
-    updateBalance(lastRoot);
     newRoot->leftHeight = maxHeight(leftSon) + 1;
     newRoot->rightHeight = maxHeight(lastRoot) + 1;
-    updateBalance(newRoot);
     checkHeight(newRoot);
     return newRoot;
 }
@@ -220,7 +205,7 @@ Node* checkBalance(Node* root)
 {
     while (root->parent != NULL)
     {
-        if (root->parent->balance == -2)
+        if (root->parent->rightHeight - root->parent->leftHeight == -2)
         {
             if (root->leftHeight >= root->rightHeight)
             {
@@ -231,7 +216,7 @@ Node* checkBalance(Node* root)
                 root = largeRightRotation(root->parent);
             }
         }
-        else if (root->parent->balance == 2)
+        else if (root->parent->rightHeight - root->parent->leftHeight == 2)
         {
             if (root->rightHeight >= root->leftHeight)
             {
@@ -251,7 +236,7 @@ Node* checkBalance(Node* root)
     return root;
 }
 
-Node* createNewNode(Node* root, int key, char* value, int* error)
+Node* createNewNode(Node* root, char* key, char* value, int* error)
 {
     char* copyValue = calloc(strlen(value) + 1, sizeof(char));
     if (copyValue == NULL)
@@ -266,16 +251,24 @@ Node* createNewNode(Node* root, int key, char* value, int* error)
         root->value = copyValue;
         return root;
     }
-    Node* newRoot = (Node*)calloc(1, sizeof(Node));
-    if (newRoot == NULL)
+    Node* newNode = (Node*)calloc(1, sizeof(Node));
+    if (newNode == NULL)
     {
         *error = 1;
         free(copyValue);
         return root;
     }
-    newRoot->key = key;
-    newRoot->value = copyValue;
-    return newRoot;
+    char* keyCopy = calloc(strlen(key) + 1, sizeof(char));
+    if (keyCopy == NULL)
+    {
+        free(newNode);
+        free(copyValue);
+        return root;
+    }
+    strcpy(keyCopy, key);
+    newNode->key = keyCopy;
+    newNode->value = copyValue;
+    return newNode;
 }
 
 void startCheckingHeights(Node* root, Node* newRoot, Direction direction)
@@ -284,7 +277,7 @@ void startCheckingHeights(Node* root, Node* newRoot, Direction direction)
     checkHeight(newRoot);
 }
 
-Node* addNode(Node* root, int key, char* value, int* error)
+Node* addNode(Node* root, char* key, char* value, int* error)
 {
     if (*error != 0)
     {
@@ -294,9 +287,9 @@ Node* addNode(Node* root, int key, char* value, int* error)
     {
         return createNewNode(root, key, value, error);
     }
-    while(root != NULL)
+    while (root != NULL)
     { 
-        if (key > root->key)
+        if (strcmp(key, root->key) > 0)
         {
             if (root->rightSon == NULL)
             {
@@ -311,7 +304,7 @@ Node* addNode(Node* root, int key, char* value, int* error)
             }
             root = root->rightSon;
         }
-        else if (key < root->key)
+        else if (strcmp(key, root->key) < 0)
         {
             if (root->leftSon == NULL)
             {
@@ -338,28 +331,28 @@ Node* addNode(Node* root, int key, char* value, int* error)
     return root;
 }
 
-Node* search(Node* root, int key)
+Node* search(Node* root, char* key)
 {
-    Node* newRoot = root;
-    while (newRoot != NULL)
+    Node* node = root;
+    while (node != NULL)
     {
-        if (key > newRoot->key)
+        if (strcmp(key, node->key) > 0)
         {
-            newRoot = newRoot->rightSon;
+            node = node->rightSon;
         }
-        else if (key < newRoot->key)
+        else if (strcmp(key, node->key) < 0)
         {
-            newRoot = newRoot->leftSon;
+            node = node->leftSon;
         }
         else
         {
-            return newRoot;
+            return node;
         }
     }
     return NULL;
 }
 
-void deleteNode(Node** root, int key, int* error)
+void deleteNode(Node** root, char* key, int* error)
 {
     if (*error != 0)
     {
@@ -376,7 +369,7 @@ void deleteNode(Node** root, int key, int* error)
         Node* parent = (*root)->parent;
         if (parent != NULL)
         {
-            if ((*root)->parent->rightSon == (*root))
+            if ((*root)->parent->rightSon == *root)
             {
                 (*root)->parent->rightSon = NULL;
                 parent->rightHeight = 0;
@@ -389,6 +382,7 @@ void deleteNode(Node** root, int key, int* error)
         }
         checkHeight(parent);
         Node* newRoot = checkBalance(*root);
+        free((*root)->key);
         free((*root)->value);
         free(*root);
         *root = parent == NULL ? NULL : newRoot;
@@ -415,6 +409,7 @@ void deleteNode(Node** root, int key, int* error)
                 parent->rightSon == (*root) ? attach((*root)->parent, currentRoot, right) : attach((*root)->parent, currentRoot, left);
             }
             currentRoot->rightHeight = (*root)->rightHeight;
+            free((*root)->key);
             free((*root)->value);
             free(*root);
             checkHeight(currentRoot);
@@ -427,7 +422,15 @@ void deleteNode(Node** root, int key, int* error)
         {
             return;
         }
-        (*root)->key = currentRoot->key;
+        char* newKey = calloc(strlen((currentRoot)->key) + 1, sizeof(char));
+        if (newKey == NULL)
+        {
+            free(newValue);
+            return;
+        }
+        strcpy(newKey, key);
+        free((*root)->key);
+        (*root)->key = newKey;
         free((*root)->value);
         strcpy(newValue, currentRoot->value);
         (*root)->value = newValue;
@@ -436,6 +439,7 @@ void deleteNode(Node** root, int key, int* error)
         checkHeight(currentRootParent);
         Node* newRoot = checkBalance(currentRoot);
         free(currentRoot->value);
+        free(currentRoot->key);
         free(currentRoot);
         *root = newRoot;
         return;
@@ -446,6 +450,7 @@ void deleteNode(Node** root, int key, int* error)
         if ((*root)->parent != NULL)
         {
             free((*root)->parent->value);
+            free((*root)->parent->key);
         }
         free((*root)->parent);
         (*root)->parent = NULL;
@@ -468,18 +473,17 @@ void deleteNode(Node** root, int key, int* error)
         newRoot = checkBalance((*root)->rightSon);
     }
     free((*root)->value);
+    free((*root)->key);
     free(*root);
     *root = newRoot;
-    return;
 }
 
-bool inTree(Node* root, int key)
+bool inTree(Node* root, char* key)
 {
-    Node* searchResult = search(root, key);
-    return searchResult != NULL;
+    return search(root, key) != NULL;
 }
 
-char* getValue(Node* root, int key)
+char* getValue(Node* root, char* key)
 {
     Node* searchResult = search(root, key);
     if (searchResult == NULL)
