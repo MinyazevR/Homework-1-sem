@@ -10,6 +10,7 @@ int main()
         return -1;
     }
     Error error = NOT_ERROR;
+    // as a and b, you can take any numbers, 4 and 10 - just an example
     int a = 4;
     int b = 10;
     List* firstList = readFile("File.txt", a, b);
