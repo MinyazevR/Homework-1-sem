@@ -5,7 +5,12 @@
 bool testWorkWithFile()
 {
     Error error = NOT_ERROR;
-    List* list = readFile("Test.txt", 5, 569);
+    int check = 0;
+    List* list = readFile("Test.txt", 5, 569, &check);
+    if (check != 0)
+    {
+        return false;
+    }
     List* firstList = createList();
     add(firstList, 2, &error);
     add(firstList, 3, &error);

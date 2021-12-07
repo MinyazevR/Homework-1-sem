@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "MergeList.h"
 
-List* readFile(const char* filename, int a, int b)
+List* readFile(const char* filename, int a, int b, int* check)
 {
     FILE* file = fopen(filename, "r");
     if (file == NULL)
@@ -34,6 +34,14 @@ List* readFile(const char* filename, int a, int b)
             add(secondList, temporary, &error);
 
         }
+    }
+    if (error != NOT_ERROR)
+    {
+        deleteList(result);
+        deleteList(thirdList);
+        deleteList(secondList);
+        *check = 3; 
+        return NULL;
     }
     fclose(file);
     result = merge(result, merge(secondList, thirdList, &error), &error);

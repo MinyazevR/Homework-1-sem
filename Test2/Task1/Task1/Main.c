@@ -11,9 +11,14 @@ int main()
     }
     Error error = NOT_ERROR;
     // as a and b, you can take any numbers, 4 and 10 - just an example
-    int a = 4;
-    int b = 10;
-    List* firstList = readFile("File.txt", a, b);
+    const int a = 4;
+    const int b = 10;
+    int check = 0;
+    List* firstList = readFile("File.txt", a, b, &check);
+    if (check != 0)
+    {
+        return -1;
+    }
     if (firstList == NULL)
     {
         return -1;
