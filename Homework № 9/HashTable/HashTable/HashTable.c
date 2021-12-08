@@ -73,7 +73,8 @@ HashTable* resize(HashTable* table, Error* error)
     {
         while (!isEmpty(table->array[i]))
         {
-            add(newTable->array[i], getHeadValue(table->array[i]), error);
+            add(newTable->array[hashFunction(getHeadValue(table->array[i]), table)], getHeadValue(table->array[i]), error);
+            *error = NOT_ERROR;
             removeFirstElement(table->array[i], error);
         }
         deleteList(table->array[i]);

@@ -34,9 +34,6 @@ Position* first(List* list, Error* error);
 // Function for finding a position to the next element
 Position* next(Position* position);
 
-// Function for checking an item for being at the end of the list
-bool isLastElement(Position* position);
-
 // Function for printing a list
 void print(List* list);
 
