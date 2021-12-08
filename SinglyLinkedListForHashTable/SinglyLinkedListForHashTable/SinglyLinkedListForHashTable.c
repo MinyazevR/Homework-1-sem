@@ -70,7 +70,7 @@ void removeFirstElement(List* list, Error* error)
         *error = EMPTY_LIST;
         return;
     }
-    if (isOneElement(list))
+    if (isOneElement(list) && list->head->numberOfDuplicateValues == 1)
     {
         list->size = 0;
         free(list->head->value);
@@ -111,11 +111,6 @@ Position* next(Position* position)
 {
     position->position = position->position->next;
     return position;
-}
-
-bool isLastElement(Position* position)
-{
-    return position->position->next == NULL;
 }
 
 int numberOfElements(List* list)
