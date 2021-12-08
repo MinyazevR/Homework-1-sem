@@ -4,7 +4,7 @@
 bool testReadFileUsingHashTable()
 {
     Error error = NOT_ERROR;
-    HashTable* table = createTable(&error);
+    HashTable* table = createTable(&error, 100);
     int result = readFile(&table, "Test.txt");
     if (result == -1)
     {

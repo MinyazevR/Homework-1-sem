@@ -9,7 +9,7 @@ int main()
         return -1;
     }
     Error error = NOT_ERROR;
-    HashTable* table = createTable(&error);
+    HashTable* table = createTable(&error, 200);
     int result = readFile(&table, "Text.txt");
     if (result == -1)
     {

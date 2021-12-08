@@ -13,7 +13,7 @@ int readFile(HashTable** table, const char* fileName)
         // words in the file are less than 100 characters in size
         char array[100] = { '\0' };
         Error error = NOT_ERROR;
-        if (fscanf(file, "%s", array) != EOF);
+        if (fscanf(file, "%s", array) != EOF)
         {
             addElement(array, table, &error);
             if (error == INSUFFICIENT_MEMORY)

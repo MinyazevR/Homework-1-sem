@@ -23,14 +23,14 @@ HashTable* createTable(Error* error, int numberOfSegment)
         return NULL;
     }
     table->numberOfSegment = numberOfSegment;
-    table->array = calloc(table->numberOfSegment, sizeof(List*));
+    table->array = calloc(numberOfSegment, sizeof(List*));
     if (table->array == NULL)
     {
         free(table);
         *error = INSUFFICIENT_MEMORY;
         return NULL;
     }
-    for (int i = 0; i < table->numberOfSegment; i++)
+    for (int i = 0; i < numberOfSegment; i++)
     {
         table->array[i] = createList(error);
         if (*error != NOT_ERROR)
@@ -68,22 +68,16 @@ HashTable* resize(HashTable* table, Error* error)
         return table;
     }
     HashTable* newTable = createTable(error, table->numberOfSegment * 2);
-    for (int i = 0; i < table->numberOfSegment; i++)
+    int i = 0;
+    while (i < table->numberOfSegment)
     {
         while (!isEmpty(table->array[i]))
         {
-            char* newString = calloc(strlen(getHeadValue(table->array[i])) + 1, sizeof(char));
-            if (newString == NULL)
-            {
-                *error = INSUFFICIENT_MEMORY;
-                deleteHashTable(newTable);
-                return table;
-            }
-            strcpy(newString, getHeadValue(table->array[i]));
-            add(newTable->array[i], newString, error);
+            add(newTable->array[i], getHeadValue(table->array[i]), error);
             removeFirstElement(table->array[i], error);
         }
         deleteList(table->array[i]);
+        i++;
     }
     newTable->numberOfElements = table->numberOfElements;
     free(table->array);
@@ -122,14 +116,14 @@ void addElement(const char* string, HashTable** table, Error* error)
 void printValue(HashTable* table)
 {
     int maximumListLength = numberOfElements(table->array[0]);
-    int numberOf?ompletedBuckets = 0;
+    int numberOfCompletedBuckets = 0;
     int totalSizeOfAllLists = 0;
     for (int i = 0; i < table->numberOfSegment; i++)
     {
         print(table->array[i]);
         if (!isEmpty(table->array[i]))
         {
-            numberOf?ompletedBuckets++;
+            numberOfCompletedBuckets++;
         }
         int listLength = numberOfElements(table->array[i]);
         totalSizeOfAllLists += listLength;
@@ -140,7 +134,7 @@ void printValue(HashTable* table)
     }
     printf("maximum list lenght = %d\n", maximumListLength);
     printf("hash table fill factor = %f\n", (float)(table->numberOfElements) / (float)(table->numberOfSegment));
-    printf("average list length = %f\n", (float)(totalSizeOfAllLists) / (float)(numberOf?ompletedBuckets));
+    printf("average list length = %f\n", (float)(totalSizeOfAllLists) / (float)(numberOfCompletedBuckets));
 }
 
 bool inTable(HashTable* table, char* string)
