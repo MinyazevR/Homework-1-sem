@@ -72,15 +72,7 @@ HashTable* resize(HashTable* table, Error* error)
     {
         while (!isEmpty(table->array[i]))
         {
-            char* newString = calloc(strlen(getHeadValue(table->array[i])) + 1, sizeof(char));
-            if (newString == NULL)
-            {
-                *error = INSUFFICIENT_MEMORY;
-                deleteHashTable(newTable);
-                return table;
-            }
-            strcpy(newString, getHeadValue(table->array[i]));
-            add(newTable->array[i], newString, error);
+            add(newTable->array[i], getHeadValue(table->array[i]), error);
             removeFirstElement(table->array[i], error);
         }
         deleteList(table->array[i]);
