@@ -1,7 +1,6 @@
 #include "TestKMP.h"
 #include "ReadFile.h"
 #include "KMP.h"
-#include "String.h"
 #include <stdlib.h>
 
 bool testKMP()

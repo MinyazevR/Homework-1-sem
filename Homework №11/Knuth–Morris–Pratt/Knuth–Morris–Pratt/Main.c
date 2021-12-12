@@ -1,8 +1,8 @@
-#include <stdio.h>
 #include "KMP.h"
 #include "ReadString.h"
 #include "ReadFile.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include "TestKMP.h"
 
 int main()
