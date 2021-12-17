@@ -15,21 +15,33 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SinglyLinkedListForHashTable.c">
+    <ClCompile Include="ReadFile.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="TestSinglyLinkedListForHashTable.c">
+    <ClCompile Include="ReadString.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="KMP.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Main.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="TestKMP.c">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SinglyLinkedListForHashTable.h">
+    <ClInclude Include="ReadFile.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="TestSinglyLinkedListForHashTable.h">
+    <ClInclude Include="ReadString.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="KMP.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="TestKMP.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

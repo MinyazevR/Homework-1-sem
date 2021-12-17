@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{abf8d20f-cbdb-4353-9bcc-d9ecc7866f3e}</ProjectGuid>
-    <RootNamespace>SinglyLinkedListForHashTable</RootNamespace>
+    <ProjectGuid>{5c13e66f-7004-4b91-82ca-d62cab4c2071}</ProjectGuid>
+    <RootNamespace>KnuthMorrisPratt</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,13 +139,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="KMP.c" />
     <ClCompile Include="Main.c" />
-    <ClCompile Include="SinglyLinkedListForHashTable.c" />
-    <ClCompile Include="TestSinglyLinkedListForHashTable.c" />
+    <ClCompile Include="ReadFile.c" />
+    <ClCompile Include="ReadString.c" />
+    <ClCompile Include="TestKMP.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SinglyLinkedListForHashTable.h" />
-    <ClInclude Include="TestSinglyLinkedListForHashTable.h" />
+    <ClInclude Include="KMP.h" />
+    <ClInclude Include="ReadFile.h" />
+    <ClInclude Include="ReadString.h" />
+    <ClInclude Include="TestKMP.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
