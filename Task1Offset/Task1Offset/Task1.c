@@ -16,6 +16,7 @@ int main()
     int minimum = INT_MAX;
     int maximum = INT_MIN;
     int array[1000] = { 0 };
+    // You can enter no more than 1000 numbers
     while (temporary != 0)
     {
         printf("enter the %d number\n", counter);
@@ -25,10 +26,6 @@ int main()
         if (array[counter] < minimum)
         {
             minimum = array[counter];
-        }
-        if (array[counter] > maximum)
-        {
-            maximum = array[counter];
         }
         counter++;
     }
