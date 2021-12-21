@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ASD.C" />
+    <ClCompile Include="Task1.c" />
     <ClCompile Include="CountSort.c" />
     <ClCompile Include="TestCountSort.c" />
   </ItemGroup>

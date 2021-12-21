@@ -19,7 +19,8 @@ int main()
     while (temporary != 0)
     {
         printf("enter the %d number\n", counter);
-        scanf_s("%d\n", &temporary);
+        scanf_s("%d", &temporary);
+        printf("\n");
         array[counter] = temporary;
         if (array[counter] < minimum)
         {
@@ -31,9 +32,10 @@ int main()
         }
         counter++;
     }
-    int* count = countSortArray(array, 10);
+    int* count = countSortArray(array, counter);
     printf("\n");
-    for (int i = 0; i < 10; i++)
+    printf("element - quanity\n");
+    for (int i = 0; i < counter; i++)
     {
         if (i >= 1 && array[i] == array[i - 1])
         {

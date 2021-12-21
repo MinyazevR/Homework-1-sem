@@ -29,7 +29,7 @@ int* countSortArray(int* arrayOfNumbers, int numberOfElements)
     int* arrayOfCount = (int*)calloc((maximumElementInArray - minimumElementInArray + 1), sizeof(int));
     if (arrayOfCount == NULL)
     {
-        return -1;
+        return NULL;
     }
     // For each element, we increase the counter for its value
     for (int i = 0; i <= numberOfElements - 1; i++)
